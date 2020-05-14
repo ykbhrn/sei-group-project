@@ -5,14 +5,17 @@ class Navbar extends React.Component{
 
   render() {
     return(
-      <nav className="navbar is-dark">
+      <nav className="navbar is-success">
         <div className="container">
           <div className="navbar-brand">
             <Link to="/" className="navbar-item">
               Home
             </Link>
-            <Link to="/cars" className="navbar-item">
+            <Link to="/plants" className="navbar-item">
               Plants
+            </Link>
+            <Link to="/plants/new" className="navbar-item">
+              Add your plant
             </Link>
             </div>
           </div>
