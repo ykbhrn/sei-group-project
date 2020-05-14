@@ -4,7 +4,8 @@
   "description": "Main Repo for SEI Project Yarden Lawson Aino Kytölä Jakub Horun",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/Jompra/sei-group-project/issues"
   },
-  "homepage": "https://github.com/Jompra/sei-group-project#readme"
+  "homepage": "https://github.com/Jompra/sei-group-project#readme",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.14",
+    "nodemon": "^2.0.4"
+  }
 }
