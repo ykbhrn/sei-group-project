@@ -1,0 +1,19 @@
+{
+  "name": "sei-group-project",
+  "version": "1.0.0",
+  "description": "Main Repo for SEI Project Yarden Lawson Aino Kytölä Jakub Horun",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jompra/sei-group-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jompra/sei-group-project/issues"
+  },
+  "homepage": "https://github.com/Jompra/sei-group-project#readme"
+}
