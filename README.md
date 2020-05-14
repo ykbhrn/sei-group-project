@@ -2,3 +2,4 @@
 Main Repo for SEI Project
 Yarden Lawson
 Aino Kytölä
+Jakub Horun
