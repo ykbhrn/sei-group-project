@@ -28,6 +28,19 @@ async function plantShow(req, res) {
     res.status(422).json(err)
   }
 }
+  
+async function plantUpdate(req, res) {
+  const plantId = req.params.id 
+  try {
+    const plant = await Plant.findByIdAndUpdate(plantId)
+    if (!plant) throw new Error('Not Found')
+    Object.assign(plant, req.body)
+    await plant.save()
+    res.status(202).json(plant)
+  } catch (err) {
+    res.status(422).json(err)
+  }
+}
 
 
 async function plantDelete(req, res) {
@@ -49,5 +62,6 @@ module.exports = {
   index: plantsIndex,
   create: plantCreate,
   show: plantShow,
-  delete: plantDelete
+  delete: plantDelete,
+  update: plantUpdate
 }
