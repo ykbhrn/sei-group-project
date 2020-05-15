@@ -1,6 +1,6 @@
 import React from 'react'
 import { loginUser } from '../../lib/api'
-// import { setToken } from '../../lib/auth'
+import { setToken } from '../../lib/auth'
 // import { toast } from '../../lib/notifications'
 
 class Login extends React.Component {
@@ -22,7 +22,7 @@ class Login extends React.Component {
 
     try {
       const res = await loginUser(this.state.formData)
-      // setToken(res.data.token)
+      setToken(res.data.token)
       // toast(res.data.message)
       this.props.history.push('/plants')
     } catch (err) {
