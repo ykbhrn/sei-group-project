@@ -7,6 +7,9 @@ router.route('/plants')
   .get(plants.index)
   .post(plants.create)
 
+router.route('/plants/:id')
+  .put(plants.update)
+
 router.route('/register')
   .post(auth.register)
 
