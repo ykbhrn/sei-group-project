@@ -19,8 +19,9 @@ class NewPlant extends React.Component {
 
   handleSubmit = async event => {
     try {
+      
       const res = await newPlant(this.state.formData)
-      // this.props.history.push(`/plants`)
+      this.props.history.push(`/plants/${res.data._id}`)
     } catch(err) {
       console.log(err);
     }
