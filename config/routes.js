@@ -10,12 +10,10 @@ router.route('/plants')
   .get(plants.index)
   .post(secureRoute, plants.create)
 
-
 router.route('/plants/:id')
   .get(plants.show)
   .put(plants.update)
   .delete(plants.delete)
-
 
 router.route('/register')
   .post(auth.register)
