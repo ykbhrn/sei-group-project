@@ -1,4 +1,5 @@
 import React from 'react'
+import { getPortfolio } from '../../lib/api'
 
 class ProfilePage extends React.Component {
 
@@ -6,14 +7,16 @@ class ProfilePage extends React.Component {
     plants: null
   }
 
-  // async comoponentDidMount() {
-  //   try {
-  //     const plantId
-  //   } catch (err) {
-  //     console.log(err);
+  async comoponentDidMount() {
+    try {
+      const res = await getPortfolio()
+      console.log(res.data);
       
-  //   }
-  // }
+    } catch (err) {
+      console.log(err);
+      
+    }
+  }
 
   render() {
     // if (!this.state.plant) return null
