@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 class Navbar extends React.Component{
 
   render() {
-    return(
+    return (
       <nav className="navbar is-success">
         <div className="container">
           <div className="navbar-brand">
@@ -17,9 +17,9 @@ class Navbar extends React.Component{
             <Link to="/plants/new" className="navbar-item">
               Add your plant
             </Link>
-            </div>
           </div>
-          </nav>
+        </div>
+      </nav>
     )
   }
 }
