@@ -1,9 +1,9 @@
-import axios from 'axios'
+import Axios from 'axios'
 
 export const getAllPlants = () => {
-  return axios.get('/api/plants')
+  return Axios.get('/api/plants')
 }
 
 export const newPlant = formData => {
-  return axios.post(`/api/plants`, formData)
+  return Axios.post(`/api/plants`, formData)
 }
