@@ -7,6 +7,21 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true }
 })
 
+userSchema.virtual('createdPlants', {
+  ref: 'Plant',
+  localField: '_id',
+  foreignField: 'user'
+})
+
+userSchema
+  .set('toJSON', {
+    virtuals: true, 
+    transform(doc, json) {
+      delete json.password
+      return json
+    }
+  })
+
 userSchema.methods.validatePassword = function(password) {
   return bcrypt.compareSync(password, this.password)
 }
@@ -32,5 +47,7 @@ userSchema
     }
     next()
   })
+
+userSchema.plugin(require('mongoose-unique-validator'))
 
 module.exports = mongoose.model('User', userSchema)

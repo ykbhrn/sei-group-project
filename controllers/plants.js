@@ -11,6 +11,7 @@ async function plantsIndex(req, res) {
 
 async function plantCreate(req, res) {
   try {
+    req.body.user = req.currentUser
     const createPlant = await Plant.create(req.body)
     res.status(201).json(createPlant)
   } catch (err) {
