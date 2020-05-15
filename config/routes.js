@@ -3,6 +3,7 @@ const plants = require('../controllers/plants')
 const auth = require('../controllers/auth')
 const user = require('../controllers/users')
 const secureRoute = require('../lib/secureRoute')
+const apiProxies = require('../controllers/apiProxies')
 
 
 router.route('/plants')
@@ -24,5 +25,8 @@ router.route('/login')
 
 router.route('/profile')
   .get(secureRoute, user.profile)
+  
+router.route('/trefle')
+  .post(apiProxies.getTrefleInfo)
 
 module.exports = router
