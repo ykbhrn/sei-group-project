@@ -1,6 +1,6 @@
 const User = require('../models/user')
-// const jwt = require('jsonwebtoken')
-// const secret  = 'abcd'
+const jwt = require('jsonwebtoken')
+const secret  = 'abcd'
 
 async function register(req, res) {
   try {
@@ -10,7 +10,26 @@ async function register(req, res) {
     res.status(422).json(err)
   }
 }
+async function login(req, res) {
+  try {
+    console.log('user wanted: ', req.body)
+    const user = await User.findOne({ email: req.body.email })
+    console.log('user found: ', user)
+    if (!user || !user.validatePassword(req.body.password)) {
+      throw new Error()
+    }
+    const token = jwt.sign({ sub: user._id }, secret, { expiresIn: '7 days' })
+    
+    res.status(202).json({ 
+      message: `Welcome back ${user.name}`,
+      token
+    })
+
+  } catch (err) {
+    res.status(401).json({ message: 'Unauthorized' })
+  }
+}
 
 module.exports = {
-  register
+  register, login
 }
