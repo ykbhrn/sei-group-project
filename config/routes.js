@@ -18,4 +18,8 @@ router.route('/plants/:id')
 router.route('/register')
   .post(auth.register)
 
+
+router.route('/login')
+  .post(auth.login)
+
 module.exports = router
