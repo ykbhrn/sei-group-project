@@ -19,3 +19,11 @@ export const editPlant = (id, formData) => {
 export const deletePlant = id => {
   return axios.delete(`/api/plants/${id}`)
 }
+
+export const registerUser = formData => {
+  return axios.post(`/api/register`, formData)
+}
+
+export const loginUser = formData => {
+  return axios.post(`/api/login`, formData)
+}
