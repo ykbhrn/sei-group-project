@@ -3,7 +3,7 @@ const dbURI = 'mongodb://localhost/plants-db'
 const Plant = require('../models/plant')
 const User = require('../models/user')
 const plantsData = require('./data/plants')
-const UsersData = require('./data/users')
+const usersData = require('./data/users')
 
 mongoose.connect(
   dbURI,
@@ -14,11 +14,15 @@ mongoose.connect(
     try {
       await db.dropDatabase()
 
-      const users = await User.create(UsersData)
+      const users = await User.create(usersData)
       console.log(`${users.length} admin users created 👩‍💻`)
+
+      const plantsWithUsers = plantsData.map(plant => {
+        return { ...plant, user: users[0]._id }
+      })
     
-      const plants = await Plant.create(plantsData)
-      console.log(`${'🌱'.repeat(plants.length)} plants created`)
+      const plants = await Plant.create(plantsWithUsers)
+      console.log(`${'🌱 '.repeat(plants.length)} plants created`)
 
       await mongoose.connection.close()
       console.log('Goodbye')

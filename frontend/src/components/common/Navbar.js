@@ -22,7 +22,7 @@ class Navbar extends React.Component{
   }
 
   render() {
-    
+    const { isOpen } = this.state
     return (
       <nav className="navbar is-success">
         <div className="container">
@@ -30,26 +30,37 @@ class Navbar extends React.Component{
             <Link to="/" className="navbar-item">
               Home
             </Link>
+            <span onClick={this.handleToggle} className={`navbar-burger ${isOpen ? 'is-active' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div className={`navbar-menu ${isOpen ? 'is-active' : ''}`}>
+            <div className="navbar-end">
             <Link to="/plants" className="navbar-item">
               Plants
             </Link>
-            <Link to="/register" className="navbar-item">
+            {!isAuthenticated() && <Link to="/register" className="navbar-item">
               Register
-            </Link>
-            <Link to="/login" className="navbar-item">
+            </Link>}
+            {!isAuthenticated() && <Link to="/login" className="navbar-item">
               Login
-            </Link>
-            <Link to="/plants/new" className="navbar-item">
+            </Link>}
+            {!isAuthenticated() && <Link to="/plants/new" className="navbar-item">
               Add your plant
-            </Link>
+            </Link>}
             <Link to="/profile" className="navbar-item">
               My Profile
             </Link>
+          
+            {isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item">Logout</span>}
           </div>
+        </div>
         </div>
       </nav>
     )
   }
 }
 
-export default Navbar
+export default withRouter(Navbar)
