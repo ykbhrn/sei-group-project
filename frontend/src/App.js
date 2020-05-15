@@ -7,6 +7,8 @@ import IndexPlants from './components/plants/IndexPlants'
 import ShowPlant from './components/plants/ShowPlant'
 import NewPlant from './components/plants/NewPlant'
 import EditPlant from './components/plants/EditPlant'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
 
 
 
@@ -20,6 +22,9 @@ const App = () => (
       <Route path='/plants/new' component={NewPlant} />
       <Route path='/plants/:id' component={ShowPlant} />
       <Route path='/plants' component={IndexPlants} />
+      <Route path="/register" component={Register} />
+      <Route path="/login" component={Login} />
+      <Route path="/*" component={Error} />
     </Switch>
   </BrowserRouter>
 )

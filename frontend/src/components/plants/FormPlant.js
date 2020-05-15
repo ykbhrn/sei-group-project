@@ -18,6 +18,19 @@ const FormPlant = ({ formData, errors, handleChange, handleSubmit, buttonText })
         {errors.name && <small className="help is-danger">{errors.name}</small>}
       </div>
       <div className="field">
+        <label className="label">Height</label>
+        <div className="control">
+          <textarea
+            className={`input ${errors.height ? 'is-danger' : ''}`}
+            placeholder="Tasting Notes...."
+            name="height"
+            onChange={handleChange}
+            value={formData.height}
+          />
+        </div>
+        {errors.height && <small className="help is-danger">{errors.height}</small>}
+      </div>
+      <div className="field">
         <label className="label">Image</label>
         <div className="control">
           <input
@@ -34,7 +47,7 @@ const FormPlant = ({ formData, errors, handleChange, handleSubmit, buttonText })
         <label className="label">Description</label>
         <div className="control">
           <input
-            className={`input ${errors.description ? 'is-danger' : ''}`}
+            className={`textarea ${errors.description ? 'is-danger' : ''}`}
             placeholder="Image URL"
             name="description"
             onChange={handleChange}
@@ -42,19 +55,6 @@ const FormPlant = ({ formData, errors, handleChange, handleSubmit, buttonText })
           />
         </div>
         {errors.description && <small className="help is-danger">{errors.description}</small>}
-      </div>
-      <div className="field">
-        <label className="label">Height</label>
-        <div className="control">
-          <textarea
-            className={`textarea ${errors.height ? 'is-danger' : ''}`}
-            placeholder="Tasting Notes...."
-            name="height"
-            onChange={handleChange}
-            value={formData.height}
-          />
-        </div>
-        {errors.height && <small className="help is-danger">{errors.height}</small>}
       </div>
       <div className="field">
         <button type="submit" className="button is-fullwidth is-warning">{buttonText}</button>

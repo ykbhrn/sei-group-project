@@ -14,6 +14,12 @@ class Navbar extends React.Component{
             <Link to="/plants" className="navbar-item">
               Plants
             </Link>
+            <Link to="/register" className="navbar-item">
+              Register
+            </Link>
+            <Link to="/login" className="navbar-item">
+              Login
+            </Link>
             <Link to="/plants/new" className="navbar-item">
               Add your plant
             </Link>
