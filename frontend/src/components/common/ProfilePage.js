@@ -7,7 +7,7 @@ class ProfilePage extends React.Component {
     plants: null
   }
 
-  async comoponentDidMount() {
+  async componentDidMount() {
     try {
       const res = await getPortfolio()
       console.log(res);
