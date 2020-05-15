@@ -23,7 +23,7 @@ router.route('/login')
 
 router.route('/profile')
   .get(secureRoute, user.profile)
-
+  
 router.route('/trefle')
   .post(apiProxies.getTrefleInfo)
 
