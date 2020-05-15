@@ -10,8 +10,9 @@ class ProfilePage extends React.Component {
   async comoponentDidMount() {
     try {
       const res = await getPortfolio()
-      console.log(res.data);
+      console.log(res);
       
+      this.setState( {plants: res.data})
     } catch (err) {
       console.log(err);
       
@@ -19,7 +20,9 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    // if (!this.state.plant) return null
+    if (!this.state.plants) return null
+    console.log(this.state.plants);
+    
     return (
       <div>
         Hello

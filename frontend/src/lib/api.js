@@ -36,6 +36,6 @@ export const loginUser = formData => {
 }
 
 export const getPortfolio = () => {
-  return axios.post(`/api/profile`, withHeaders())
+  return axios.get('/api/profile', withHeaders())
 }
 
