@@ -23,7 +23,10 @@ class NewPlant extends React.Component {
 
   handleSubmit = async event => {
     try {
+<<<<<<< HEAD
       event.preventDefault()
+=======
+>>>>>>> development
       await newPlant(this.state.formData)
       // this.props.history.push(`/plants`)
     } catch (err) {
