@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Home from './components/common/Home'
 import Navbar from './components/common/Navbar'
+import SecureRoute from './components/common/SecureRoute'
 import IndexPlants from './components/plants/IndexPlants'
 import ShowPlant from './components/plants/ShowPlant'
 import NewPlant from './components/plants/NewPlant'
@@ -19,8 +20,8 @@ const App = () => (
     <Navbar />
     <Switch>
       <Route exact path='/' component={Home} />
-      <Route path='/plants/:id/edit' component={EditPlant} />
-      <Route path='/plants/new' component={NewPlant} />
+      <SecureRoute path='/plants/:id/edit' component={EditPlant} />
+      <SecureRoute path='/plants/new' component={NewPlant} />
       <Route path='/plants/:id' component={ShowPlant} />
       <Route path='/plants' component={IndexPlants} />
       <Route path="/register" component={Register} />
