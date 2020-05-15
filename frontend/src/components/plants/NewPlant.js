@@ -14,7 +14,7 @@ class NewPlant extends React.Component {
 
   handleChange = event => {
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
-    this.setState( {formData} )
+    this.setState( { formData } )
   }
 
   handleSubmit = async event => {
