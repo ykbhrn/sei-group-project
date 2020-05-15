@@ -27,3 +27,4 @@ export const registerUser = formData => {
 export const loginUser = formData => {
   return axios.post(`/api/login`, formData)
 }
+

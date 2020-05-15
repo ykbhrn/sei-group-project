@@ -23,6 +23,9 @@ class Navbar extends React.Component{
             <Link to="/plants/new" className="navbar-item">
               Add your plant
             </Link>
+            <Link to="/profile" className="navbar-item">
+              My Profile
+            </Link>
           </div>
         </div>
       </nav>
