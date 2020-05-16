@@ -17,16 +17,32 @@ class ProfilePage extends React.Component {
     } catch (err) {
       console.log(err);
     }
-    this.componentDidCatch()
   }
 
    componentDidCatch =  () => {
-    const offerArray = this.state.user.createdplants
+    const offerArray = this.state.user.createdPlants.filter( plant => {
+      if (plant.offers.length > 0) {
+        return plant
+      }
+    })
+    return offerArray.map( plant => {
+      return plant.offers.map( offer => {
+        return <h1 key={offer._id} className='title is-1'>{offer.text}</h1>
+      })
+    })
+    
+    // offerArray.offers.map( offer => {
+    //   return (
+    //     <div>
+    //       offer.text
+    //     </div>
+    //   )
+    // }) 
   }
 
   render() {
     if (!this.state.user) return null
-    console.log(this.state.user);
+   
 
     return (
       <section className="section">
@@ -41,7 +57,7 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <div>
-        <h1 className="title is-1"></h1>
+          {this.componentDidCatch()}
         </div>
       </section>
     )
