@@ -34,3 +34,7 @@ export const registerUser = formData => {
 export const loginUser = formData => {
   return axios.post(`/api/login`, formData)
 }
+
+export const getTrefleData = query => {
+  return axios.post('/api/trefle', {search: query} )
+}
