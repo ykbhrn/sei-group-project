@@ -1,9 +1,9 @@
 import React from 'react'
-import { getPortfolio } from '../../lib/api'
+import { getPublicPortfolio } from '../../lib/api'
 import ProfileCard from '../common/ProfileCard'
 
 
-class ProfilePage extends React.Component {
+class PublicProfile extends React.Component {
 
   state = {
     user: null
@@ -11,20 +11,18 @@ class ProfilePage extends React.Component {
 
   async componentDidMount() {
     try {
-      const res = await getPortfolio()
-      console.log(res);
-
+      const userId = this.props.match.params.id 
+      const res = await getPublicPortfolio(userId)
       this.setState({ user: res.data })
     } catch (err) {
       console.log(err);
-
     }
   }
 
   render() {
     if (!this.state.user) return null
-    console.log(this.state.user.createdPlants);
-
+    console.log(this.state.user);
+    
     return (
       <section className="section">
         <div className="container">
@@ -37,12 +35,9 @@ class ProfilePage extends React.Component {
             ))}
           </div>
         </div>
-        <div>
-        <h1 className="title is-1"> My offers: </h1>
-        </div>
       </section>
     )
   }
 
 }
-export default ProfilePage
+export default PublicProfile
