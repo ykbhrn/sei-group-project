@@ -1,67 +1,55 @@
 import React from 'react'
+import FormPlant from './FormPlant'
 import { newPlant } from '../../lib/api'
 
 class NewPlant extends React.Component {
 
   state = {
-    formData: {
+    formData: { //* our formData in state, matches the object we need to send in the request
       name: '',
-      description: '',
       imageUrl: '',
-      height: ''
-    }
+      description: '',
+      height: '',
+    },
+    options: [],
+    errors: {} // * an object to store any errors that could occur when making the request.
   }
 
   handleChange = event => {
+    console.log(event)
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
     this.setState( { formData } )
   }
 
   handleSubmit = async event => {
+    event.preventDefault()
     try {
       await newPlant(this.state.formData)
-      // this.props.history.push(`/plants`)
+      this.props.history.push(`/plants`)
     } catch(err) {
       console.log(err);
     }
+  }
+  handleSelectChange = event => {
+    const sciName = { ...this.state.formData, scientificName: event.value } 
+    const errors = { ...this.state.errors, [event.name]: '' } 
+    this.setState({ formData: sciName, errors }) 
+    console.log(this.state.formData.scientificName)
   }
 
   render() {
     return (
       <section className="section">
         <div className="container">
-        <form onSubmit={this.handleSubmit} className="column is half is-offset-one-quarter box">
-        <input className="input"
-              placeholder="name"
-              name="name"
-              onChange={this.handleChange}
-              value={this.state.formData.name}
-            />
-            <input className="input"
-              placeholder="description"
-              name="description"
-              onChange={this.handleChange}
-              value={this.state.formData.description}
-           />
-            <input className="input"
-              placeholder="Url of your plant image"
-              name="imageUrl"
-              onChange={this.handleChange}
-              value={this.state.formData.imageUrl}
-            />
-            <input className="input"
-              placeholder="height of your plant"
-              name="height"
-              onChange={this.handleChange}
-              value={this.state.formData.height}
-            />
-            <button type="submit">
-              Add Plant
-            </button>
-            
-          </form>
+          <FormPlant
+            formData={this.state.formData}
+            errors={this.state.errors}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            handleSelectChange={this.handleSelectChange}
+            buttonText="Create My Plant"
+          />
         </div>
-
       </section>
     )
   }

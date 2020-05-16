@@ -1,5 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
+import ImageUpload from './ImageUpload'
+import { render } from 'react-dom'
 import { getTrefleData } from '../../lib/api'
 
 class FormPlant extends React.Component {
@@ -8,21 +10,21 @@ class FormPlant extends React.Component {
   }
 
   getSciData = async () => {
-    console.log('scinames ran')
-    const sciNames = []
-    const res = await getTrefleData(this.props.formData.name)
-    const plantData = res.data
-    plantData.forEach(obj => {
-      sciNames.push({value: obj.scientific_name, label: obj.scientific_name})
-  })
-  this.setState({options: sciNames})
+    if (this.props.formData.name) {
+      const sciNames = []
+      const res = await getTrefleData(this.props.formData.name)
+      const plantData = res.data
+      plantData.forEach(obj => {
+        sciNames.push({ value: obj.scientific_name, label: obj.scientific_name })
+      })
+      this.setState({ options: sciNames })
+    }
   }
-
+  // console.log('props: ', this.props.formData.name)
   render() {
-
-    const { formData, errors, handleChange, handleSubmit, buttonText } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
-    console.log('props: ', this.props.formData.name)
+    const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
     return (
+
       <div className="columns">
         <form onSubmit={handleSubmit} className="column is-half is-offset-one-quarter box">
           <div className="field">
@@ -43,7 +45,7 @@ class FormPlant extends React.Component {
             <div className="control">
               <textarea
                 className={`input ${errors.height ? 'is-danger' : ''}`}
-                placeholder="Tasting Notes...."
+                placeholder="Height"
                 name="height"
                 onChange={handleChange}
                 value={formData.height}
@@ -53,10 +55,13 @@ class FormPlant extends React.Component {
           </div>
           <div className="field">
             <label className="label">Scientific Name</label>
-            <div className="control" onClick={this.getSciData} >
+            <div className="control"
+              onClick={this.getSciData}
+            >
               <Select
-              options={this.state.options}
-              
+                name="scientificName"
+                onChange={handleSelectChange}
+                options={this.state.options}
               />
             </div>
           </div>
@@ -78,14 +83,26 @@ class FormPlant extends React.Component {
             <div className="control">
               <input
                 className={`textarea ${errors.description ? 'is-danger' : ''}`}
-                placeholder="Image URL"
+                placeholder="Description"
                 name="description"
+                rows="10"
+                cols="50"
+                wrap="hard"
                 onChange={handleChange}
                 value={formData.description}
               />
             </div>
             {errors.description && <small className="help is-danger">{errors.description}</small>}
           </div>
+          {/* <div className="field">
+            <div className="control">
+              <ImageUpload
+                onChange={handleChange}
+                name="image"
+                labelText="Upload an Image"
+              />
+            </div>
+          </div> */}
           <div className="field">
             <button type="submit" className="button is-fullwidth is-warning">{buttonText}</button>
           </div>
@@ -93,5 +110,7 @@ class FormPlant extends React.Component {
       </div>
     )
   }
+
 }
+
 export default FormPlant

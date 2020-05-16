@@ -76,7 +76,7 @@ class ShowPlant extends React.Component {
               }
               {/* {Using the "isOwner" function, it returns true if the logged in user is the creator of this cheeses, we can use this to determine if we should show the edit/delete buttons or not } */}
               {/* {isOwner(plant.user._id) &&  */}
-              <Link to={`/plants/${plant.user._id}/edit`} className="button is-warning">Edit</Link>
+              <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
               <hr /> 
               {/* {isOwner(plant.user._id) &&  */}
               <button onClick={this.handleDelete} className="button is-danger">Delete</button>
