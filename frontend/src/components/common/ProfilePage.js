@@ -12,18 +12,21 @@ class ProfilePage extends React.Component {
   async componentDidMount() {
     try {
       const res = await getPortfolio()
-      console.log(res);
-
+    
       this.setState({ user: res.data })
     } catch (err) {
       console.log(err);
-
     }
+    this.componentDidCatch()
+  }
+
+   componentDidCatch =  () => {
+    const offerArray = this.state.user.createdplants
   }
 
   render() {
     if (!this.state.user) return null
-    console.log(this.state.user.createdPlants);
+    console.log(this.state.user);
 
     return (
       <section className="section">
@@ -38,7 +41,7 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <div>
-        <h1 className="title is-1"> My offers: </h1>
+        <h1 className="title is-1"></h1>
         </div>
       </section>
     )
