@@ -34,3 +34,13 @@ export const registerUser = formData => {
 export const loginUser = formData => {
   return axios.post(`/api/login`, formData)
 }
+
+export const getPortfolio = () => {
+  return axios.get('/api/profile', withHeaders())
+}
+
+export const getPublicPortfolio = id => {
+  return axios.get(`/api/profile/${id}`)
+}
+
+
