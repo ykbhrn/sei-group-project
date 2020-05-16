@@ -38,3 +38,12 @@ export const loginUser = formData => {
 export const getTrefleData = query => {
   return axios.post('/api/trefle', {search: query} )
 }
+export const getPortfolio = () => {
+  return axios.get('/api/profile', withHeaders())
+}
+
+export const getPublicPortfolio = id => {
+  return axios.get(`/api/profile/${id}`)
+}
+
+
