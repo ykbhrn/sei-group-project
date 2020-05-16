@@ -9,8 +9,8 @@ class NewPlant extends React.Component {
       name: '',
       imageUrl: '',
       description: '',
-      height: '',
-      location: ''
+      height: ''
+      // location: ''
     },
     options: [],
     errors: {} // * an object to store any errors that could occur when making the request.

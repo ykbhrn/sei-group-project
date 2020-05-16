@@ -6,44 +6,52 @@ import { getAllPlants } from '../../lib/api'
 const token = 'pk.eyJ1IjoiYWlub2t5dG8iLCJhIjoiY2thNTVmcHo1MGp0NTNtb2FiMDN2Y2lsNSJ9.lYIXm2Oh9WpDzSysWqwnqA'
 
 class Maps extends React.Component {
-  state = { plants: [] }
+  state = { plants: null }
 
   async componentDidMount() {
     try {
       const res = await getAllPlants()
-      console.log(res)
-      console.log(res.data)
+      // console.log(res.data)
+
       this.setState({ plants: res.data })
-      console.log(this.state.plants[0].location[0].lat)
+      // console.log(this.state.plants)
+
+      // this.state.plants.map(each => (
+      // console.log(each.location[0].lat, each.location[0].lon))
+      // )
+
     } catch (err) {
       console.log(err)
     }
   }
 
   render() {
-    if (!this.state.plants.location) return null
-    console.log(this.state)
-    // console.log(this.state.plants.location.lat)
+    if (!this.state.plants) return null
     return (
-      <MapGl
-        mapboxApiAccessToken={token}
-        height={'100vh'}
-        width={'100vw'}
-        mapStyle='mapbox://styles/mapbox/streets-v11'
-        latitude={51.515}
-        longitude={-0.078}
-        zoom={11}
-      >
-        {this.state.plants.location.map(each => (
-          <Marker
-            key={each._id}
-            latitude={each.lat}
-            longitude={each.lon}
-          >
-            <span role="img" aria-label="marker">🌱</span>
-          </Marker>
-        ))}
-      </MapGl>
+      <div>
+        <MapGl
+          mapboxApiAccessToken={token}
+          height={'100vh'}
+          width={'100vw'}
+          mapStyle='mapbox://styles/mapbox/streets-v11'
+          latitude={51.515}
+          longitude={-0.078}
+          zoom={11}
+        >
+          {this.state.plants.map(plant => {
+            return plant.location.map(item => {
+              return <div key={item._id}>
+                <Marker
+                  latitude={item.lat}
+                  longitude={item.lon}
+                >
+                  <span role="img" aria-label="marker">🌱</span>
+                </Marker>
+              </div>
+            })
+          })}
+        </MapGl>
+      </div>
     )
   }
 }
