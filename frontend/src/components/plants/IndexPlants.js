@@ -10,6 +10,7 @@ class IndexPlants extends React.Component {
   async componentDidMount() {
     try {
       const res = await getAllPlants()
+      console.log(res.data)
       this.setState({ plants: res.data })
     } catch (err) {
       console.log(err);
