@@ -25,19 +25,22 @@ class ProfilePage extends React.Component {
         return plant
       }
     })
+    let offerCounter = 0
+
     return offerArray.map( plant => {
+      console.log(plant);
+      
       return plant.offers.map( offer => {
-        return <h1 key={offer._id} className='title is-1'>{offer.text}</h1>
+
+        offerCounter++
+        return <div key={offer._id} className='title is-3'>
+          Nr.{offerCounter}: <br/>
+          You've got offer on: {plant.name} <br/>
+          Offer: {offer.offer} <br/>
+          Message from user: {offer.text} <br/>
+          </div>
       })
     })
-    
-    // offerArray.offers.map( offer => {
-    //   return (
-    //     <div>
-    //       offer.text
-    //     </div>
-    //   )
-    // }) 
   }
 
   render() {
@@ -57,6 +60,8 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <div>
+          <h1 className="title is-1">Your Offers: </h1>
+          <br/>
           {this.componentDidCatch()}
         </div>
       </section>

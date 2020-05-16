@@ -33,6 +33,6 @@ router.route('/trefle')
   .post(apiProxies.getTrefleInfo)
 
 router.route('/offer/:id')
-  .post(secureRoute, offer.newOffers)
+  .post(secureRoute,offer.newOffers)
 
 module.exports = router

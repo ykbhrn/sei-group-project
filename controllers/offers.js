@@ -1,6 +1,5 @@
 const Plant = require('../models/plant')
 const User = require('../models/user')
-const Offer = require('../models/plant')
 
 async function newOffers(req, res) {
   try {
@@ -16,7 +15,7 @@ async function newOffers(req, res) {
     plant.offers.push(req.body)
 
     await plant.save()
-    
+
     res.status(201).json(plant)
   } catch (err) {
     console.log(err)
