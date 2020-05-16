@@ -1,4 +1,5 @@
 const Plant = require('../models/plant')
+const User = require('../models/user')
 
 async function plantsIndex(req, res) {
   try {
@@ -24,6 +25,8 @@ async function plantShow(req, res) {
   try {
     const plant = await Plant.findById(plantId)
     // if (!plant) throw new Error('notFound')
+    const user = await User.findById(plant.user)
+    plant.user = user
     res.status(200).json(plant)
   } catch (err) {
     res.status(422).json(err)
@@ -50,7 +53,7 @@ async function plantDelete(req, res) {
     const plantToDelete = await Plant.findById(plantId)
     // if (!plantToDelete) throw new Error('notFound')
     // if (!plantToDelete.user.equals(req.currentUser._id))
-    // throw new Error(unauthorized)
+    //   throw new Error()
     await plantToDelete.remove()
     res.sendStatus(204)
   } catch (err) {

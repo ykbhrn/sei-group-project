@@ -11,6 +11,9 @@ import EditPlant from './components/plants/EditPlant'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Maps from './components/common/Maps'
+import ProfilePage from './components/common/ProfilePage'
+import PublicProfile from './components/common/PublicProfile'
+
 
 
 
@@ -26,6 +29,8 @@ const App = () => (
       <Route path='/plants' component={IndexPlants} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
+      <Route path="/profile/:id" component={PublicProfile} />
+      <Route path="/profile" component={ProfilePage} />
       <Route path="/*" component={Error} />
     </Switch>
   </BrowserRouter>

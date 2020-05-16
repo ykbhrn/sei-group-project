@@ -30,8 +30,8 @@ class ShowPlant extends React.Component {
 
   render() {
     if (!this.state.plant) return null // * if there is no cheese object, return null
+    console.log (this.state.plant.user._id)
     const { plant } = this.state // * deconstruct the cheese from state
-    // console.log('????', plant.user._id)
 
     return (
       <section className="section">
@@ -54,11 +54,13 @@ class ShowPlant extends React.Component {
               <hr />
               <h4 className="title is-4">Added By</h4>
               <hr />
-              {/* <p>{plant.user.username}</p> */}
+              <Link to={`/profile/${plant.user._id}`}>
+              <p>{plant.user.name}</p>
+              </Link>
               <hr />
               {/* {Using the "isOwner" function, it returns true if the logged in user is the creator of this cheeses, we can use this to determine if we should show the edit/delete buttons or not } */}
               {/* {isOwner(plant.user._id) &&  */}
-              <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
+              <Link to={`/plants/${plant.user._id}/edit`} className="button is-warning">Edit</Link>
               <hr /> 
               {/* {isOwner(plant.user._id) &&  */}
               <button onClick={this.handleDelete} className="button is-danger">Delete</button>
