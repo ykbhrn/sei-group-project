@@ -81,11 +81,12 @@ class FormPlant extends React.Component {
           <div className="field">
             <label className="label">Description</label>
             <div className="control">
-              <input
+              <textarea
                 className={`textarea ${errors.description ? 'is-danger' : ''}`}
                 placeholder="Description"
+                type="textarea"
                 name="description"
-                rows="10"
+                rows="7"
                 cols="50"
                 wrap="hard"
                 onChange={handleChange}

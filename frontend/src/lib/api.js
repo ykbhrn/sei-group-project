@@ -47,6 +47,6 @@ export const getPublicPortfolio = id => {
 }
 
 export const makeOffer = id => {
-  return axios.post(`/api/profile/${id}`)
+  return axios.post(`/api/offer/${id}`, withHeaders())
 }
 

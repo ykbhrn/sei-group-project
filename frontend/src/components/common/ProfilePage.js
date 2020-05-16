@@ -26,7 +26,8 @@ class ProfilePage extends React.Component {
       }
     })
     let offerCounter = 0
-
+    console.log(offerArray);
+    
     return offerArray.map( plant => {
       console.log(plant);
       
