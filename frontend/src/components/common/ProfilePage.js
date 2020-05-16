@@ -12,18 +12,40 @@ class ProfilePage extends React.Component {
   async componentDidMount() {
     try {
       const res = await getPortfolio()
-      console.log(res);
-
+    
       this.setState({ user: res.data })
     } catch (err) {
       console.log(err);
-
     }
+  }
+
+   componentDidCatch =  () => {
+    const offerArray = this.state.user.createdPlants.filter( plant => {
+      if (plant.offers.length > 0) {
+        return plant
+      }
+    })
+    let offerCounter = 0
+
+    return offerArray.map( plant => {
+      console.log(plant);
+      
+      return plant.offers.map( offer => {
+
+        offerCounter++
+        return <div key={offer._id} className='title is-3'>
+          Nr.{offerCounter}: <br/>
+          You've got offer on: {plant.name} <br/>
+          Offer: {offer.offer} <br/>
+          Message from user: {offer.text} <br/>
+          </div>
+      })
+    })
   }
 
   render() {
     if (!this.state.user) return null
-    console.log(this.state.user.createdPlants);
+   
 
     return (
       <section className="section">
@@ -38,7 +60,9 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <div>
-        <h1 className="title is-1"> My offers: </h1>
+          <h1 className="title is-1">Your Offers: </h1>
+          <br/>
+          {this.componentDidCatch()}
         </div>
       </section>
     )

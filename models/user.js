@@ -15,6 +15,7 @@ userSchema.virtual('createdPlants', {
   foreignField: 'user'
 })
 
+
 userSchema
   .set('toJSON', {
     virtuals: true, 

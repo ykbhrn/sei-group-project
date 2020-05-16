@@ -5,6 +5,7 @@ const user = require('../controllers/users')
 const publicUser = require('../controllers/publicProfiles')
 const secureRoute = require('../lib/secureRoute')
 const apiProxies = require('../controllers/apiProxies')
+const offer = require('../controllers/offers')
 
 
 router.route('/plants')
@@ -30,5 +31,8 @@ router.route('/profile/:id')
   
 router.route('/trefle')
   .post(apiProxies.getTrefleInfo)
+
+router.route('/offer/:id')
+  .post(secureRoute,offer.newOffers)
 
 module.exports = router
