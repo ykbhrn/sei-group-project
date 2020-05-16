@@ -9,7 +9,7 @@ class ShowPlant extends React.Component {
 
   async componentDidMount() {
     try {
-      const plantId = this.props.match.params.id 
+      const plantId = this.props.match.params.id
       const res = await getSinglePlant(plantId)
       this.setState({ plant: res.data })
     } catch (err) {
