@@ -8,7 +8,9 @@ class NewPlant extends React.Component {
       name: '',
       description: '',
       imageUrl: '',
-      height: ''
+      height: '',
+      lat: '',
+      lon: ''
     }
   }
 
@@ -54,6 +56,18 @@ class NewPlant extends React.Component {
               name="height"
               onChange={this.handleChange}
               value={this.state.formData.height}
+            />
+            <input className="input"
+              placeholder="latitude"
+              name="lat"
+              onChange={this.handleChange}
+              value={this.state.formData.lat}
+            />
+            <input className="input"
+              placeholder="longitude"
+              name="lon"
+              onChange={this.handleChange}
+              value={this.state.formData.lon}
             />
             <button type="submit">
               Add Plant

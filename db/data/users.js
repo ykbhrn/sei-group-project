@@ -3,32 +3,24 @@ module.exports = [
     name: 'Aino',
     email: 'aino@email',
     password: 'pass',
-    passwordConfirmation: 'pass',
-    lat: 51.529163,
-    lon: -0.10997
+    passwordConfirmation: 'pass'
   },
   {
     name: 'George',
     email: 'george@email',
     password: 'pass',
-    passwordConfirmation: 'pass',
-    lat: 51.529163,
-    lon: -0.10997
+    passwordConfirmation: 'pass'
   },
   {
     name: 'Jakub',
     email: 'jakub@email',
     password: 'pass',
-    passwordConfirmation: 'pass',
-    lat: 51.529163,
-    lon: -0.10997
+    passwordConfirmation: 'pass'
   },
   {
     name: 'Yarden',
     email: 'yarden@email',
     password: 'pass',
-    passwordConfirmation: 'pass',
-    lat: 51.529163,
-    lon: -0.10997
+    passwordConfirmation: 'pass'
   }
 ]

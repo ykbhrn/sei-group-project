@@ -20,7 +20,7 @@ export const newPlant = formData => {
 }
 
 export const editPlant = (id, formData) => {
-  return axios.put(`/api/plants/${id}`, formData,withHeaders())
+  return axios.put(`/api/plants/${id}`, formData, withHeaders())
 }
 
 export const deletePlant = id => {

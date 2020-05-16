@@ -25,10 +25,10 @@ const App = () => (
       <SecureRoute path='/plants/:id/edit' component={EditPlant} />
       <SecureRoute path='/plants/new' component={NewPlant} />
       <Route path='/plants/:id' component={ShowPlant} />
-      <Route path="/maps/:id" component={Maps} />
       <Route path='/plants' component={IndexPlants} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
+      <Route path="/maps" component={Maps} />
       <Route path="/profile/:id" component={PublicProfile} />
       <Route path="/profile" component={ProfilePage} />
       <Route path="/*" component={Error} />

@@ -52,6 +52,11 @@ class ShowPlant extends React.Component {
               <hr />
               <p>{plant.height}</p>
               <hr />
+              <h4 className="title is-4">Location</h4>
+              <hr />
+              <p>{plant.lat}</p>
+              <p>{plant.lon}</p>
+              <hr />
               <h4 className="title is-4">Added By</h4>
               <hr />
               <Link to={`/profile/${plant.user._id}`}>

@@ -6,7 +6,8 @@ const plantSchema = new mongoose.Schema({
   scientificName: { type: String },
   imageUrl: { type: String, required: true },
   description: { type: String, required: true, maxlength: 1000 },
-  height: { type: String, required: false },
+  height: { type: String, required: true },
+  location: [ { lat: Number, lon: Number }, { required: true } ],
   user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
 }, {
   timestamps: true

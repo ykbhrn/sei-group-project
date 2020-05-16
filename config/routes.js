@@ -31,4 +31,7 @@ router.route('/profile/:id')
 router.route('/trefle')
   .post(apiProxies.getTrefleInfo)
 
+router.route('/maps')
+  .post(apiProxies.getLocation)
+
 module.exports = router

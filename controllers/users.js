@@ -10,8 +10,6 @@ async function userProfile(req, res, next) {
   }
 }
 
-
-
 module.exports = {
   profile: userProfile
 }
