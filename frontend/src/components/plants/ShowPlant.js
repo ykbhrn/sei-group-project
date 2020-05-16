@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom' //* Importing link component from 'react-router-dom' so we can make an edit button to Link to the EditPLant page.
-import { getSinglePlant, deletePlant } from '../../lib/api'
+import { getSinglePlant, deletePlant, makeOffer } from '../../lib/api'
 
 class ShowPlant extends React.Component {
   state = {
     plant: null,
+    offerData: {
+      offer: '',
+      text: ''
+    },
     isOffer: false
   }
 
@@ -28,15 +32,33 @@ class ShowPlant extends React.Component {
     }
   }
 
-  handleOffer = () => {
-    this.setState( { isOffer: true } )
+  clicker = () => {
+    this.setState({ isOffer: this.state.isOffer === false ? true : false })
+  }
+
+  handleChange = event => {
+    console.log(event)
+    const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
+    this.setState( { offerData } )
+  }
+
+  handleSubmit = async event => {
+    event.preventDefault()
+    try {
+      const plantId = this.props.match.params.id
+      const res = await makeOffer(plantId)
+      this.setState({ offerData: res.data })
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
   render() {
     if (!this.state.plant) return null // * if there is no cheese object, return null
-    console.log (this.state.plant.user._id)
-    const { plant, isOffer } = this.state // * deconstruct the cheese from state
+    console.log(this.state.plant.user._id)
+    const { plant, isOffer, offerData } = this.state // * deconstruct the cheese from state
+    console.log(this.state.offerData);
 
     return (
       <section className="section">
@@ -65,29 +87,56 @@ class ShowPlant extends React.Component {
               <h4 className="title is-4">Added By</h4>
               <hr />
               <Link to={`/profile/${plant.user._id}`}>
-              <p>{plant.user.name}</p>
+                <p>{plant.user.name}</p>
               </Link>
               <hr />
-              <button 
-              className="button is-light"
-              onClick={this.handleOffer}>Make Offer
+              <button
+                className="button is-light"
+                onClick={this.clicker}>Make Offer
               </button>
               <hr />
-              {isOffer && 
-              <>
-              <h1>Hey</h1>
-              <hr />
+              {isOffer &&
+                <>
+                  <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+                    <div className="field">
+                      <label className="label">Your Offer: </label>
+                      <div className="control">
+                        <input
+                          placeholder="Offer"
+                          name="offer"
+                          onChange={this.handleChange}
+                          value={offerData.offer}
+                        />
+                      </div>
+      
+                    </div>
+                    <div className="field">
+                      <label className="label">Message for User: </label>
+                      <div className="control">
+                        <textarea
+                          placeholder="Message"
+                          name="text"
+                          onChange={this.handleChange}
+                          value={offerData.text}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <button type="submit" className="button is-fullwidth is-warning">Submit Offer</button>
+                    </div>
+                  </form>
+                    <hr />
               </>
               }
               {/* {Using the "isOwner" function, it returns true if the logged in user is the creator of this cheeses, we can use this to determine if we should show the edit/delete buttons or not } */}
-              {/* {isOwner(plant.user._id) &&  */}
-              <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
-              <hr /> 
-              {/* {isOwner(plant.user._id) &&  */}
-              <button onClick={this.handleDelete} className="button is-danger">Delete</button>
-            </div>
+                  {/* {isOwner(plant.user._id) &&  */}
+                  <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
+                  <hr />
+                  {/* {isOwner(plant.user._id) &&  */}
+                  <button onClick={this.handleDelete} className="button is-danger">Delete</button>
+                </div>
           </div>
-        </div>
+          </div>
       </section>
     )
   }

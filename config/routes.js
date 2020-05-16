@@ -32,12 +32,10 @@ router.route('/profile/:id')
 router.route('/trefle')
   .post(apiProxies.getTrefleInfo)
 
-<<<<<<< HEAD
 router.route('/maps')
   .post(apiProxies.getLocation)
-=======
+  
 router.route('/offer/:id')
   .post(secureRoute,offer.newOffers)
->>>>>>> development
 
 module.exports = router
