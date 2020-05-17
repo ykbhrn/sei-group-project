@@ -1,5 +1,4 @@
 const Plant = require('../models/plant')
-const User = require('../models/user')
 
 async function newOffers(req, res) {
   try {
@@ -18,7 +17,6 @@ async function newOffers(req, res) {
 
     res.status(201).json(plant)
   } catch (err) {
-    console.log(err)
     
     res.status(422).json({ message: 'youre wrong' })
   }

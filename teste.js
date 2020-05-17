@@ -120,7 +120,7 @@ class ShowPlant extends React.Component {
                           placeholder="Offer"
                           name="offer"
                           onChange={this.handleChange}
-                          value={offerData.offer || ''}
+                          value={offerData.offer}
                         />
                       </div>
       
@@ -132,7 +132,7 @@ class ShowPlant extends React.Component {
                           placeholder="Message"
                           name="text"
                           onChange={this.handleChange}
-                          value={offerData.text || ''}
+                          value={offerData.text}
                         />
                       </div>
                     </div>
