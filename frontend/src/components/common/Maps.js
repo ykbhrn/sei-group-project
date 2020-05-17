@@ -33,7 +33,7 @@ class Maps extends React.Component {
           mapboxApiAccessToken={token}
           height={'100vh'}
           width={'100vw'}
-          mapStyle='mapbox://styles/mapbox/streets-v11'
+          mapStyle='mapbox://styles/mapbox/light-v10'
           latitude={51.515}
           longitude={-0.078}
           zoom={11}
