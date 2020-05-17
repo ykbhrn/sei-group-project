@@ -1,5 +1,6 @@
 import React from 'react'
 import { registerUser } from '../../lib/api'
+import { Redirect } from 'react-router-dom'
 
 class Register extends React.Component {
   state = {
@@ -9,6 +10,7 @@ class Register extends React.Component {
       password: '',
       passwordConfirmation: ''
     },
+    redirect: false,
     errors: {}
   }
 
@@ -23,10 +25,26 @@ class Register extends React.Component {
 
     try {
       await registerUser(this.state.formData)
-      this.props.history.push('/login')
+      this.setRedirect()
+      // this.props.history.push('/login')
     } catch (err) {
-      this.setState({ errors: err.response.data.errors })
+      // this.setState({ errors: err.response.data.errors })
     }
+  }
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/login' />
+    }
+  }
+
+  handleClick = () => {
+    this.props.sendData(false)
   }
 
   render() {
@@ -34,11 +52,13 @@ class Register extends React.Component {
     console.log(this.state)
     return (
       <section className="section">
+        {this.renderRedirect()}
         <div className="container">
           <div className="columns">
-            <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+            <form onSubmit={this.handleSubmit} className="column">
+            <h1 className="has-text-centered">Sign Up Here</h1><br></br>
               <div className="field">
-                <label className="label">Name</label>
+                {/* <label className="label">Name</label> */}
                 <div className="control">
                   <input 
                     className={`input ${errors.name ? 'is-danger' : '' }`}
@@ -51,7 +71,7 @@ class Register extends React.Component {
                 {errors.name && <small className="help is-danger">{errors.name}</small>}
               </div>
               <div className="field">
-                <label className="label">Email</label>
+                {/* <label className="label">Email</label> */}
                 <div className="control">
                   <input 
                     className={`input ${errors.email ? 'is-danger' : ''}`}
@@ -64,7 +84,7 @@ class Register extends React.Component {
                 {errors.email && <small className="help is-danger">{errors.email}</small>}
               </div>
               <div className="field">
-                <label className="label">Password</label>
+                {/* <label className="label">Password</label> */}
                 <div className="control">
                   <input 
                     className={`input ${errors.password ? 'is-danger' : ''}`}
@@ -78,7 +98,7 @@ class Register extends React.Component {
                 {errors.password && <small className="help is-danger">{errors.password}</small>}
               </div>
               <div className="field">
-                <label className="label">Password Confirmation</label>
+                {/* <label className="label">Password Confirmation</label> */}
                 <div className="control">
                   <input 
                     type="password"
@@ -92,7 +112,10 @@ class Register extends React.Component {
                 {errors.passwordConfirmation && <small className="help is-danger">{errors.passwordConfirmation}</small>}
               </div>
               <div className="field">
-                <button type="submit" className="button is-fullwidth is-warning">Register</button>
+                <button type="submit" className="button is-success is-outlined is-fullwidth">Register</button>
+              </div>
+              <div className="field">
+                <button type="button" onClick={this.handleClick} className="button is-info is-outlined is-fullwidth">Registered? Sign in Here</button>
               </div>
             </form>
           </div>
