@@ -34,41 +34,41 @@ class HomeCards extends React.Component {
   render() {
     return (
       <section>
-
+        
         <div className="columns">
         <div className="column">
           {this.state.plantImages.slice(0, 3).map((image, i) => (
-
+            
               <figure key={i}
                 className="image is-square">
                 <img src={image} alt="plant" />
               </figure>
-
+            
           ))}
           </div>
           <div className="column is-hidden-mobile">
             {this.state.plantImages.slice(3, 6).map((image, i) => (
-
+              
                 <figure key={i}
                   className="image is-square">
                   <img src={image} alt="plant" />
                 </figure>
-
+              
             ))}
           </div>
           <div className="column is-hidden-mobile">
             {this.state.plantImages.slice(6, 9).map((image, i) => (
-
+              
                 <figure key={i}
                   className="image is-square">
                   <img src={image} alt="plant" />
                 </figure>
-
+              
             ))}
           </div>
         </div>
       </section>
-
+      
     )
   }
 }

@@ -29,6 +29,9 @@ class Login extends React.Component {
       this.setState({ error: 'Invalid Credentials' })
     }
   }
+  sendData = () => {
+    this.props.switchForm(true)
+  }
 
   handleClick = () => {
     this.props.sendData(true)
@@ -68,11 +71,13 @@ class Login extends React.Component {
                 {error && <small className="help is-danger">{error}</small>}
               </div>
               <div className="field">
-                <button type="submit" className="button is-success is-outlined is-fullwidth">Login</button>
+                <button type="submit" className="button is-fullwidth is-success is-outlined">Login</button>
               </div>
               <div className="field">
-                <button type="button" onClick={this.handleClick} className="button is-info is-outlined is-fullwidth">Sign Up Here</button>
-              </div>
+              
+              <button onClick={this.sendData}type="button" className="button is-fullwidth is-info is-outlined">No Account? Sign Up Here</button>
+            
+            </div>
             </form>
           </div>
         </div>
