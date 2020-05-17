@@ -46,7 +46,7 @@ export const getPublicPortfolio = id => {
   return axios.get(`/api/profile/${id}`)
 }
 
-export const makeOffer = id => {
-  return axios.post(`/api/offer/${id}`, withHeaders())
+export const makeOffer = (id, offerData) => {
+  return axios.post(`/api/offer/${id}`, offerData, withHeaders())
 }
 

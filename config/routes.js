@@ -14,8 +14,8 @@ router.route('/plants')
 
 router.route('/plants/:id')
   .get(plants.show)
-  .put(plants.update)
-  .delete(plants.delete)
+  .put(secureRoute, plants.update)
+  .delete(secureRoute, plants.delete)
 
 router.route('/register')
   .post(auth.register)
@@ -36,6 +36,6 @@ router.route('/maps')
   .post(apiProxies.getLocation)
   
 router.route('/offer/:id')
-  .post(secureRoute,offer.newOffers)
+  .post(secureRoute, offer.newOffers)
 
 module.exports = router

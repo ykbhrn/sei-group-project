@@ -48,7 +48,7 @@ class NewPlant extends React.Component {
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             handleSelectChange={this.handleSelectChange}
-            buttonText="Create My Plant"
+            buttonText="Add My Plant"
           />
         </div>
       </section>
