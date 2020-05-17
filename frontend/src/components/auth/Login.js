@@ -29,6 +29,9 @@ class Login extends React.Component {
       this.setState({ error: 'Invalid Credentials' })
     }
   }
+  sendData = () => {
+    this.props.switchForm(true)
+  }
 
   render() {
     const { formData, error } = this.state
@@ -36,9 +39,9 @@ class Login extends React.Component {
       <section className="section">
         <div className="container">
           <div className="columns">
-            <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+            <form onSubmit={this.handleSubmit} className="column">
               <div className="field">
-                <label className="label">Email</label>
+                {/* <label className="label">Email</label> */}
                 <div className="control">
                   <input
                     className={`input ${error ? 'is-danger' : '' }`}
@@ -50,7 +53,7 @@ class Login extends React.Component {
                 </div>
               </div>
               <div className="field">
-                <label className="label">Password</label>
+                {/* <label className="label">Password</label> */}
                 <div className="control">
                   <input
                     type="password"
@@ -64,8 +67,13 @@ class Login extends React.Component {
                 {error && <small className="help is-danger">{error}</small>}
               </div>
               <div className="field">
-                <button type="submit" className="button is-fullwidth is-warning">Login</button>
+                <button type="submit" className="button is-fullwidth is-success is-outlined">Login</button>
               </div>
+              <div className="field">
+              
+              <button onClick={this.sendData}type="button" className="button is-fullwidth is-info is-outlined">No Account? Sign Up Here</button>
+            
+            </div>
             </form>
           </div>
         </div>

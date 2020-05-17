@@ -1,1 +1,9 @@
 @import '~bulma/bulma.sass';
+
+.home-plant-container{
+  width: 800px;
+  .home-plant-img{
+    max-width: 200px;
+  }
+}
+
