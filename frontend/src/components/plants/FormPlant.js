@@ -174,7 +174,9 @@ handleItemClicked = async (place) =>  {
             <label className="label">Location</label>
             <div className="control">
           <div className="AutocompletePlace">
-        <input className="AutocompletePlace-input" type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder="Type an address" />
+        <input
+        className="input AutocompletePlace-input" type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder="Type an address"
+        />
         <ul className="AutocompletePlace-results">
           {this.state.results.map(place => (
             <li
