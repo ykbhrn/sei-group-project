@@ -1,11 +1,23 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
+const submittedOfferSchema = new mongoose.Schema({
+  offer: { type: String, required: true },
+  text: { type: String, required: false },
+  response: { type: String, required: false },
+  userName: { type: String, required: false }, 
+  plantName: { type: String, required: false },
+  plantId: { type: String, required: false },
+  userId: { type: String, required: false }
+}, {
+  timestamps: true
+})
+
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  submittedOffer: [{ type: mongoose.Schema.ObjectId, ref: 'Offer', required: true }]
+  submittedOffers: [submittedOfferSchema]
 })
 
 userSchema.virtual('createdPlants', {
