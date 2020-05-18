@@ -70,11 +70,6 @@ handleItemClicked = async (place) =>  {
     
   }
   
-  
-
-
-  
-
   getSciData = async () => {
     if (this.props.formData.name) {
       const sciNames = []

@@ -9,6 +9,7 @@ class Login extends React.Component {
       email: '',
       password: ''
     },
+    loading: false,
     error: ''
   }
 
@@ -21,12 +22,13 @@ class Login extends React.Component {
     event.preventDefault()
 
     try {
+      this.setState({loading: true})
       const res = await loginUser(this.state.formData)
       setToken(res.data.token)
       // toast(res.data.message)
       this.props.history.push('/plants')
     } catch (err) {
-      this.setState({ error: 'Invalid Credentials' })
+      this.setState({ error: 'Invalid Credentials', loading: false })
     }
   }
   sendData = () => {
@@ -38,7 +40,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { formData, error } = this.state
+    const { formData, error, loading } = this.state
     return (
       <section className="section">
         <div className="container">
@@ -71,7 +73,7 @@ class Login extends React.Component {
                 {error && <small className="help is-danger">{error}</small>}
               </div>
               <div className="field">
-                <button type="submit" className="button is-fullwidth is-success is-outlined">Login</button>
+                <button type="submit" className={`button is-fullwidth is-success is-outlined ${loading ? 'is-loading' : ''}`}>Login</button>
               </div>
               <div className="field">
               
