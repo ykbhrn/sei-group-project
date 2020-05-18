@@ -58,7 +58,9 @@ class ProfilePage extends React.Component {
           You have offer from: <br/>
           <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br/>
           On plant: <br/>
-          <Link to={`/plants/${offer.plantId}`}> {offer.plantName}</Link> <br/>
+          <Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br/>
+          <img src={offer.plantImageUrl} alt={offer.plantName} />
+          </Link> 
           Price: <br/>
            {offer.offer} <br/>
            Respond from user: <br/>
@@ -88,7 +90,7 @@ class ProfilePage extends React.Component {
       // * accesing offers
       return plant.offers.map( offer => {
 
-        if(this.state.user.name === offer.user.name) return null
+        if(this.state.user.email === offer.user.email) return null
 
         offerCounter++
         return <div key={offer._id}>

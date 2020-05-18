@@ -8,24 +8,11 @@ async function newOffers(req, res,) {
     const plantId = req.params.id
     const plant = await  Plant.findById(plantId)
     const user = await User.findById(req.currentUser._id)
-    const plantOwner = await User.findById(plant.user._id)
     req.body.user = user
-    // const makeOffer = await Offer.create(req.body)
-    console.log(plantOwner)
     
     if (!plant) throw new Error()
 
     plant.offers.push(req.body)
-
-    // user.submittedOffers.push({ 
-    //   offer: req.body.offer,
-    //   text: req.body.text,
-    //   response: req.body.response,
-    //   userName: plantOwner.name,
-    //   plantName: plant.name,
-    //   plantId: plant._id,
-    //   userId: plantOwner._id
-    // })
 
     // user.submittedOffers.push(plant.offers[plant.offers.length - 1 ].user.name) 
 
@@ -55,15 +42,12 @@ async function respondOffer(req, res) {
     req.body.email = currentUser.email
     req.body.plantId = plant._id
     req.body.plantName = plant.name
-    console.log(user)
-    
-
+    req.body.plantImageUrl = plant.imageUrl
+  
     user.submittedOffers.push(req.body)
     await user.save()
-
-
-    console.log(user)
     res.status(201).json(user)
+
   } catch (err) {
     console.log(err)
     
