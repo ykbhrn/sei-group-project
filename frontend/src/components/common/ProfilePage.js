@@ -99,10 +99,11 @@ class ProfilePage extends React.Component {
     return offerArray.map( plant => {
       // * accesing offers
       return plant.offers.map( offer => {
-       
+
+        if(this.state.user.name === offer.user.name) return null
+
         offerCounter++
         return <div key={offer._id}>
-
         {/* //* Offers on your plants Code  */}
           <div className='title is-4'>
           <p>
