@@ -13,7 +13,7 @@ class IndexPlants extends React.Component {
       console.log(res.data)
       this.setState({ plants: res.data })
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
 
