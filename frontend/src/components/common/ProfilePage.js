@@ -52,23 +52,37 @@ class ProfilePage extends React.Component {
       return plant
     }
   })
-  return offerArray.map( plant => {
-    // * accesing offers
-    return plant.offers.map( offer => {
-     return <div className="title is-4">
     
-     You have a response from: <br/>
-     <p>
-     <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
-     On Plant: <br/>
-     <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
-     User Decision: <br/>
-     <span className="offer-response">{offer.response}</span>
-     </p>
-     <hr />  
-     </div>
+    // const responseArray = offerArray.filter( offerPlant => {
+
+    //       return offerPlant.offers.response === true
+        
+    // })
+
+    return offerArray.map( responsePlant => {
+      return responsePlant.offers.map( response => {
+      return <>
+        {response.response && 
+        <div className="title is-4">
+        You have a response from: <br/>
+        <p>
+        <Link to={`/profile/${response.user._id}`}> {response.user.name}</Link> <br/>
+        On Plant: <br/>
+        <Link to={`/plants/${responsePlant._id}`}> {responsePlant.name}</Link> <br/>
+        User Decision: <br/>
+        <span className="offer-response">{response.response}</span>
+        </p>
+        <hr />  
+        </div>
+      }
+       </>
+        
+       })
+      
     })
- })
+
+   
+ 
 }
 
 
