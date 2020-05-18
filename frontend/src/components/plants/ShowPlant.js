@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom' //* Importing link component from 'react
 import { getSinglePlant, deletePlant, makeOffer } from '../../lib/api'
 import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
+import Likes from '../common/Likes'
 
 
 class ShowPlant extends React.Component {
@@ -41,9 +42,9 @@ class ShowPlant extends React.Component {
   }
 
   handleChange = event => {
-    
+
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
-    this.setState( { offerData } )
+    this.setState({ offerData })
   }
 
   handleSubmit = async event => {
@@ -73,8 +74,12 @@ class ShowPlant extends React.Component {
               <figure className="image">
                 <img src={plant.imageUrl} alt={plant.name} />
               </figure>
+              <Likes 
+              likes = {plant.likes}
+              plantId = {plant._id}
+              />
             </div>
-            <div className="column is-half">
+            <div className="column is-half"> 
               <h4 className="title is-4">Description</h4>
               <p>{plant.description}</p>
               <hr />
@@ -87,36 +92,36 @@ class ShowPlant extends React.Component {
               <p>{plant.lat}</p>
               <p>{plant.lon}</p> */}
               <PlantMapThumbnail
-                _id = {plant._id}
-                lat = {plant.location[0].lat}
-                lon = {plant.location[0].lon}
+                _id={plant._id}
+                lat={plant.location[0].lat}
+                lon={plant.location[0].lon}
               />
               <h4 className="title is-4">Added By</h4>
               {!isOwner(plant.user._id) &&
-              <Link to={`/profile/${plant.user._id}`}>
-                <p>{plant.user.name}</p>
-              </Link>
+                <Link to={`/profile/${plant.user._id}`}>
+                  <p>{plant.user.name}</p>
+                </Link>
               }
               {isOwner(plant.user._id) &&
-               <>
-               <p>YOU</p>
-               <hr/>
-               <Link to={'/profile'}>
-               GO to My Portfolio
+                <>
+                  <p>YOU</p>
+                  <hr />
+                  <Link to={'/profile'}>
+                    GO to My Portfolio
                </Link>
-             </>
+                </>
               }
               <hr />
               {!isOwner(plant.user._id) &&
-              <>
-              <button
-                className="button is-light"
-                onClick={this.clicker}>Make Offer
+                <>
+                  <button
+                    className="button is-light"
+                    onClick={this.clicker}>Make Offer
               </button>
-              <hr />
-              </>
-              }         
-              
+                  <hr />
+                </>
+              }
+
               {isOffer &&
                 <>
                   <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
@@ -130,7 +135,7 @@ class ShowPlant extends React.Component {
                           value={offerData.offer || ''}
                         />
                       </div>
-      
+
                     </div>
                     <div className="field">
                       <label className="label">Message for User: </label>
@@ -147,18 +152,17 @@ class ShowPlant extends React.Component {
                       <button type="submit" className="button is-fullwidth is-warning">Submit Offer</button>
                     </div>
                   </form>
-                    <hr />
-              </>
+                  <hr />
+                </>
               }
-            
-              { isOwner(plant.user._id) && 
-              <>
+              {isOwner(plant.user._id) &&
+                <>
                   <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
                   <hr />
-                  
-              
+
+
                   <button onClick={this.handleDelete} className="button is-danger">Delete</button>
-                  </>
+                </>
               }
             </div>
           </div>

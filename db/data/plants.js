@@ -8,7 +8,8 @@ module.exports = [
     location: [{ 
       lat: 51.508530,
       lon: -0.076132
-    }] 
+    }],
+    likes: []  
   },
   {
     name: 'Begonia Angel Wings',
@@ -19,7 +20,8 @@ module.exports = [
     location: [{ 
       lat: 51.510357,
       lon: -0.116773
-    }]
+    }],
+    likes: []  
   },
   {
     name: 'Devil\'s Ivy',
@@ -30,7 +32,8 @@ module.exports = [
     location: [{ 
       lat: 51.511742,
       lon: -0.205678 
-    }] 
+    }],
+    likes: []   
   },
   {
     name: 'Peace Lily',
@@ -41,7 +44,8 @@ module.exports = [
     location: [{ 
       lat: 51.455346,
       lon: -0.119982 
-    }] 
+    }],
+    likes: []  
   },
   {
     name: 'Calathea Medallion',
@@ -52,7 +56,8 @@ module.exports = [
     location: [{ 
       lat: 51.508676,
       lon: -0.062526 
-    }] 
+    }],
+    likes: []   
   },
   {
     name: 'Alocasia cucullata',
@@ -63,7 +68,8 @@ module.exports = [
     location: [{ 
       lat: 51.545994,
       lon: -0.067284 
-    }] 
+    }],
+    likes: []  
   },
   {
     name: 'Cheese Plant',
@@ -74,7 +80,8 @@ module.exports = [
     location: [{ 
       lat: 51.513870,
       lon: -0.098362 
-    }] 
+    }],
+    likes: []   
   },
   {
     name: 'Chinese Money Plant',
@@ -85,7 +92,8 @@ module.exports = [
     location: [{ 
       lat: 51.568711,
       lon: -0.015595 
-    }] 
+    }],
+    likes: []   
   },
   {
     name: 'Asparagus Fern',
@@ -96,6 +104,7 @@ module.exports = [
     location: [{ 
       lat: 51.470791,
       lon: -0.069123 
-    }] 
+    }],
+    likes: [] 
   }
 ]

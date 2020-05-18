@@ -6,17 +6,30 @@ import { getSinglePlant, editPlant } from '../../lib/api'
 import FormPlant from './FormPlant' //* Importing the FormPlant component
 
 class EditPlant extends React.Component {
-  state = {
-    formData: { //* our formData in state, matches the object we need to send in the request
-      name: '',
-      imageUrl: '',
-      scientificName: '',
-      description: '',
-      height: '',
-    },
-    options: [],
-    errors: {} // * an object to store any errors that could occur when making the request.
+  constructor(props) {
+    super(props)
+    this.state = {
+      formData: { //* our formData in state, matches the object we need to send in the request
+        name: '',
+        imageUrl: '',
+        description: '',
+        height: '',
+        location: []
+      },
+      options: [],
+      errors: {}, // * an object to store any errors that could occur when making the request.
+      place: null
+    }
+    this.handleSelect = this.handleSelect.bind(this)
   }
+  handleSelect(lat, lon) {
+    const formData = { 
+      ...this.state.formData, location: [{lat: lat, lon: lon}]
+    }
+    this.setState({ formData })
+    console.log('parent', this.state.formData.location)
+  }
+
 
   async componentDidMount() { 
 
@@ -69,6 +82,7 @@ class EditPlant extends React.Component {
             handleChange={this.handleChange}
             handleSelectChange={this.handleSelectChange}
             handleSubmit={this.handleSubmit}
+            onSelect={this.handleSelect}
             buttonText="Edit my Plant"
           />
         </div>
