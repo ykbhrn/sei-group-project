@@ -36,10 +36,10 @@ class ProfilePage extends React.Component {
     this.setState( { offerData } )
   }
 
-  handleSubmit = async (event, id) => {
+  handleSubmit = async (event, id, plantId) => {
     event.preventDefault()
     try {
-      const res = await respondOffer(id, this.state.offerData)
+      const res = await respondOffer(id, plantId, this.state.offerData)
       this.setState({ offerData: res.data })
     } catch (err) {
       console.log(err)
@@ -157,7 +157,7 @@ class ProfilePage extends React.Component {
                       <button type="submit" className="button is-fullwidth is-warning"
                     
                       onClick={(event) => {
-                        this.handleSubmit(event, offer.user._id)}}
+                        this.handleSubmit(event, offer.user._id, plant._id)}}
                       >Submit Offer</button>
                     
                     </div>

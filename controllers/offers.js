@@ -44,6 +44,8 @@ async function respondOffer(req, res) {
   try {
     req.body.user = req.currentUser
     const userId = req.params.id
+    const plantId = req.params.plantid
+    const plant = await Plant.findById(plantId)
     const user =  await  User.findById(userId)
     const currentUser = await User.findById(req.currentUser._id)
 
@@ -51,6 +53,8 @@ async function respondOffer(req, res) {
     req.body.userName = currentUser.name
     req.body.userId = currentUser._id
     req.body.email = currentUser.email
+    req.body.plantId = plant._id
+    req.body.plantName = plant.name
     console.log(user)
     
 

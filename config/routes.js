@@ -38,7 +38,7 @@ router.route('/maps')
 router.route('/offer/:id')
   .post(secureRoute, offer.newOffers)
 
-router.route('/response/:id')
+router.route('/response/:id/:plantid')
   .post(secureRoute, offer.respondOffer)
 
 module.exports = router
