@@ -1,14 +1,29 @@
 @import '~bulma/bulma.sass';
 
-.responses-container{
+.offers-container{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw
+  justify-content: space-around;
+  width: 100vw;
+  margin-top: 60px;
+  
 }
 
 .offers {
-  width: 400px;
+  width: 500px;
   border: 2px solid grey;
   padding: 30px;
+}
+
+.offers p, .responses p {
+  line-height: 1.5;
+}
+
+.responses {
+  width: 500px;
+  border: 2px solid grey;
+  padding: 30px;
+}
+
+.offer-response{
+  color: $danger;
 }

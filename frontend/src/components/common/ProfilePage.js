@@ -55,7 +55,18 @@ class ProfilePage extends React.Component {
   return offerArray.map( plant => {
     // * accesing offers
     return plant.offers.map( offer => {
-     return <h1>{offer.response}</h1>
+     return <div className="title is-4">
+    
+     You have a response from: <br/>
+     <p>
+     <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
+     On Plant: <br/>
+     <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
+     User Decision: <br/>
+     <span className="offer-response">{offer.response}</span>
+     </p>
+     <hr />  
+     </div>
     })
  })
 }
@@ -79,12 +90,16 @@ class ProfilePage extends React.Component {
         return <div key={offer._id}>
 
         {/* //* Offers on your plants Code  */}
-          <div className='title is-3'>
+          <div className='title is-4'>
+          <p>
           Nr.{offerCounter}: <br/>
-          You've got offer on: {plant.name} <br/>
-          Offer: {offer.offer} <br/>
-          From: 
-      <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link>
+          You have offer from: <br/>
+          <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
+          On plant: <br/>
+          <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
+          Price: <br/>
+           {offer.offer} <br/>
+      </p>
           </div>
           <button
                 className="button is-light"
@@ -172,17 +187,19 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <div>
-          <h1 className="title is-1">Your Offers: </h1>
-          <br/>
           <div className='offers-container'>
 
           {/* Received offers jsx code in that function */}
           <div className='offers'>
+          <h1 className="title is-3 is-sucess">Your Offers: </h1>
+          <br/>
           {this.componentDidCatch()}
           </div>
 
-          <div className='offers'>
           {/* Responses for your offers */}
+          <div className='responses'>
+          <h1 className="title is-3 is-sucess">Responses from the Users: </h1>
+          <br/>
           {this.handleResponse()}
           </div>
         </div>
