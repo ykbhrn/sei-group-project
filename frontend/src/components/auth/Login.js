@@ -1,6 +1,7 @@
 import React from 'react'
 import { loginUser } from '../../lib/api'
 import { setToken } from '../../lib/auth'
+import { Redirect } from 'react-router-dom'
 // import { toast } from '../../lib/notifications'
 
 class Login extends React.Component {
@@ -9,6 +10,8 @@ class Login extends React.Component {
       email: '',
       password: ''
     },
+    redirect: false,
+    loading: false,
     error: ''
   }
 
@@ -21,12 +24,15 @@ class Login extends React.Component {
     event.preventDefault()
 
     try {
+      this.setState({loading: true})
       const res = await loginUser(this.state.formData)
       setToken(res.data.token)
       // toast(res.data.message)
-      this.props.history.push('/plants')
+      
+      this.setState({ redirect: true })
+      
     } catch (err) {
-      this.setState({ error: 'Invalid Credentials' })
+      this.setState({ error: 'Invalid Credentials', loading: false })
     }
   }
   sendData = () => {
@@ -37,10 +43,19 @@ class Login extends React.Component {
     this.props.sendData(true)
   }
 
+  renderRedirect = () => {
+    
+    if(this.state.redirect){
+      
+      return <Redirect to="/plants" />
+    }
+  }
+
   render() {
-    const { formData, error } = this.state
+    const { formData, error, loading } = this.state
     return (
       <section className="section">
+        {this.renderRedirect()}
         <div className="container">
           <div className="columns">
             <form onSubmit={this.handleSubmit} className="column">
@@ -71,7 +86,7 @@ class Login extends React.Component {
                 {error && <small className="help is-danger">{error}</small>}
               </div>
               <div className="field">
-                <button type="submit" className="button is-fullwidth is-success is-outlined">Login</button>
+                <button type="submit" className={`button is-fullwidth is-success is-outlined ${loading ? 'is-loading' : ''}`}>Login</button>
               </div>
               <div className="field">
               
