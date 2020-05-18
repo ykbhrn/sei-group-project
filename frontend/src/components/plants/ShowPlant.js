@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom' //* Importing link component from 'react-router-dom' so we can make an edit button to Link to the EditPLant page.
-import { getSinglePlant, deletePlant, makeOffer, getPortfolio } from '../../lib/api'
+import { getSinglePlant, deletePlant, makeOffer } from '../../lib/api'
 import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
 
@@ -9,7 +9,6 @@ import PlantMapThumbnail from '../common/PlantMapThumbnail'
 class ShowPlant extends React.Component {
   state = {
     plant: null,
-    user: null,
     offerData: {
       offer: '',
       text: ''
@@ -21,8 +20,7 @@ class ShowPlant extends React.Component {
     try {
       const plantId = this.props.match.params.id
       const res = await getSinglePlant(plantId)
-      const resTwo = await getPortfolio()
-      this.setState({ plant: res.data, user: resTwo.data })
+      this.setState({ plant: res.data })
     } catch (err) {
       this.props.history.push('/notfound')
     }
@@ -63,7 +61,7 @@ class ShowPlant extends React.Component {
   render() {
     if (!this.state.plant) return null // * if there is no plant object, return null
     const { plant, isOffer, offerData } = this.state // * deconstruct the plant from state
-    console.log(this.state.user)
+    console.log(this.state.plant.user)
 
     return (
       <section className="section">
