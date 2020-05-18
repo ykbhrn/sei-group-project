@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="295px" height="468px" viewBox="0 0 295 468" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>plntify_stamp</title>
+    <g id="plntify_stamp" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M73,194.929129 C73,139.414002 96.1380213,95.6643935 141.890694,51.190537 C146.322463,46.9364877 154.343508,46.9364877 157.10931,51.190537 C202.861983,95.6643935 226,139.414002 226,194.929129 C226,249.085306 203.98091,298.217371 160.428574,341.877457 L160.428574,403 L138.57143,403 L138.57143,341.877457 C95.019094,298.217371 73,249.085306 73,194.929129 Z" id="Path" stroke="#3FC008" stroke-width="13.9400001" fill="#3FC008" fill-rule="nonzero"></path>
+        <path d="M139,308 L139,87 C109.563131,122.080542 95,154.47703 95,195.800917 C95,237.124805 109.563131,272.919458 139,308 Z" id="Path" stroke="#3FC008" stroke-width="13.9400001" fill="#FFFFFF" fill-rule="nonzero"></path>
+        <path d="M204,308 L204,87 C174.563131,122.080542 160,154.47703 160,195.800917 C160,237.124805 174.563131,272.919458 204,308 Z" id="Path" stroke="#3FC008" stroke-width="13.9400001" fill="#FFFFFF" fill-rule="nonzero" transform="translate(182.000000, 197.500000) scale(-1, 1) translate(-182.000000, -197.500000) "></path>
+        <line x1="153.5" y1="188.5" x2="199" y2="146.5" id="Line" stroke="#3FC008" stroke-width="27.8800001" stroke-linecap="square"></line>
+        <line x1="153.5" y1="252.5" x2="209.5" y2="196.5" id="Line-Copy" stroke="#3FC008" stroke-width="27.8800001" stroke-linecap="square"></line>
+    </g>
+</svg>
