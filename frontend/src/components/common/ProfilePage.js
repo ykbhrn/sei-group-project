@@ -11,7 +11,11 @@ class ProfilePage extends React.Component {
     offerData: {
       offer: '',
       response: '',
-      text: ''
+      text: '',
+      userName: '',
+      plantName: '',
+      plantId: '',
+      userId: ''
     },
     id: '',
     isResponse: false
@@ -59,6 +63,8 @@ class ProfilePage extends React.Component {
            {offer.offer} <br/>
            Respond from user: <br/>
            {offer.response}
+           Text me on my email for more details: 
+           {offer.email}
 
       </p>
       <hr/>
@@ -94,6 +100,8 @@ class ProfilePage extends React.Component {
           <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
           On plant: <br/>
           <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
+          User message: <br/>
+          {offer.text}
           Price: <br/>
            {offer.offer} <br/>
       </p>
@@ -144,7 +152,7 @@ class ProfilePage extends React.Component {
                         />
                       </div>
                     </div>
-
+      
                     <div className="field">
                       <button type="submit" className="button is-fullwidth is-warning"
                     

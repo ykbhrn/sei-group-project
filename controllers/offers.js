@@ -45,8 +45,14 @@ async function respondOffer(req, res) {
     req.body.user = req.currentUser
     const userId = req.params.id
     const user =  await  User.findById(userId)
+    const currentUser = await User.findById(req.currentUser._id)
 
     // req.body.user = user
+    req.body.userName = currentUser.name
+    req.body.userId = currentUser._id
+    req.body.email = currentUser.email
+    console.log(user)
+    
 
     user.submittedOffers.push(req.body)
     await user.save()
