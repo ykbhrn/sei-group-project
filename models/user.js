@@ -26,6 +26,7 @@ userSchema.virtual('createdPlants', {
   foreignField: 'user'
 })
 
+
 // userSchema.virtual('submittedOffers', {
 //   ref: 'Offer',
 //   localField: '_id',
