@@ -6,6 +6,7 @@ const publicUser = require('../controllers/publicProfiles')
 const secureRoute = require('../lib/secureRoute')
 const apiProxies = require('../controllers/apiProxies')
 const offer = require('../controllers/offers')
+const like = require('../controllers/likes')
 
 
 router.route('/plants')
@@ -37,5 +38,10 @@ router.route('/maps')
   
 router.route('/offer/:id')
   .post(secureRoute, offer.newOffers)
+
+router.route('/response/:id/:plantid')
+  .post(secureRoute, offer.respondOffer)
+router.route('/likes')
+  .post(secureRoute, like.like)
 
 module.exports = router

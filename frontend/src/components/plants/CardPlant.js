@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Likes from '../common/Likes'
 
-const CardPlant = ({ name, imageUrl, _id }) => (
+const CardPlant = ({ name, imageUrl, _id, likes }) => (
   <div className="column column is-one-quarter-desktop is-one-third-tablet is-8-mobile is-offset-2-mobile">
     {/* { To produce a correct address to navigate to the correct plants show page, we concatenate the id prop passed down to plant into the Link components "to" prop } */}
     <Link to={`/plants/${_id}`}>
@@ -16,7 +17,11 @@ const CardPlant = ({ name, imageUrl, _id }) => (
         </div>
       </div>
     </Link>
-  </div> 
+    <Likes
+      likes={likes}
+      plantId={_id}
+    />
+  </div>
 )
 
 export default CardPlant

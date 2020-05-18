@@ -1,5 +1,12 @@
 const mongoose = require('mongoose')
 
+// const likeSchema = new mongoose.Schema({
+//   likes: { type: String, required: true },
+//   user: { type: Object, required: false }
+// }, {
+//   timestamps: true
+// })
+
 
 const offerSchema = new mongoose.Schema({
   offer: { type: String, required: true },
@@ -16,9 +23,10 @@ const plantSchema = new mongoose.Schema({
   imageUrl: { type: String, required: true },
   description: { type: String, required: true, maxlength: 1000 },
   height: { type: String, required: true },
-  location: [ { lat: Number, lon: Number }, { required: true } ],
+  location: [ { lat: Number, lon: Number }, { required: false } ],
+  likes: [{ userId: String, username: String }, {  required: false  }], 
   offers: [ offerSchema ],
-  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true } 
+  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
 }, {
   timestamps: true
 })
