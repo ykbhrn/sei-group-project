@@ -5,7 +5,7 @@ export const handlePlantFormErrors = (error) => {
   let scientificName = ''
   let description = ''
   let location = ''
-
+  console.log('errs: ', error)
   if(error.name){
     name = 'Plant Name is Required'
   }

@@ -18,7 +18,7 @@ mongoose.connect(
       console.log(`${users.length} admin users created 👩‍💻`)
 
       const plantsWithUsers = plantsData.map(plant => {
-        return { ...plant, user: users[0]._id }
+        return { ...plant, user: users[1]._id }
       })
     
       const plants = await Plant.create(plantsWithUsers)

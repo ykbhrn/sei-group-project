@@ -49,7 +49,8 @@ class NewPlant extends React.Component {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
     } catch(err) {
-      this.setState(handlePlantFormErrors(err.response.data.errors))
+      const errors = handlePlantFormErrors(err.response.data.errors)
+      this.setState(errors)
       console.log('submission err', err.response.data.errors)
     }
   }
@@ -65,34 +66,6 @@ class NewPlant extends React.Component {
     this.setState({ formData })
   }
 
-  // handlePlantFormErrors = (error) => {
-  //   let name = ''
-  //   let height = ''
-  //   let imageUrl = ''
-  //   let scientificName = ''
-  //   let description = ''
-  //   let location = ''
-  //   console.log(this.state.formData.location.length)
-  //   if(error.name){
-  //     name = 'Plant Name is Required'
-  //   }
-  //   if(error.height){
-  //     height = 'Plant Height is Required'
-  //   }
-  //   if(error.scientificName){
-  //     scientificName = 'Scientific Name is Required'
-  //   }
-  //   if(error.imageUrl){
-  //     imageUrl = 'An Image is Required'
-  //   }
-  //   if(error.description){
-  //     description = 'A Description is Required'
-  //   }
-  //   if(this.state.formData.location.length === 0 ){
-  //     location = 'The pick up location of the plant is Required'
-  //   }
-  //   this.setState({errors: { name, height, imageUrl, scientificName, description, location }})
-  // }
 
   render() {
     return (
