@@ -3,8 +3,6 @@ import React from 'react'
 import { Link } from 'react-router-dom' //* Importing link component from 'react-router-dom' so we can make an edit button to Link to the EditPLant page.
 import { getSinglePlant, deletePlant, makeOffer } from '../../lib/api'
 import { isOwner } from '../../lib/auth'
-import PlantMapThumbnail from '../common/PlantMapThumbnail'
-
 
 class ShowPlant extends React.Component {
   state = {
@@ -59,8 +57,8 @@ class ShowPlant extends React.Component {
 
 
   render() {
-    if (!this.state.plant) return null // * if there is no plant object, return null
-    const { plant, isOffer, offerData } = this.state // * deconstruct the plant from state
+    if (!this.state.plant) return null // * if there is no cheese object, return null
+    const { plant, isOffer, offerData } = this.state // * deconstruct the cheese from state
     console.log(this.state.plant.user)
 
     return (
@@ -82,15 +80,10 @@ class ShowPlant extends React.Component {
               <hr />
               <p>{plant.height}</p>
               <hr />
-              {/* <h4 className="title is-4">Location</h4>
+              <h4 className="title is-4">Location</h4>
               <hr />
               <p>{plant.lat}</p>
-              <p>{plant.lon}</p> */}
-              <PlantMapThumbnail
-                _id = {plant._id}
-                lat = {plant.location[0].lat}
-                lon = {plant.location[0].lon}
-              />
+              <p>{plant.lon}</p>
               <h4 className="title is-4">Added By</h4>
               {!isOwner(plant.user._id) &&
               <Link to={`/profile/${plant.user._id}`}>
@@ -127,7 +120,7 @@ class ShowPlant extends React.Component {
                           placeholder="Offer"
                           name="offer"
                           onChange={this.handleChange}
-                          value={offerData.offer || ''}
+                          value={offerData.offer}
                         />
                       </div>
       
@@ -139,7 +132,7 @@ class ShowPlant extends React.Component {
                           placeholder="Message"
                           name="text"
                           onChange={this.handleChange}
-                          value={offerData.text || ''}
+                          value={offerData.text}
                         />
                       </div>
                     </div>

@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt')
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  submittedOffer: [{ type: mongoose.Schema.ObjectId, ref: 'Offer', required: true }]
 })
 
 userSchema.virtual('createdPlants', {
@@ -12,6 +13,12 @@ userSchema.virtual('createdPlants', {
   localField: '_id',
   foreignField: 'user'
 })
+
+// userSchema.virtual('submittedOffers', {
+//   ref: 'Offer',
+//   localField: '_id',
+//   foreignField: 'user'
+// })
 
 
 userSchema

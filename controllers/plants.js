@@ -38,6 +38,7 @@ async function plantUpdate(req, res) {
   try {
     const plant = await Plant.findByIdAndUpdate(plantId)
     if (!plant) throw new Error('Not Found')
+    if (!plant.user.equals(req.currentUser._id)) throw new Error('Not Found')
     Object.assign(plant, req.body)
     await plant.save()
     res.status(202).json(plant)
@@ -51,9 +52,8 @@ async function plantDelete(req, res) {
   const plantId = req.params.id
   try {
     const plantToDelete = await Plant.findById(plantId)
-    // if (!plantToDelete) throw new Error('notFound')
-    // if (!plantToDelete.user.equals(req.currentUser._id))
-    //   throw new Error()
+    if (!plantToDelete) throw new Error('notFound')
+    if (!plantToDelete.user.equals(req.currentUser._id)) throw new Error('Not found')
     await plantToDelete.remove()
     res.sendStatus(204)
   } catch (err) {

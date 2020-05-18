@@ -1,6 +1,7 @@
 import React from 'react'
 import { loginUser } from '../../lib/api'
 import { setToken } from '../../lib/auth'
+import { Redirect } from 'react-router-dom'
 // import { toast } from '../../lib/notifications'
 
 class Login extends React.Component {
@@ -9,6 +10,8 @@ class Login extends React.Component {
       email: '',
       password: ''
     },
+    redirect: false,
+    loading: false,
     error: ''
   }
 
@@ -21,24 +24,43 @@ class Login extends React.Component {
     event.preventDefault()
 
     try {
+      this.setState({loading: true})
       const res = await loginUser(this.state.formData)
       setToken(res.data.token)
       // toast(res.data.message)
-      this.props.history.push('/plants')
+      
+      this.setState({ redirect: true })
+      
     } catch (err) {
-      this.setState({ error: 'Invalid Credentials' })
+      this.setState({ error: 'Invalid Credentials', loading: false })
+    }
+  }
+  sendData = () => {
+    this.props.switchForm(true)
+  }
+
+  handleClick = () => {
+    this.props.sendData(true)
+  }
+
+  renderRedirect = () => {
+    
+    if(this.state.redirect){
+      
+      return <Redirect to="/plants" />
     }
   }
 
   render() {
-    const { formData, error } = this.state
+    const { formData, error, loading } = this.state
     return (
       <section className="section">
+        {this.renderRedirect()}
         <div className="container">
           <div className="columns">
-            <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+            <form onSubmit={this.handleSubmit} className="column">
               <div className="field">
-                <label className="label">Email</label>
+                {/* <label className="label">Email</label> */}
                 <div className="control">
                   <input
                     className={`input ${error ? 'is-danger' : '' }`}
@@ -50,7 +72,7 @@ class Login extends React.Component {
                 </div>
               </div>
               <div className="field">
-                <label className="label">Password</label>
+                {/* <label className="label">Password</label> */}
                 <div className="control">
                   <input
                     type="password"
@@ -64,8 +86,13 @@ class Login extends React.Component {
                 {error && <small className="help is-danger">{error}</small>}
               </div>
               <div className="field">
-                <button type="submit" className="button is-fullwidth is-warning">Login</button>
+                <button type="submit" className={`button is-fullwidth is-success is-outlined ${loading ? 'is-loading' : ''}`}>Login</button>
               </div>
+              <div className="field">
+              
+              <button onClick={this.sendData}type="button" className="button is-fullwidth is-info is-outlined">No Account? Sign Up Here</button>
+            
+            </div>
             </form>
           </div>
         </div>

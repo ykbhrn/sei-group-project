@@ -1,43 +1,169 @@
 import React from 'react'
-import { getPortfolio } from '../../lib/api'
+import { getPortfolio, makeOffer } from '../../lib/api'
 import ProfileCard from '../common/ProfileCard'
+import { Link } from 'react-router-dom'
 
 
 class ProfilePage extends React.Component {
 
   state = {
-    user: null
+    user: null,
+    offerData: {
+      offer: '',
+      response: '',
+      text: ''
+    },
+    id: '',
+    isResponse: false
   }
-
+// THis function just get all the user portfolio
   async componentDidMount() {
     try {
       const res = await getPortfolio()
-    
       this.setState({ user: res.data })
     } catch (err) {
       console.log(err);
     }
   }
 
+  handleChange = event => {
+    const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
+    this.setState( { offerData } )
+  }
+
+  handleSubmit = async (event, id) => {
+    event.preventDefault()
+    try {
+      const res = await makeOffer(id, this.state.offerData)
+      this.setState({ offerData: res.data })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+//  This function toggle Respond on Offer button
+  clicker = () => {
+    this.setState({ isResponse: this.state.isResponse === false ? true : false })
+  }
+// Responses on your offers function
+ handleResponse = () => {
+  const offerArray = this.state.user.createdPlants.filter( plant => {
+    if (plant.offers.length > 0) {
+      return plant
+    }
+  })
+  return offerArray.map( plant => {
+    // * accesing offers
+    return plant.offers.map( offer => {
+     return <div className="title is-4">
+    
+     You have a response from: <br/>
+     <p>
+     <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
+     On Plant: <br/>
+     <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
+     User Decision: <br/>
+     <span className="offer-response">{offer.response}</span>
+     </p>
+     <hr />  
+     </div>
+    })
+ })
+}
+
+
+  //  This function will show user received offers
    componentDidCatch =  () => {
+      // array of  plants which contains offers
     const offerArray = this.state.user.createdPlants.filter( plant => {
       if (plant.offers.length > 0) {
         return plant
       }
     })
     let offerCounter = 0
-
+    //  maping all the plants with offers
     return offerArray.map( plant => {
-      console.log(plant);
-      
+      // * accesing offers
       return plant.offers.map( offer => {
-
+       
         offerCounter++
-        return <div key={offer._id} className='title is-3'>
+        return <div key={offer._id}>
+
+        {/* //* Offers on your plants Code  */}
+          <div className='title is-4'>
+          <p>
           Nr.{offerCounter}: <br/>
-          You've got offer on: {plant.name} <br/>
-          Offer: {offer.offer} <br/>
-          Message from user: {offer.text} <br/>
+          You have offer from: <br/>
+          <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
+          On plant: <br/>
+          <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
+          Price: <br/>
+           {offer.offer} <br/>
+      </p>
+          </div>
+          <button
+                className="button is-light"
+                onClick={this.clicker}>Respond on offer
+              </button>
+              <hr />  
+              {this.state.isResponse &&
+                <>
+                  <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+
+                  <div className="field">
+                      <label className="label">Price: </label>
+                      <div className="control">
+                        <textarea
+                          placeholder="Message"
+                          name="offer"
+                          onChange={this.handleChange}
+                          value={this.state.offerData.offer || ''}
+                        />
+                      </div>
+                    </div>
+
+                    Message from user: {offer.text} <br/>
+
+                    <div className="field">
+                      <label className="label">Respond to User: </label>
+                      <div className="control">
+                        <textarea
+                          placeholder="Message"
+                          name="text"
+                          onChange={this.handleChange}
+                          value={this.state.offerData.text || ''}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <label className="label">Do You Accept the Offer: </label>
+                      <div className="control">
+                        <input
+                          placeholder="Your Respond"
+                          name="response"
+                          onChange={this.handleChange}
+                          value={this.state.offerData.response || ''}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <button type="submit" className="button is-fullwidth is-warning"
+                    
+                      onClick={(event) => {
+                        this.handleSubmit(event, plant._id)}}
+                      >Submit Offer</button>
+                    
+                    </div>
+                    <div className="field">
+                      <button className="button is-fullwidth is-danger"
+                      onClick={this.clicker}
+                      >Cancel</button>
+                    </div>
+                  </form>
+                    <hr />
+              </>
+              }
           </div>
       })
     })
@@ -45,7 +171,7 @@ class ProfilePage extends React.Component {
 
   render() {
     if (!this.state.user) return null
-   
+   console.log(this.state.offerData);
 
     return (
       <section className="section">
@@ -60,10 +186,24 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <div>
-          <h1 className="title is-1">Your Offers: </h1>
+          <div className='offers-container'>
+
+          {/* Received offers jsx code in that function */}
+          <div className='offers'>
+          <h1 className="title is-3 is-sucess">Your Offers: </h1>
           <br/>
           {this.componentDidCatch()}
+          </div>
+
+          {/* Responses for your offers */}
+          <div className='responses'>
+          <h1 className="title is-3 is-sucess">Responses from the Users: </h1>
+          <br/>
+          {this.handleResponse()}
+          </div>
         </div>
+        </div>
+    
       </section>
     )
   }

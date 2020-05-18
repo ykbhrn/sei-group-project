@@ -1,20 +1,33 @@
 import React from 'react'
 import FormPlant from './FormPlant'
 import { newPlant } from '../../lib/api'
+// import AutocompletePlace from './AutocompletePlace'
 
 class NewPlant extends React.Component {
-
-  state = {
-    formData: { //* our formData in state, matches the object we need to send in the request
-      name: '',
-      imageUrl: '',
-      description: '',
-      height: '',
-      location: ''
-    },
-    options: [],
-    errors: {} // * an object to store any errors that could occur when making the request.
+  constructor(props) {
+    super(props)
+    this.state = {
+      formData: { //* our formData in state, matches the object we need to send in the request
+        name: '',
+        imageUrl: '',
+        description: '',
+        height: '',
+        location: []
+      },
+      options: [],
+      errors: {}, // * an object to store any errors that could occur when making the request.
+      place: null
+    }
+    this.handleSelect = this.handleSelect.bind(this)
   }
+  handleSelect(lat, lon) {
+    const formData = { 
+      ...this.state.formData, location: [{lat: lat, lon: lon}]
+    }
+    this.setState({ formData })
+    console.log('parent', this.state.formData.location)
+  }
+
 
   handleChange = event => {
     console.log(event)
@@ -42,13 +55,17 @@ class NewPlant extends React.Component {
     return (
       <section className="section">
         <div className="container">
+        {/* <AutocompletePlace onSelect={this.handleSelect} />
+        {!this.state.place && <div>No place selected</div>}
+        {this.state.place && <div>Info about the place: <pre>{JSON.stringify(this.state.place,null,2)}</pre></div>} */}
           <FormPlant
             formData={this.state.formData}
             errors={this.state.errors}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
+            onSelect={this.handleSelect}
             handleSelectChange={this.handleSelectChange}
-            buttonText="Create My Plant"
+            buttonText="Add My Plant"
           />
         </div>
       </section>
