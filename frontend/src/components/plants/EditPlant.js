@@ -69,7 +69,10 @@ class EditPlant extends React.Component {
     }
   }
 
-
+  setImgUrl = (childData) => {
+    const formData = { ...this.state.formData, imageUrl: childData }
+    this.setState({ formData })
+  }
 
   render() {
     console.log("render", this.state.formData)
@@ -83,6 +86,7 @@ class EditPlant extends React.Component {
             handleSelectChange={this.handleSelectChange}
             handleSubmit={this.handleSubmit}
             onSelect={this.handleSelect}
+            imageUrl={this.setImgUrl}
             buttonText="Edit my Plant"
           />
         </div>

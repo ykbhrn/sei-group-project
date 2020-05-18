@@ -1,10 +1,12 @@
-
 import React from 'react'
-import MapGl, { Marker, NavigationControl, Popup } from 'react-map-gl' // The map component
-import 'mapbox-gl/dist/mapbox-gl.css' // any CSS styling needed to make the map work
+import { Link } from 'react-router-dom'
+import MapGl, { Marker, NavigationControl, Popup } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 import { getAllPlants } from '../../lib/api'
 
 const token = 'pk.eyJ1IjoiYWlub2t5dG8iLCJhIjoiY2thYmdqODRmMTY0aDJ5cDRvOWk1cTd6MyJ9.QIlx0yP5sKCZRAVrfrq3OA'
+
+//?AK Styles for navigation controllers
 
 const navStyle = {
   position: 'absolute',
@@ -15,7 +17,7 @@ const navStyle = {
 
 class Maps extends React.Component {
   state = {
-    viewport: {
+    viewport: { //?AK Initial positioning for the map - these change with every user interaction 
       longitude: -0.098362,
       latitude: 51.513870,
       zoom: 11,
@@ -24,55 +26,39 @@ class Maps extends React.Component {
     },
     plants: null,
     selectedPlant: null,
-    isShown: false
-    //? plantId: null
+    showPlantId: null
   }
+
+  //?AK GET request to get plants from database
 
   async componentDidMount() {
     try {
       const res = await getAllPlants()
       const plants = res.data
       this.setState({ plants })
-      //? this.getPlantId()
-
     } catch (err) {
       console.log(err)
     }
   }
 
-
-  //? getPlantId = async () => {
-  //?   const plantId = await this.state.plants.map(plant => {
-  //?     return plant.location[0]._id
-  //?   })
-  //?   this.setState({ plantId })
-  //? }
-
-  handleClick = () => {
-    console.log(this.state.selectedPlant._id)
-    this.props.history.push(`plants/${this.state.selectedPlant._id}`)
-    
+  handleMouseEnter = (e) => {
+    e.target.style.color = '#3FC008'
   }
 
-
-  handleMouseEnter = () => {
-    console.log('entering')
-    this.setState({ isShown: !this.state.isShown })
-    console.log(this.state.isShown)
+  handleMouseLeave = (e) => {
+    e.target.style.color = 'black' 
   }
 
-  handleMouseLeave = () => {
-    console.log('leaving')
-    this.setState({ isShown: !this.state.isShown })
-    console.log(this.state.isShown)
-  }
+  //?AK in render:
+  //?AK using the spread operator to get viewport data from state
+  //?AK sending new viewport data to state to update UI after each user interaction
+  //?AK Mapping over plants array to return a marker for each plant
+  //?AK onClick function to send target plant's data to state
 
   render() {
     if (!this.state.plants) return null
-
-    const { viewport, plants, isShown, selectedPlant } = this.state
-
-    console.log(this.state.selectedPlant)
+    const { viewport, plants, selectedPlant, showPlantId } = this.state
+    console.log(this.state.showPlantId)
 
     return (
       <div className="main">
@@ -90,48 +76,65 @@ class Maps extends React.Component {
           {plants.map(plant => {
             return <div className="marker"
               key={plant._id}
-              // onMouseEnter={this.handleMouseEnter}
-              // onMouseLeave={this.handleMouseLeave}
+              onMouseEnter={() => {
+                this.setState({ showPlantId: plant })
+              }}
+              onMouseLeave={() => {
+                this.setState({ showPlantId: null })
+              }}
               onClick={(event) => {
                 event.preventDefault()
-                this.setState({ selectedPlant: plant })
+                this.setState({ selectedPlant: plant, showPlantId: null })
               }}
             >
               <Marker
                 latitude={plant.location[0].lat}
                 longitude={plant.location[0].lon}
+                
               >
-                <span role="img" aria-label="marker">🌱</span>
+                <img width={25} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
               </Marker>
             </div>
           })
           }
           <div>
-            {/* {isShown && (
-              <Popup
-                latitude={selectedPlant.location[0].lat}
-                longitude={selectedPlant.location[0].lon}
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-              >
-                <div>
-                  <h2>{selectedPlant.name}</h2>
-                  <p>{selectedPlant.user}</p>
-                </div>
-              </Popup>
-            )} */}
+          {showPlantId && (
+                <Popup
+                  latitude={showPlantId.location[0].lat}
+                  longitude={showPlantId.location[0].lon}
+                  
+                >
+                  <div className="has-text-centered">
+              <h2>{showPlantId.name}</h2>
+              <p>Click plant!
+              </p>
+                  </div>
+                </Popup>
+              )}
+          </div>
+          <div>
             {selectedPlant && (
               <Popup
                 latitude={selectedPlant.location[0].lat}
                 longitude={selectedPlant.location[0].lon}
-                // onClose={() => {
-                //   this.setState({ selectedPlant: null })
-                // }}
+                offsetTop={10}
+                offsetLeft={-12}
+                closeOnClick={false}
+                onClose={() => {
+                  this.setState({ selectedPlant: null })
+                }}
               >
-                <div onClick={this.handleClick}>
-                  <h2>{selectedPlant.name}</h2>
-                  <p>{selectedPlant.user}</p>
-                </div>
+                <Link to={`/plants/${selectedPlant._id}`}>
+                  <div className="popup-container">
+                    <h2 className="has-text-centered"
+                      onMouseEnter={this.handleMouseEnter}
+                      onMouseLeave={this.handleMouseLeave}>
+                      {selectedPlant.name}
+                    </h2>
+                    <hr />
+                    <img width={200} src={`${selectedPlant.imageUrl}`} alt={`${selectedPlant.name}`} />
+                  </div>
+                </Link>
               </Popup>
             )}
           </div>
@@ -142,3 +145,5 @@ class Maps extends React.Component {
 }
 
 export default Maps
+
+// attach Link to `plants/${this.state.selectedPlant._id} to the h2 tag `

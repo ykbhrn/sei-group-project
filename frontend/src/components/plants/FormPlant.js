@@ -6,6 +6,9 @@ import { getTrefleData } from '../../lib/api'
 import axios from 'axios'
 
 
+const uploadUrl = 'https://api.cloudinary.com/v1_1/jompra/image/upload'
+const uploadPreset = 'ml_default'
+
 
 class FormPlant extends React.Component {
   constructor(props) {
@@ -29,7 +32,7 @@ class FormPlant extends React.Component {
       isLoading: true
     })
 
-       // Stop the previous setTimeout if there is one in progress
+    // Stop the previous setTimeout if there is one in progress
     clearTimeout(this.timeoutId)
 
     // Launch a new request in 1000ms
@@ -54,7 +57,7 @@ class FormPlant extends React.Component {
         })
       })
   }
-handleItemClicked = async (place) =>  {
+  handleItemClicked = async (place) => {
 
     const search = await place.place_name
     const lon = await place.geometry.coordinates[0]
@@ -67,9 +70,9 @@ handleItemClicked = async (place) =>  {
     })
     console.log(this.state)
     this.props.onSelect(lat, lon)
-    
+
   }
-  
+
   getSciData = async () => {
     if (this.props.formData.name) {
       const sciNames = []
@@ -81,6 +84,24 @@ handleItemClicked = async (place) =>  {
       this.setState({ options: sciNames })
     }
   }
+
+  sendData = () => {
+    this.props.imageUrl(this.state.imageUrl)
+  }
+
+  handleUpload = async event => {
+    const data = new FormData()
+    data.append('file', event.target.files[0])
+    data.append('upload_preset', uploadPreset)
+    const res = await axios.post(uploadUrl, data)
+    this.setState({
+      imageUrl: res.data.url
+    }
+    )
+    console.log(this.state.imageUrl)
+    this.sendData()
+  }
+
   // console.log('props: ', this.props.formData.name)
   render() {
     const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
@@ -126,7 +147,7 @@ handleItemClicked = async (place) =>  {
               />
             </div>
           </div>
-          <div className="field">
+          {/* <div className="field">
             <label className="label">Image</label>
             <div className="control">
               <input
@@ -138,7 +159,7 @@ handleItemClicked = async (place) =>  {
               />
             </div>
             {errors.imageUrl && <small className="help is-danger">{errors.imageUrl}</small>}
-          </div>
+          </div> */}
           <div className="field">
             <label className="label">Description</label>
             <div className="control">
@@ -156,38 +177,37 @@ handleItemClicked = async (place) =>  {
             </div>
             {errors.description && <small className="help is-danger">{errors.description}</small>}
           </div>
-          {/* <div className="field">
-            <div className="control">
-              <ImageUpload
-                onChange={handleChange}
-                name="image"
-                labelText="Upload an Image"
+            
+              <label className="label">Upload Image</label>
+              <input
+                className="input"
+                type="file"
+                onChange={this.handleUpload}
               />
-            </div>
-          </div> */}
-            <div className="field">
+              {formData.imageUrl ? <img src={formData.imageUrl} alt="User Uploaded Image"></img> : ''}
+          <div className="field">
             <label className="label">Location</label>
             <div className="control">
-          <div className="AutocompletePlace">
-        <input
-        className="input AutocompletePlace-input" type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder="Type an address"
-        />
-        <ul className="AutocompletePlace-results">
-          {this.state.results.map(place => (
-            <li
-              key={place.id}
-              className="AutocompletePlace-items"
-              onClick={() => this.handleItemClicked(place)}
-            >
-              {place.place_name}
-            </li>
-          ))}
-          {this.state.isLoading && <li className="AutocompletePlace-items">Loading...</li>}
-        </ul>
-      </div>
-      </div>
-        {errors.location && <small className="help is-danger">{errors.loaction}</small>}
-      </div>
+              <div className="AutocompletePlace">
+                <input
+                  className="input AutocompletePlace-input" type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder="Type an address"
+                />
+                <ul className="AutocompletePlace-results">
+                  {this.state.results.map(place => (
+                    <li
+                      key={place.id}
+                      className="AutocompletePlace-items"
+                      onClick={() => this.handleItemClicked(place)}
+                    >
+                      {place.place_name}
+                    </li>
+                  ))}
+                  {this.state.isLoading && <li className="AutocompletePlace-items">Loading...</li>}
+                </ul>
+              </div>
+            </div>
+            {errors.location && <small className="help is-danger">{errors.loaction}</small>}
+          </div>
 
 
           <div className="field">

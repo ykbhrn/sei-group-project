@@ -77,7 +77,7 @@ class Register extends React.Component {
 
   renderRedirect = () => {
     if(this.state.redirect){
-      return <Redirect to="/profile" />
+      return <Redirect to="/plants" />
     }
   }
 

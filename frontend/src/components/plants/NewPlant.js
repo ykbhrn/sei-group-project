@@ -41,7 +41,7 @@ class NewPlant extends React.Component {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
     } catch(err) {
-      console.log(err);
+      console.log('submission err', err.response);
     }
   }
   handleSelectChange = event => {
@@ -49,6 +49,11 @@ class NewPlant extends React.Component {
     const errors = { ...this.state.errors, [event.name]: '' } 
     this.setState({ formData: sciName, errors }) 
     console.log(this.state.formData.scientificName)
+  }
+
+  setImgUrl = (childData) => {
+    const formData = { ...this.state.formData, imageUrl: childData }
+    this.setState({ formData })
   }
 
   render() {
@@ -65,6 +70,7 @@ class NewPlant extends React.Component {
             handleSubmit={this.handleSubmit}
             onSelect={this.handleSelect}
             handleSelectChange={this.handleSelectChange}
+            imageUrl={this.setImgUrl}
             buttonText="Add My Plant"
           />
         </div>

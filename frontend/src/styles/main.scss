@@ -1,5 +1,7 @@
 @import '~bulma/bulma.sass';
 
+$plntify: #3FC008;
+
 .offers-container{
   display: flex;
   justify-content: space-around;
@@ -48,4 +50,12 @@
   border: 1px solid green;
   box-sizing: border-box;
   outline: none;
+}
+.popup-container {
+  hr {
+    margin: 0
+  }
+  h2 {
+    color: $black
+  }
 }
