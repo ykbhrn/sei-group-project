@@ -1,1 +1,14 @@
 @import '~bulma/bulma.sass';
+
+.responses-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw
+}
+
+.offers {
+  width: 400px;
+  border: 2px solid grey;
+  padding: 30px;
+}

@@ -16,7 +16,7 @@ class ProfilePage extends React.Component {
     id: '',
     isResponse: false
   }
-
+// THis function just get all the user portfolio
   async componentDidMount() {
     try {
       const res = await getPortfolio()
@@ -41,25 +41,44 @@ class ProfilePage extends React.Component {
       console.log(err)
     }
   }
-
+//  This function toggle Respond on Offer button
   clicker = () => {
     this.setState({ isResponse: this.state.isResponse === false ? true : false })
   }
+// Responses on your offers function
+ handleResponse = () => {
+  const offerArray = this.state.user.createdPlants.filter( plant => {
+    if (plant.offers.length > 0) {
+      return plant
+    }
+  })
+  return offerArray.map( plant => {
+    // * accesing offers
+    return plant.offers.map( offer => {
+     return <h1>{offer.response}</h1>
+    })
+ })
+}
 
+
+  //  This function will show user received offers
    componentDidCatch =  () => {
+      // array of  plants which contains offers
     const offerArray = this.state.user.createdPlants.filter( plant => {
       if (plant.offers.length > 0) {
         return plant
       }
     })
     let offerCounter = 0
-    
+    //  maping all the plants with offers
     return offerArray.map( plant => {
-      
+      // * accesing offers
       return plant.offers.map( offer => {
        
         offerCounter++
         return <div key={offer._id}>
+
+        {/* //* Offers on your plants Code  */}
           <div className='title is-3'>
           Nr.{offerCounter}: <br/>
           You've got offer on: {plant.name} <br/>
@@ -155,8 +174,20 @@ class ProfilePage extends React.Component {
         <div>
           <h1 className="title is-1">Your Offers: </h1>
           <br/>
+          <div className='offers-container'>
+
+          {/* Received offers jsx code in that function */}
+          <div className='offers'>
           {this.componentDidCatch()}
+          </div>
+
+          <div className='offers'>
+          {/* Responses for your offers */}
+          {this.handleResponse()}
+          </div>
         </div>
+        </div>
+    
       </section>
     )
   }
