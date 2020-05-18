@@ -1,5 +1,5 @@
 import React from 'react'
-import { getPortfolio, makeOffer } from '../../lib/api'
+import { getPortfolio, respondOffer } from '../../lib/api'
 import ProfileCard from '../common/ProfileCard'
 import { Link } from 'react-router-dom'
 
@@ -35,7 +35,7 @@ class ProfilePage extends React.Component {
   handleSubmit = async (event, id) => {
     event.preventDefault()
     try {
-      const res = await makeOffer(id, this.state.offerData)
+      const res = await respondOffer(id, this.state.offerData)
       this.setState({ offerData: res.data })
     } catch (err) {
       console.log(err)
@@ -47,41 +47,19 @@ class ProfilePage extends React.Component {
   }
 // Responses on your offers function
  handleResponse = () => {
-  const offerArray = this.state.user.createdPlants.filter( plant => {
-    if (plant.offers.length > 0) {
-      return plant
-    }
-  })
-    
-    // const responseArray = offerArray.filter( offerPlant => {
 
-    //       return offerPlant.offers.response === true
-        
-    // })
-
-    return offerArray.map( responsePlant => {
-      return responsePlant.offers.map( response => {
-      return <>
-        {response.response && 
-        <div className="title is-4">
-        You have a response from: <br/>
-        <p>
-        <Link to={`/profile/${response.user._id}`}> {response.user.name}</Link> <br/>
-        On Plant: <br/>
-        <Link to={`/plants/${responsePlant._id}`}> {responsePlant.name}</Link> <br/>
-        User Decision: <br/>
-        <span className="offer-response">{response.response}</span>
-        </p>
-        <hr />  
-        </div>
-      }
-       </>
-        
-       })
-      
-    })
-
-   
+ return this.state.user.submittedOffers.map( offer => {
+  return <div className='title is-4'>
+          <p>
+          You have offer from: <br/>
+          <Link to={`/profile/${offer.userId}`}> {offer.userNname}</Link> <br/>
+          On plant: <br/>
+          <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
+          Price: <br/>
+           {offer.offer} <br/>
+      </p>
+          </div>
+})   
  
 }
 
@@ -167,7 +145,7 @@ class ProfilePage extends React.Component {
                       <button type="submit" className="button is-fullwidth is-warning"
                     
                       onClick={(event) => {
-                        this.handleSubmit(event, plant._id)}}
+                        this.handleSubmit(event, offer.user._id)}}
                       >Submit Offer</button>
                     
                     </div>

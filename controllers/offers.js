@@ -40,6 +40,27 @@ async function newOffers(req, res,) {
   }
 }
 
+async function respondOffer(req, res) {
+  try {
+    req.body.user = req.currentUser
+    const userId = req.params.id
+    const user =  await  User.findById(userId)
+
+    // req.body.user = user
+
+    user.submittedOffers.push(req.body)
+    await user.save()
+
+
+    console.log(user)
+    res.status(201).json(user)
+  } catch (err) {
+    console.log(err)
+    
+  }
+}
+
 module.exports = {
-  newOffers
+  newOffers,
+  respondOffer
 }
