@@ -1,5 +1,7 @@
 @import '~bulma/bulma.sass';
 
+$plntify: #3FC008;
+
 .offers-container{
   display: flex;
   justify-content: space-around;
@@ -26,4 +28,34 @@
 
 .offer-response{
   color: $danger;
+}
+
+
+//! LIKE BUTTON
+.like-button {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: green;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 6px;
+  border: 1px solid green;
+  box-sizing: border-box;
+  outline: none;
+}
+.popup-container {
+  hr {
+    margin: 0
+  }
+  h2 {
+    color: $black
+  }
 }

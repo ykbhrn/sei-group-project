@@ -31,7 +31,6 @@ class ProfilePage extends React.Component {
   }
 
   handleChange = event => {
-    
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
     this.setState( { offerData } )
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
+
 import Home from './components/common/Home'
 import Navbar from './components/common/Navbar'
 import SecureRoute from './components/common/SecureRoute'
