@@ -16,7 +16,7 @@ const plantSchema = new mongoose.Schema({
   imageUrl: { type: String, required: true },
   description: { type: String, required: true, maxlength: 1000 },
   height: { type: String, required: true },
-  location: [ { lat: Number, lon: Number }, { required: false } ],
+  location: [ { lat: Number, lon: Number }, { required: true } ],
   offers: [ offerSchema ],
   user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true } 
 }, {

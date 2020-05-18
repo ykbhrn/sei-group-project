@@ -1,6 +1,7 @@
 import React from 'react'
 import FormPlant from './FormPlant'
 import { newPlant } from '../../lib/api'
+import { handlePlantFormErrors } from '../../lib/formErrors'
 // import AutocompletePlace from './AutocompletePlace'
 
 class NewPlant extends React.Component {
@@ -15,7 +16,13 @@ class NewPlant extends React.Component {
         location: []
       },
       options: [],
-      errors: {}, // * an object to store any errors that could occur when making the request.
+      errors: {
+        name: '',
+        imageUrl: '',
+        description: '',
+        height: '',
+        location: ''
+      }, // * an object to store any errors that could occur when making the request.
       place: null
     }
     this.handleSelect = this.handleSelect.bind(this)
@@ -32,7 +39,8 @@ class NewPlant extends React.Component {
   handleChange = event => {
     console.log(event)
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
-    this.setState( { formData } )
+    const errors = { ...this.state.errors, [event.target.name]: '' }
+    this.setState( { formData, errors } )
   }
 
   handleSubmit = async event => {
@@ -41,7 +49,8 @@ class NewPlant extends React.Component {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
     } catch(err) {
-      console.log('submission err', err.response);
+      this.setState(handlePlantFormErrors(err.response.data.errors))
+      console.log('submission err', err.response.data.errors)
     }
   }
   handleSelectChange = event => {
@@ -55,6 +64,35 @@ class NewPlant extends React.Component {
     const formData = { ...this.state.formData, imageUrl: childData }
     this.setState({ formData })
   }
+
+  // handlePlantFormErrors = (error) => {
+  //   let name = ''
+  //   let height = ''
+  //   let imageUrl = ''
+  //   let scientificName = ''
+  //   let description = ''
+  //   let location = ''
+  //   console.log(this.state.formData.location.length)
+  //   if(error.name){
+  //     name = 'Plant Name is Required'
+  //   }
+  //   if(error.height){
+  //     height = 'Plant Height is Required'
+  //   }
+  //   if(error.scientificName){
+  //     scientificName = 'Scientific Name is Required'
+  //   }
+  //   if(error.imageUrl){
+  //     imageUrl = 'An Image is Required'
+  //   }
+  //   if(error.description){
+  //     description = 'A Description is Required'
+  //   }
+  //   if(this.state.formData.location.length === 0 ){
+  //     location = 'The pick up location of the plant is Required'
+  //   }
+  //   this.setState({errors: { name, height, imageUrl, scientificName, description, location }})
+  // }
 
   render() {
     return (
