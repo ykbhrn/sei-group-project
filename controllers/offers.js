@@ -17,15 +17,15 @@ async function newOffers(req, res,) {
 
     plant.offers.push(req.body)
 
-    user.submittedOffers.push({ 
-      offer: req.body.offer,
-      text: req.body.text,
-      response: req.body.response,
-      userName: plantOwner.name,
-      plantName: plant.name,
-      plantId: plant._id,
-      userId: plantOwner._id
-    })
+    // user.submittedOffers.push({ 
+    //   offer: req.body.offer,
+    //   text: req.body.text,
+    //   response: req.body.response,
+    //   userName: plantOwner.name,
+    //   plantName: plant.name,
+    //   plantId: plant._id,
+    //   userId: plantOwner._id
+    // })
 
     // user.submittedOffers.push(plant.offers[plant.offers.length - 1 ].user.name) 
 

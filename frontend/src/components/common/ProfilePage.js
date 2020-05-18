@@ -52,12 +52,16 @@ class ProfilePage extends React.Component {
   return <div className='title is-4'>
           <p>
           You have offer from: <br/>
-          <Link to={`/profile/${offer.userId}`}> {offer.userNname}</Link> <br/>
+          <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br/>
           On plant: <br/>
-          <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
+          <Link to={`/plants/${offer.plantId}`}> {offer.plantName}</Link> <br/>
           Price: <br/>
            {offer.offer} <br/>
+           Respond from user: <br/>
+           {offer.response}
+
       </p>
+      <hr/>
           </div>
 })   
  
