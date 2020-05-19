@@ -60,8 +60,8 @@ class Maps extends React.Component {
     if (!this.state.plants) return null
     const { viewport, plants, selectedPlant, showPlantId, plantProps } = this.state
 
-    console.log(plantProps)
-    console.log(showPlantId)
+    // console.log(plantProps)
+    // console.log(showPlantId)
 
     return (
       <div className="main">

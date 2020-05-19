@@ -1,7 +1,5 @@
 import React from 'react'
 import Select from 'react-select'
-import ImageUpload from './ImageUpload'
-import { render } from 'react-dom'
 import { getTrefleData } from '../../lib/api'
 import axios from 'axios'
 
@@ -189,7 +187,7 @@ class FormPlant extends React.Component {
                 type="file"
                 onChange={this.handleUpload}
               />
-              {formData.imageUrl ? <img src={formData.imageUrl} alt="User Uploaded Image"></img> : ''}
+              {formData.imageUrl ? <img src={formData.imageUrl} alt="User's Upload"></img> : ''}
             </div>
             {errors.imageUrl && <small className="help is-danger">{errors.imageUrl}</small>}
           <div className="field">
