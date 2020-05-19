@@ -184,7 +184,7 @@ class FormPlant extends React.Component {
                 type="file"
                 onChange={this.handleUpload}
               />
-              {formData.imageUrl ? <img src={formData.imageUrl} alt="User Uploaded Image"></img> : ''}
+              {formData.imageUrl ? <img src={formData.imageUrl} alt="User Uploaded"></img> : ''}
           <div className="field">
             <label className="label">Location</label>
             <div className="control">

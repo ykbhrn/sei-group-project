@@ -7,7 +7,7 @@ const token = 'pk.eyJ1IjoiYWlub2t5dG8iLCJhIjoiY2thNTVmcHo1MGp0NTNtb2FiMDN2Y2lsNS
 const PlantMapThumbnail = (props) => {
   return (
     <div>
-      <Link to={"/maps"}>
+      <Link to={'/maps'}>
         <MapGl
           mapboxApiAccessToken={token}
           height={'30vh'}

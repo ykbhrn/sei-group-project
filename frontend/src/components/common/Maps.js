@@ -20,6 +20,8 @@ class Maps extends React.Component {
     viewport: { //?AK Initial positioning for the map - these change with every user interaction 
       longitude: -0.098362,
       latitude: 51.513870,
+      // longitude: this.props.longitude,
+      // latitude: this.props.latitude,
       zoom: 11,
       height: '100vh',
       width: '100vw'
@@ -36,6 +38,7 @@ class Maps extends React.Component {
       const res = await getAllPlants()
       const plants = res.data
       this.setState({ plants })
+      // console.log(this.props.latitude, this.props.longitude)
     } catch (err) {
       console.log(err)
     }
@@ -58,7 +61,7 @@ class Maps extends React.Component {
   render() {
     if (!this.state.plants) return null
     const { viewport, plants, selectedPlant, showPlantId } = this.state
-    console.log(this.state.showPlantId)
+    // const { latitude, longitude } = this.props
 
     return (
       <div className="main">
@@ -90,7 +93,8 @@ class Maps extends React.Component {
               <Marker
                 latitude={plant.location[0].lat}
                 longitude={plant.location[0].lon}
-                
+                offsetTop={10}
+                offsetLeft={-12}
               >
                 <img width={25} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
               </Marker>
@@ -102,7 +106,6 @@ class Maps extends React.Component {
                 <Popup
                   latitude={showPlantId.location[0].lat}
                   longitude={showPlantId.location[0].lon}
-                  
                 >
                   <div className="has-text-centered">
               <h2>{showPlantId.name}</h2>
@@ -117,8 +120,6 @@ class Maps extends React.Component {
               <Popup
                 latitude={selectedPlant.location[0].lat}
                 longitude={selectedPlant.location[0].lon}
-                offsetTop={10}
-                offsetLeft={-12}
                 closeOnClick={false}
                 onClose={() => {
                   this.setState({ selectedPlant: null })

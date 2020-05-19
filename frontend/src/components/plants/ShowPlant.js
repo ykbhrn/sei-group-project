@@ -91,7 +91,9 @@ class ShowPlant extends React.Component {
                 lat = {plant.location[0].lat}
                 lon = {plant.location[0].lon}
               />
+              <div className="added-by">
               <h4 className="title is-4">Added By</h4>
+              </div>
               {!isOwner(plant.user._id) &&
               <Link to={`/profile/${plant.user._id}`}>
                 <p>{plant.user.name}</p>
