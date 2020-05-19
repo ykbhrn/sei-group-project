@@ -77,7 +77,8 @@ class FormPlant extends React.Component {
   getSciData = async () => {
     if (this.props.formData.name) {
       const sciNames = []
-      const res = await getTrefleData(this.props.formData.name)
+      const splitNames = this.props.formData.name.split(' ')
+      const res = await getTrefleData(splitNames[0])
       const plantData = res.data
       plantData.forEach(obj => {
         sciNames.push({ value: obj.scientific_name, label: obj.scientific_name })
@@ -112,8 +113,21 @@ class FormPlant extends React.Component {
 
       <div className="columns">
         <form onSubmit={handleSubmit} className="column is-half is-offset-one-quarter">
+        <div className="field">
+            <label className="label">Nickname</label>
+            <div className="control">
+              <input
+                className={`input ${errors.nickName ? 'is-danger' : ''}`} // * using a ternary to attach the class "is-danger" to the input if it is present in the errors object, also only showing the small tag below.
+                placeholder="Name"
+                name="nickName"
+                onChange={handleChange}
+                value={formData.nickName}
+              />
+            </div>
+            {errors.nickName ? <small className="help is-danger">{errors.nickName}</small> : ''}
+          </div>
           <div className="field">
-            <label className="label">Name</label>
+            <label className="label">Common-Name</label>
             <div className="control">
               <input
                 className={`input ${errors.name ? 'is-danger' : ''}`} // * using a ternary to attach the class "is-danger" to the input if it is present in the errors object, also only showing the small tag below.
