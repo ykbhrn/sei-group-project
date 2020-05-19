@@ -36,7 +36,7 @@ router.route('/trefle')
 router.route('/maps')
   .post(apiProxies.getLocation)
   
-router.route('/offer/:id')
+router.route('/offer/:id/:plantid')
   .post(secureRoute, offer.newOffers)
 
 router.route('/response/:id/:plantid')

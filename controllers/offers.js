@@ -6,11 +6,17 @@ async function newOffers(req, res,) {
     
 
     const plantId = req.params.id
+    const offeredPlantId = req.params.plantid
+    const offeredPlant = await Plant.findById(offeredPlantId)
     const plant = await  Plant.findById(plantId)
     const user = await User.findById(req.currentUser._id)
     req.body.user = user
     
     if (!plant) throw new Error()
+
+    req.body.imageUrl = offeredPlant.imageUrl
+    req.body.name = offeredPlant.name
+    req.body.plantId = offeredPlant._id
 
     plant.offers.push(req.body)
 

@@ -33,6 +33,7 @@ class ProfilePage extends React.Component {
   handleChange = event => {
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
     this.setState( { offerData } )
+    console.log(event.target.name)
   }
 
   handleSubmit = async (event, id, plantId) => {
@@ -40,6 +41,7 @@ class ProfilePage extends React.Component {
     try {
       const res = await respondOffer(id, plantId, this.state.offerData)
       this.setState({ offerData: res.data })
+      this.clicker()
     } catch (err) {
       console.log(err)
     }
@@ -53,7 +55,7 @@ class ProfilePage extends React.Component {
 
  return this.state.user.submittedOffers.map( offer => {
   return <div className='title is-4'>
-          <p>
+     
           You have response from: <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br/>
           On plant: <Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br/>
           <img src={offer.plantImageUrl} alt={offer.plantName} />
@@ -65,7 +67,6 @@ class ProfilePage extends React.Component {
            {offer.userName} email for further communication:
            {offer.email}
 
-      </p>
       <hr/>
           </div>
 })   
@@ -93,18 +94,20 @@ class ProfilePage extends React.Component {
         return <div key={offer._id}>
         {/* //* Offers on your plants Code  */}
           <div className='title is-4'>
-          <p>
-          Nr.{offerCounter}: <br/>
-          You have offer from: <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
-          On plant: <Link to={`/plants/${plant._id}`}> {plant.name}<br/>
-          <img src={plant.imageUrl} alt={plant.name}/>
-          </Link> <br/>
-          Message from {offer.user.name}: <br/>
-         <div className="message">{offer.text} </div> <br/>
-          Offered Plant: {offer.offer} <br/>
-    
+         
+          <p>Nr.{offerCounter}: </p>
+         <p>You have offer from: <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link></p>
+          <p>On plant: <Link to={`/plants/${plant._id}`}> {plant.name}
+          <img src={plant.imageUrl} alt={plant.name} className="is-64x64" />
+          </Link></p>
+         <p>Message from {offer.user.name}: </p>
+         <div className="message">{offer.text} </div>
+          <p>Offered Plant: <Link to={`/plants/${offer._id}`}>{offer.name}
+          <img src={offer.imageUrl} alt={offer.name}/>
+          </Link>
+          </p>
           {/* <img src={offer.imageUrl} /> */}
-      </p>
+     
           </div>
           <button
                 className="button is-light"
@@ -115,6 +118,18 @@ class ProfilePage extends React.Component {
                 <>
                   <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
 
+                  <div className="field">
+                      <label className="label">Message to {offer.user.name}: </label>
+                      <div className="control">
+                        {/* <textarea
+                          placeholder="Message"
+                          name="text"
+                          onChange={this.handleChange}
+                          value={offer.offer}
+                        /> */}
+                      </div>
+                    </div>
+
                     <div className="field">
                       <label className="label">Message to {offer.user.name}: </label>
                       <div className="control">
@@ -122,7 +137,6 @@ class ProfilePage extends React.Component {
                           placeholder="Message"
                           name="text"
                           onChange={this.handleChange}
-                          value={this.state.offerData.text || ''}
                         />
                       </div>
                     </div>
@@ -134,8 +148,8 @@ class ProfilePage extends React.Component {
                           placeholder="Your Respond"
                           name="response"
                           onChange={this.handleChange}
-                          value={this.state.offerData.response || ''}
                         />
+                        <button value="my value" name="my name" onChange={this.handleChange}>hey</button>
                       </div>
                     </div>
       
