@@ -36,20 +36,20 @@ class ProfilePage extends React.Component {
     console.log(event.target.name)
   }
 
-  handleSubmit = async (event, id, plantId) => {
+  handleSubmit = async (event, id, plantId, offeredPlantId) => {
     event.preventDefault()
     try {
-      const res = await respondOffer(id, plantId, 'Accepted', this.state.offerData)
+      const res = await respondOffer(id, plantId, 'Accepted', offeredPlantId, this.state.offerData)
       this.setState({ offerData: res.data })
       this.clicker()
     } catch (err) {
       console.log(err)
     }
   }
-  handleSubmitDecline = async (event, id, plantId) => {
+  handleSubmitDecline = async (event, id, plantId, offeredPlantId) => {
     event.preventDefault()
     try {
-      const res = await respondOffer(id, plantId, 'Declined', this.state.offerData)
+      const res = await respondOffer(id, plantId, 'Declined', offeredPlantId, this.state.offerData)
       this.setState({ offerData: res.data })
       this.clicker()
     } catch (err) {
@@ -78,10 +78,12 @@ class ProfilePage extends React.Component {
      
           You have response from: <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br/>
           On plant: <Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br/>
-         <img src={offer.plantImageUrl} alt={offer.plantName} />
-         
+         <img src={offer.plantImageUrl} alt={offer.plantName} />  
        </Link> 
-          You are offering:  {offer.offer} <br/>
+
+          You are offering:  <Link to={`/plants/${offer.offeredPlantId}`}>{offer.offeredPlantName}<br/>
+         <img src={offer.offeredImageUrl} alt={offer.offeredPlantName} />  
+       </Link> 
     
        <div className="field">
         <div className={this.decisionClass(offer.response)}>{offer.response}</div>
@@ -156,13 +158,13 @@ class ProfilePage extends React.Component {
                     <div className="field">
                       <button type="submit" className="button is-warning"             
                         onClick={(event) => {
-                          this.handleSubmit(event, offer.user._id, plant._id)
+                          this.handleSubmit(event, offer.user._id, plant._id, offer.plantId)
                         }}
                       >Accept</button>
 
                       <button type="submit" className="button is-danger"
                     onClick={(event) => {
-                      this.handleSubmitDecline(event, offer.user._id, plant._id)
+                      this.handleSubmitDecline(event, offer.user._id, plant._id, offer.plantId)
                     }}
                   >Decline</button>
                     </div>
