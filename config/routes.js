@@ -41,7 +41,14 @@ router.route('/offer/:id')
 
 router.route('/response/:id/:plantid')
   .post(secureRoute, offer.respondOffer)
+
 router.route('/likes')
   .post(secureRoute, like.like)
+
+router.route('/plants/:id/comments')
+  .post(secureRoute, plants.commentCreate)  
+
+router.route('/plants/:id/comments/:commentid')
+  .delete(secureRoute, plants.commentDelete) 
 
 module.exports = router

@@ -58,3 +58,7 @@ export const addLikes = (id) => {
   //* When we send a post request for the like we need to send the body PlantId
   return axios.post(`/api/likes`, {plantId: id}, withHeaders())
 }
+
+export const addComment = ( commentData, plantId ) => {
+    return axios.post(`/api/plants/${plantId}/comments`, commentData, withHeaders())
+}
