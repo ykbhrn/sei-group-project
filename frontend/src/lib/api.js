@@ -54,6 +54,10 @@ export const respondOffer = (id, plantid, decision, offered, offerData) => {
   return axios.post(`/api/response/${id}/${plantid}/${decision}/${offered}`, offerData, withHeaders())
 }
 
+export const finishTrade = (id, plantid) => {
+  return axios.delete(`/api/finish/${id}/${plantid}`, withHeaders())
+}
+
 export const addLikes = (id) => {
   //* When we send a post request for the like we need to send the body PlantId
   return axios.post(`/api/likes`, {plantId: id}, withHeaders())

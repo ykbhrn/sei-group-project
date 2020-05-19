@@ -42,6 +42,9 @@ router.route('/offer/:id/:plantid')
 router.route('/response/:id/:plantid/:decision/:offered')
   .post(secureRoute, offer.respondOffer)
 
+router.route('/finish/:plantid/:offered')
+  .delete(secureRoute, offer.finishTrade)
+
 router.route('/likes')
   .post(secureRoute, like.like)
 

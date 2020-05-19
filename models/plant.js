@@ -24,7 +24,7 @@ const plantSchema = new mongoose.Schema({
   name: { type: String, required: true },
   scientificName: { type: String, required: true },
   imageUrl: { type: String, required: true },
-  description: { type: String, required: true, maxlength: 1000 },
+  description: { type: String, required: false, maxlength: 1000 },
   height: { type: String, required: true },
   location: [ { lat: Number, lon: Number }, { required: false } ],
   likes: [{ userId: String, username: String }, {  required: false  }], 
