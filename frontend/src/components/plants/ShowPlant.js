@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom' //* Importing link component from 'react
 import { getSinglePlant, deletePlant, makeOffer, getPortfolio } from '../../lib/api'
 import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
+import Likes from '../common/Likes'
 
 
 class ShowPlant extends React.Component {
@@ -14,7 +15,8 @@ class ShowPlant extends React.Component {
       offer: '',
       text: ''
     },
-    isOffer: false
+    isOffer: false,
+    userPlantId: ''
   }
 
   async componentDidMount() {
@@ -46,15 +48,26 @@ class ShowPlant extends React.Component {
 
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
     this.setState({ offerData })
-    console.log(event.target.value);
+    if(event.target.name === 'offer'){
+      this.handleOffer(event.target.value)
+      console.log(event.target.value);
+      
+    }
+  
   }
 
-  handleSubmit = async event => {
+  handleOffer = value => {
+    this.setState({ userPlantId: value})
+    
+  }
+
+  handleSubmit = async (event) => {
     event.preventDefault()
     try {
       const plantId = this.props.match.params.id
-      const res = await makeOffer(plantId, this.state.offerData)
+      const res = await makeOffer(plantId, this.state.userPlantId, this.state.offerData)
       this.setState({ offerData: res.data })
+      this.clicker()
     } catch (err) {
       console.log(err)
     }
@@ -64,7 +77,9 @@ class ShowPlant extends React.Component {
   render() {
     if (!this.state.plant) return null // * if there is no plant object, return null
     const { plant, isOffer, offerData } = this.state // * deconstruct the plant from state
+
     console.log(this.state.user)
+    console.log(plant.imageUrl)
 
     return (
       <section className="section">
@@ -76,6 +91,10 @@ class ShowPlant extends React.Component {
               <figure className="image">
                 <img src={plant.imageUrl} alt={plant.name} />
               </figure>
+              <Likes
+                likes={plant.likes}
+                plantId={plant._id}
+              />
             </div>
             <div className="column is-half">
               <h4 className="title is-4">Description</h4>
@@ -93,8 +112,12 @@ class ShowPlant extends React.Component {
                 _id={plant._id}
                 lat={plant.location[0].lat}
                 lon={plant.location[0].lon}
+                name={plant.name}
+                imageUrl={plant.imageUrl}
               />
+              <div className="added-by">
               <h4 className="title is-4">Added By</h4>
+              </div>
               {!isOwner(plant.user._id) &&
                 <Link to={`/profile/${plant.user._id}`}>
                   <p>{plant.user.name}</p>
@@ -106,7 +129,7 @@ class ShowPlant extends React.Component {
                   <hr />
                   <Link to={'/profile'}>
                     GO to My Portfolio
-               </Link>
+                  </Link>
                 </>
               }
               <hr />
@@ -122,7 +145,7 @@ class ShowPlant extends React.Component {
 
               {isOffer &&
                 <>
-                  <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+                  <form onSubmit={this.handleSubmit}className="column is-half is-offset-one-quarter box">
                     <div className="field">
                       <label className="label">Your Offer: </label>
                       <div className="control">
@@ -135,12 +158,12 @@ class ShowPlant extends React.Component {
                           >{userPlant.name}</option>
                       </select> */}
 
-                        <input type="text" list="data" name="offer" onChange={this.handleChange}/>
+                        <input type="text" list="data" name="offer" onChange={this.handleChange} />
                         <datalist id="data">
-                          {this.state.user.createdPlants.map( userPlant  => {
+                          {this.state.user.createdPlants.map(userPlant => {
                             return <>
-                                    <option key={userPlant._id} value={userPlant.name} />
-                                    <input name='plantId' value={userPlant._id} />
+                                    <option key={userPlant._id} value={userPlant._id}>{userPlant.name}</option>
+      
                                     </>
                           }
                           )}
@@ -155,7 +178,6 @@ class ShowPlant extends React.Component {
                           placeholder="Message"
                           name="text"
                           onChange={this.handleChange}
-                          value={offerData.text || ''}
                         />
                       </div>
                     </div>

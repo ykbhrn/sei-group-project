@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const submittedOfferSchema = new mongoose.Schema({
   offer: { type: String, required: false },
   text: { type: String, required: false },
-  response: { type: String, required: true },
+  response: { type: Boolean, required: true },
   userName: { type: String, required: false }, 
   plantName: { type: String, required: false },
   plantId: { type: String, required: false },

@@ -18,15 +18,16 @@ const navStyle = {
 class Maps extends React.Component {
   state = {
     viewport: { //?AK Initial positioning for the map - these change with every user interaction 
-      longitude: -0.098362,
-      latitude: 51.513870,
-      zoom: 11,
+      longitude: this.props.location.state.longitude,
+      latitude: this.props.location.state.latitude,
+      zoom: 12,
       height: '100vh',
       width: '100vw'
     },
     plants: null,
     selectedPlant: null,
-    showPlantId: null
+    showPlantId: null,
+    plantProps: this.props.location.state.plantProps
   }
 
   //?AK GET request to get plants from database
@@ -46,7 +47,7 @@ class Maps extends React.Component {
   }
 
   handleMouseLeave = (e) => {
-    e.target.style.color = 'black' 
+    e.target.style.color = 'black'
   }
 
   //?AK in render:
@@ -57,8 +58,10 @@ class Maps extends React.Component {
 
   render() {
     if (!this.state.plants) return null
-    const { viewport, plants, selectedPlant, showPlantId } = this.state
-    console.log(this.state.showPlantId)
+    const { viewport, plants, selectedPlant, showPlantId, plantProps } = this.state
+
+    console.log(plantProps)
+    console.log(showPlantId)
 
     return (
       <div className="main">
@@ -69,28 +72,29 @@ class Maps extends React.Component {
           onViewportChange={viewport => {
             this.setState({ viewport })
           }}
-        >
+          >
           <div className="nav" style={navStyle}>
             <NavigationControl />
           </div>
           {plants.map(plant => {
             return <div className="marker"
-              key={plant._id}
+            key={plant._id}
               onMouseEnter={() => {
-                this.setState({ showPlantId: plant })
+                this.setState({ showPlantId: plant, plantProps: null })
               }}
               onMouseLeave={() => {
                 this.setState({ showPlantId: null })
               }}
               onClick={(event) => {
                 event.preventDefault()
-                this.setState({ selectedPlant: plant, showPlantId: null })
+                this.setState({ selectedPlant: plant, showPlantId: null, plantProps: null })
               }}
             >
               <Marker
                 latitude={plant.location[0].lat}
                 longitude={plant.location[0].lon}
-                
+                offsetTop={10}
+                offsetLeft={-12}
               >
                 <img width={25} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
               </Marker>
@@ -98,30 +102,50 @@ class Maps extends React.Component {
           })
           }
           <div>
-          {showPlantId && (
-                <Popup
-                  latitude={showPlantId.location[0].lat}
-                  longitude={showPlantId.location[0].lon}
-                  
-                >
-                  <div className="has-text-centered">
-              <h2>{showPlantId.name}</h2>
-              <p>Click plant!
-              </p>
+            {plantProps && (
+              <Popup
+                latitude={this.props.location.state.latitude}
+                longitude={this.props.location.state.longitude}
+                closeOnClick={false}
+                onClose={() => {
+                  this.setState({ plantProps: null })
+                }}
+              >
+                 <Link to={`/plants/${plantProps.id}`}>
+                  <div className="popup-container">
+                    <h2 className="has-text-centered"
+                      onMouseEnter={this.handleMouseEnter}
+                      onMouseLeave={this.handleMouseLeave}>
+                      {plantProps.name}
+                    </h2>
+                    <hr />
+                    <img width={180} src={`${plantProps.imageUrl}`} alt={`${plantProps.name}`} />
                   </div>
-                </Popup>
-              )}
+                </Link>
+              </Popup>
+            )}
+            </div>
+            <div>
+            {showPlantId && (
+              <Popup
+                latitude={showPlantId.location[0].lat}
+                longitude={showPlantId.location[0].lon}
+              >
+                <div className="has-text-centered">
+                  <h2>{showPlantId.name}</h2>
+                  <p>Click plant!</p>
+                </div>
+              </Popup>
+            )}
           </div>
           <div>
             {selectedPlant && (
               <Popup
                 latitude={selectedPlant.location[0].lat}
                 longitude={selectedPlant.location[0].lon}
-                offsetTop={10}
-                offsetLeft={-12}
                 closeOnClick={false}
                 onClose={() => {
-                  this.setState({ selectedPlant: null })
+                  this.setState({ selectedPlant: null, plantProps: null })
                 }}
               >
                 <Link to={`/plants/${selectedPlant._id}`}>
@@ -132,7 +156,7 @@ class Maps extends React.Component {
                       {selectedPlant.name}
                     </h2>
                     <hr />
-                    <img width={200} src={`${selectedPlant.imageUrl}`} alt={`${selectedPlant.name}`} />
+                    <img width={180} src={`${selectedPlant.imageUrl}`} alt={`${selectedPlant.name}`} />
                   </div>
                 </Link>
               </Popup>
