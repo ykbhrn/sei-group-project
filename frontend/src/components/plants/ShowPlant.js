@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom' //* Importing link component from 'react
 import { getSinglePlant, deletePlant, makeOffer, getPortfolio } from '../../lib/api'
 import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
+import Likes from '../common/Likes'
 
 
 class ShowPlant extends React.Component {
@@ -76,6 +77,10 @@ class ShowPlant extends React.Component {
               <figure className="image">
                 <img src={plant.imageUrl} alt={plant.name} />
               </figure>
+              <Likes
+                likes={plant.likes}
+                plantId={plant._id}
+              />
             </div>
             <div className="column is-half">
               <h4 className="title is-4">Description</h4>
@@ -106,7 +111,7 @@ class ShowPlant extends React.Component {
                   <hr />
                   <Link to={'/profile'}>
                     GO to My Portfolio
-               </Link>
+                  </Link>
                 </>
               }
               <hr />
@@ -135,13 +140,13 @@ class ShowPlant extends React.Component {
                           >{userPlant.name}</option>
                       </select> */}
 
-                        <input type="text" list="data" name="offer" onChange={this.handleChange}/>
+                        <input type="text" list="data" name="offer" onChange={this.handleChange} />
                         <datalist id="data">
-                          {this.state.user.createdPlants.map( userPlant  => {
+                          {this.state.user.createdPlants.map(userPlant => {
                             return <>
-                                    <option key={userPlant._id} value={userPlant.name} />
-                                    <input name='plantId' value={userPlant._id} />
-                                    </>
+                              <option key={userPlant._id} value={userPlant.name} />
+                              <input name='plantId' value={userPlant._id} />
+                            </>
                           }
                           )}
                         </datalist>
