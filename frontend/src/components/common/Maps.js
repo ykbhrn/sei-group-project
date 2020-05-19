@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import MapGl, { Marker, NavigationControl, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { getAllPlants } from '../../lib/api'
+import MapSearch from './MapSearch'
 
 const token = 'pk.eyJ1IjoiYWlub2t5dG8iLCJhIjoiY2thYmdqODRmMTY0aDJ5cDRvOWk1cTd6MyJ9.QIlx0yP5sKCZRAVrfrq3OA'
 
@@ -65,6 +66,10 @@ class Maps extends React.Component {
 
     return (
       <div className="main">
+        <MapSearch 
+        plants={plants}
+        viewport={viewport}
+        />
         <MapGl
           {...viewport}
           mapboxApiAccessToken={token}
