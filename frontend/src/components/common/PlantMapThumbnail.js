@@ -7,7 +7,18 @@ const token = 'pk.eyJ1IjoiYWlub2t5dG8iLCJhIjoiY2thNTVmcHo1MGp0NTNtb2FiMDN2Y2lsNS
 const PlantMapThumbnail = (props) => {
   return (
     <div>
-      <Link to={"/maps"}>
+      <Link to={{
+        pathname: '/maps',
+        state: {
+          latitude: props.lat,
+          longitude: props.lon,
+          plantProps: {
+            id: props._id,
+            name: props.name,
+            imageUrl: props.imageUrl
+          }
+        }
+      }} >
         <MapGl
           mapboxApiAccessToken={token}
           height={'30vh'}
@@ -15,7 +26,7 @@ const PlantMapThumbnail = (props) => {
           mapStyle='mapbox://styles/mapbox/light-v10'
           latitude={props.lat}
           longitude={props.lon}
-          zoom={11}
+          zoom={10}
         >
           <div key={props._id}>
             <Marker
@@ -27,7 +38,7 @@ const PlantMapThumbnail = (props) => {
           </div>
         </MapGl>
       </Link>
-    </div>
+    </div >
   )
 }
 
