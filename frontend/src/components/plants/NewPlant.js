@@ -13,6 +13,7 @@ class NewPlant extends React.Component {
         imageUrl: '',
         description: '',
         height: '',
+        nickName: '',
         location: []
       },
       options: [],
@@ -21,6 +22,7 @@ class NewPlant extends React.Component {
         imageUrl: '',
         description: '',
         height: '',
+        nickName: '',
         location: ''
       }, // * an object to store any errors that could occur when making the request.
       place: null

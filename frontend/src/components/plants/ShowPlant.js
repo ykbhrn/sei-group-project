@@ -16,7 +16,8 @@ class ShowPlant extends React.Component {
       offer: '',
       // text: ''
     },
-    isOffer: false
+    isOffer: false,
+    userPlantId: ''
   }
 
   async componentDidMount() {
@@ -48,15 +49,26 @@ class ShowPlant extends React.Component {
 
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
     this.setState({ offerData })
-    console.log(event.target.value);
+    if(event.target.name === 'offer'){
+      this.handleOffer(event.target.value)
+      console.log(event.target.value);
+      
+    }
+  
   }
 
-  handleSubmit = async event => {
+  handleOffer = value => {
+    this.setState({ userPlantId: value})
+    
+  }
+
+  handleSubmit = async (event) => {
     event.preventDefault()
     try {
       const plantId = this.props.match.params.id
-      const res = await makeOffer(plantId, this.state.offerData)
+      const res = await makeOffer(plantId, this.state.userPlantId, this.state.offerData)
       this.setState({ offerData: res.data })
+      this.clicker()
     } catch (err) {
       console.log(err)
     }
@@ -66,7 +78,9 @@ class ShowPlant extends React.Component {
   render() {
     if (!this.state.plant) return null // * if there is no plant object, return null
     const { plant, isOffer, offerData } = this.state // * deconstruct the plant from state
+
     console.log(this.state.user)
+    console.log(plant.imageUrl)
 
     return (
       <section className="section">
@@ -99,8 +113,12 @@ class ShowPlant extends React.Component {
                 _id={plant._id}
                 lat={plant.location[0].lat}
                 lon={plant.location[0].lon}
+                name={plant.name}
+                imageUrl={plant.imageUrl}
               />
+              <div className="added-by">
               <h4 className="title is-4">Added By</h4>
+              </div>
               {!isOwner(plant.user._id) &&
                 <Link to={`/profile/${plant.user._id}`}>
                   <p>{plant.user.name}</p>
@@ -134,26 +152,18 @@ class ShowPlant extends React.Component {
 
               {isOffer &&
                 <>
-                  <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+                  <form onSubmit={this.handleSubmit}className="column is-half is-offset-one-quarter box">
+                    
                     <div className="field">
                       <label className="label">Your Offer: </label>
                       <div className="control">
-                        {/* <select>
-                        {this.state.user.createdPlants.map( userPlant => {
-                          return <option 
-                          onChange={this.handleChange}
-                          name='offer'
-                          value={userPlant.name}
-                          >{userPlant.name}</option>
-                      </select> */}
-
                         <input type="text" list="data" name="offer" onChange={this.handleChange} />
                         <datalist id="data">
                           {this.state.user.createdPlants.map(userPlant => {
                             return <>
-                              <option key={userPlant._id} value={userPlant.name} />
-                              <input name='plantId' value={userPlant._id} />
-                            </>
+                                    <option key={userPlant._id} value={userPlant._id}>{userPlant.name}</option>
+      
+                                    </>
                           }
                           )}
                         </datalist>
@@ -167,12 +177,11 @@ class ShowPlant extends React.Component {
                           placeholder="Message"
                           name="text"
                           onChange={this.handleChange}
-                          value={offerData.text || ''}
                         />
                       </div>
                     </div>
                     <div className="field">
-                      <button type="submit" className="button is-fullwidth is-warning">Submit Offer</button>
+                      <button type="submit" className="button is-warning">Submit Offer</button>
                     </div>
                   </form>
                   <hr />

@@ -1,11 +1,11 @@
 const axios = require('axios')
 const trefleToken = 'S2RkU2JTY2tqbjJPVUV6MFRsYmUvdz09'
+const pexelsHeader = { Authorization: '563492ad6f917000010000014e452efa91af4e33bf581f73e3eb261b' }
 
 async function getTrefleInfo(req, res) {
   try {
     console.log('backend recieved: ', req.body)
     const query = req.body.search
-    const page = req.body.page
     const response = await axios.get(`https://trefle.io/api/plants/?q=${query}&token=${trefleToken}`)
     console.log('BE Response', response.data)
     res.status(200).json(response.data)
@@ -24,9 +24,22 @@ async function getLocation() {
   }
 }
 
+async function photoSearch(req, res) {
+  try {
+    const randomNumber = Math.floor(Math.random() * 15)
+    const searchQuery = req.body.searchquery
+    console.log('BE: ', req.body)
+    const searchRes = await axios.get(`https://api.pexels.com/v1/search?query=${searchQuery}`, { headers: pexelsHeader })
+    const randImage = searchRes.data.photos[randomNumber].src.large2x
+    res.status(200).json(randImage)
+  } catch (err) {
+    res.sendStatus(404)
+  }
+}
+
 
 module.exports = {
   getTrefleInfo,
-  getLocation
-
+  getLocation,
+  photoSearch
 }

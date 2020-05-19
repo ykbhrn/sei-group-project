@@ -14,6 +14,7 @@ import Login from './components/auth/Login'
 import Maps from './components/common/Maps'
 import ProfilePage from './components/common/ProfilePage'
 import PublicProfile from './components/common/PublicProfile'
+import ErrorPage from './components/common/ErrorPage'
 
 
 
@@ -32,7 +33,7 @@ const App = () => (
       <Route path="/maps" component={Maps} />
       <Route path="/profile/:id" component={PublicProfile} />
       <Route path="/profile" component={ProfilePage} />
-      <Route path="/*" component={Error} />
+      <Route path="/*" component={ErrorPage} />
     </Switch>
   </BrowserRouter>
 )

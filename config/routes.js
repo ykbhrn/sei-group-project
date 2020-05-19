@@ -36,19 +36,24 @@ router.route('/trefle')
 router.route('/maps')
   .post(apiProxies.getLocation)
   
-router.route('/offer/:id')
+router.route('/offer/:id/:plantid')
   .post(secureRoute, offer.newOffers)
 
-router.route('/response/:id/:plantid')
+router.route('/response/:id/:plantid/:decision/:offered')
   .post(secureRoute, offer.respondOffer)
 
 router.route('/likes')
   .post(secureRoute, like.like)
 
+<<<<<<< HEAD
 router.route('/plants/:id/comments')
   .post(secureRoute, plants.commentCreate)  
 
 router.route('/plants/:id/comments/:commentid')
   .delete(secureRoute, plants.commentDelete) 
 
+=======
+router.route('/photo')
+  .post(apiProxies.photoSearch)
+>>>>>>> development
 module.exports = router

@@ -16,9 +16,7 @@ $plntify: #3FC008;
   padding: 30px;
 }
 
-.offers p, .responses p {
-  line-height: 1.5;
-}
+
 
 .responses {
   width: 500px;
@@ -35,7 +33,7 @@ $plntify: #3FC008;
   padding: 12px;
   width: 200px;
   text-align: center;
-  
+  margin-top: 10px;
 }
 
 
@@ -44,7 +42,7 @@ $plntify: #3FC008;
   display: inline-block;
   height: 38px;
   padding: 0 30px;
-  color: green;
+  color: $plntify;
   text-align: center;
   font-size: 11px;
   font-weight: 600;
@@ -55,7 +53,7 @@ $plntify: #3FC008;
   white-space: nowrap;
   background-color: transparent;
   border-radius: 6px;
-  border: 1px solid green;
+  border: 1px solid $plntify;
   box-sizing: border-box;
   outline: none;
 }
@@ -66,4 +64,12 @@ $plntify: #3FC008;
   h2 {
     color: $black
   }
+}
+.hero-body{
+  background-size: cover;
+  background-position: center;
+}
+
+.added-by h4 {
+  margin: 24px 0
 }

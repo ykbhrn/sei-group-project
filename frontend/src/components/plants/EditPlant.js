@@ -15,6 +15,7 @@ class EditPlant extends React.Component {
         imageUrl: '',
         description: '',
         height: '',
+        nickName: '',
         location: []
       },
       options: [],
@@ -30,18 +31,9 @@ class EditPlant extends React.Component {
     this.setState({ formData })
     console.log('parent', this.state.formData.location)
   }
-  handleSelect(lat, lon) {
-    const formData = { 
-      ...this.state.formData, location: [{lat: lat, lon: lon}]
-    }
-    this.setState({ formData })
-    console.log('parent', this.state.formData.location)
-  }
-
-
+ 
 
   async componentDidMount() { 
-
     const plantId = this.props.match.params.id //* ge the id of the plant to edit from the url, accessing the value through react routers props object
     try {
       const res = await getSinglePlant(plantId) //* make a request to get the current data of the plant our user wants to edit

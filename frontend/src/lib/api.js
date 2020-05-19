@@ -46,12 +46,12 @@ export const getPublicPortfolio = id => {
   return axios.get(`/api/profile/${id}`)
 }
 
-export const makeOffer = (id, offerData) => {
-  return axios.post(`/api/offer/${id}`, offerData, withHeaders())
+export const makeOffer = (id, plantId, offerData) => {
+  return axios.post(`/api/offer/${id}/${plantId}`, offerData, withHeaders())
 }
 
-export const respondOffer = (id, plantid, offerData) => {
-  return axios.post(`/api/response/${id}/${plantid}`, offerData, withHeaders())
+export const respondOffer = (id, plantid, decision, offered, offerData) => {
+  return axios.post(`/api/response/${id}/${plantid}/${decision}/${offered}`, offerData, withHeaders())
 }
 
 export const addLikes = (id) => {
@@ -61,4 +61,8 @@ export const addLikes = (id) => {
 
 export const addComment = ( commentData, plantId ) => {
     return axios.post(`/api/plants/${plantId}/comments`, commentData, withHeaders())
+}
+export const getPhoto = (searchTerm) => {
+  console.log(searchTerm)
+  return axios.post('/api/photo', {searchquery: searchTerm})
 }
