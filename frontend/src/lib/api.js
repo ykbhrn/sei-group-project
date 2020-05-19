@@ -50,8 +50,8 @@ export const makeOffer = (id, plantId, offerData) => {
   return axios.post(`/api/offer/${id}/${plantId}`, offerData, withHeaders())
 }
 
-export const respondOffer = (id, plantid, offerData) => {
-  return axios.post(`/api/response/${id}/${plantid}`, offerData, withHeaders())
+export const respondOffer = (id, plantid, decision, offered, offerData) => {
+  return axios.post(`/api/response/${id}/${plantid}/${decision}/${offered}`, offerData, withHeaders())
 }
 
 export const addLikes = (id) => {

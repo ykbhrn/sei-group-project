@@ -36,9 +36,14 @@ async function respondOffer(req, res) {
     req.body.user = req.currentUser
     const userId = req.params.id
     const plantId = req.params.plantid
+    const decision = req.params.decision
+    const offeredPlantId = req.params.offered
+    const offeredPlant = await Plant.findById(offeredPlantId)
     const plant = await Plant.findById(plantId)
     const user =  await  User.findById(userId)
     const currentUser = await User.findById(req.currentUser._id)
+
+    
 
     // req.body.user = user
     req.body.userName = currentUser.name
@@ -47,10 +52,16 @@ async function respondOffer(req, res) {
     req.body.plantId = plant._id
     req.body.plantName = plant.name
     req.body.plantImageUrl = plant.imageUrl
+    req.body.response = decision
+    req.body.offeredImageUrl = offeredPlant.imageUrl
+    req.body.offeredPlantId = offeredPlant._id
+    req.body.offeredPlantName = offeredPlant.name
   
     user.submittedOffers.push(req.body)
     await user.save()
     res.status(201).json(user)
+    console.log(req.body)
+    
 
   } catch (err) {
     console.log(err)
