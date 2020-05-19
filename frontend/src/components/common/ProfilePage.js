@@ -54,17 +54,15 @@ class ProfilePage extends React.Component {
  return this.state.user.submittedOffers.map( offer => {
   return <div className='title is-4'>
           <p>
-          You have offer from: <br/>
-          <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br/>
-          On plant: <br/>
-          <Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br/>
+          You have response from: <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br/>
+          On plant: <Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br/>
           <img src={offer.plantImageUrl} alt={offer.plantName} />
           </Link> 
-          Price: <br/>
-           {offer.offer} <br/>
-           Respond from user: <br/>
-           {offer.response}
-           Text me on my email for more details: 
+          You are offering:  {offer.offer} <br/>
+          Message from user: < br/>
+          <div className="message">{offer.text}</div>
+           {offer.userName} decision: <span className="offer-response"> {offer.response}</span> <br/>
+           {offer.userName} email for further communication:
            {offer.email}
 
       </p>
@@ -97,41 +95,28 @@ class ProfilePage extends React.Component {
           <div className='title is-4'>
           <p>
           Nr.{offerCounter}: <br/>
-          You have offer from: <br/>
-          <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
-          On plant: <br/>
-          <Link to={`/plants/${plant._id}`}> {plant.name}</Link> <br/>
-          User message: <br/>
-          {offer.text}
-          Price: <br/>
-           {offer.offer} <br/>
+          You have offer from: <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link> <br/>
+          On plant: <Link to={`/plants/${plant._id}`}> {plant.name}<br/>
+          <img src={plant.imageUrl} alt={plant.name}/>
+          </Link> <br/>
+          Message from {offer.user.name}: <br/>
+         <div className="message">{offer.text} </div> <br/>
+          Offered Plant: {offer.offer} <br/>
+    
+          {/* <img src={offer.imageUrl} /> */}
       </p>
           </div>
           <button
                 className="button is-light"
-                onClick={this.clicker}>Respond on offer
+                onClick={this.clicker}>Respond to the offer
               </button>
               <hr />  
               {this.state.isResponse &&
                 <>
                   <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
 
-                  <div className="field">
-                      <label className="label">Price: </label>
-                      <div className="control">
-                        <textarea
-                          placeholder="Message"
-                          name="offer"
-                          onChange={this.handleChange}
-                          value={this.state.offerData.offer || ''}
-                        />
-                      </div>
-                    </div>
-
-                    Message from user: {offer.text} <br/>
-
                     <div className="field">
-                      <label className="label">Respond to User: </label>
+                      <label className="label">Message to {offer.user.name}: </label>
                       <div className="control">
                         <textarea
                           placeholder="Message"
@@ -143,7 +128,7 @@ class ProfilePage extends React.Component {
                     </div>
 
                     <div className="field">
-                      <label className="label">Do You Accept the Offer: </label>
+                      <label className="label">Do You Accept the Offer?: </label>
                       <div className="control">
                         <input
                           placeholder="Your Respond"
@@ -198,6 +183,7 @@ class ProfilePage extends React.Component {
           {/* Received offers jsx code in that function */}
           <div className='offers'>
           <h1 className="title is-3 is-sucess">Your Offers: </h1>
+          <hr/>
           <br/>
           {this.componentDidCatch()}
           </div>
@@ -205,6 +191,7 @@ class ProfilePage extends React.Component {
           {/* Responses for your offers */}
           <div className='responses'>
           <h1 className="title is-3 is-sucess">Responses from the Users: </h1>
+          <hr/>
           <br/>
           {this.handleResponse()}
           </div>

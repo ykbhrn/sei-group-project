@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
 const submittedOfferSchema = new mongoose.Schema({
-  offer: { type: String, required: true },
+  offer: { type: String, required: false },
   text: { type: String, required: false },
-  response: { type: String, required: false },
+  response: { type: String, required: true },
   userName: { type: String, required: false }, 
   plantName: { type: String, required: false },
   plantId: { type: String, required: false },

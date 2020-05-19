@@ -46,7 +46,7 @@ class ShowPlant extends React.Component {
 
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
     this.setState({ offerData })
-    console.log(event.target.name);
+    console.log(event.target.value);
   }
 
   handleSubmit = async event => {
@@ -138,11 +138,13 @@ class ShowPlant extends React.Component {
                         <input type="text" list="data" name="offer" onChange={this.handleChange}/>
                         <datalist id="data">
                           {this.state.user.createdPlants.map( userPlant  => {
-                            return <option key={userPlant._id} value={userPlant.name} />
+                            return <>
+                                    <option key={userPlant._id} value={userPlant.name} />
+                                    <input name='plantId' value={userPlant._id} />
+                                    </>
                           }
                           )}
                         </datalist>
-
                       </div>
 
                     </div>

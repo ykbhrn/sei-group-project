@@ -15,12 +15,10 @@ async function newOffers(req, res,) {
     plant.offers.push(req.body)
 
     // user.submittedOffers.push(plant.offers[plant.offers.length - 1 ].user.name) 
-
-    console.log(req.body)
-
     await plant.save()
     await user.save()
 
+    console.log(plant.offers)
     res.status(201).json(plant.offers)
   } catch (err) {
     res.status(422).json({ message: 'youre wrong' })
