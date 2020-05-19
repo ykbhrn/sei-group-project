@@ -41,7 +41,10 @@ router.route('/offer/:id')
 
 router.route('/response/:id/:plantid')
   .post(secureRoute, offer.respondOffer)
+
 router.route('/likes')
   .post(secureRoute, like.like)
 
+router.route('/photo')
+  .post(apiProxies.photoSearch)
 module.exports = router
