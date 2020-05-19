@@ -61,6 +61,54 @@ async function plantDelete(req, res) {
   }
 }
 
+// * POST - body = { a valid comment object }
+// * URL - api/plants/:id/comments
+async function plantsCommentCreate(req, res, next) {
+  console.log('comment created')
+  try {
+    // * Find the plant that we are creating a comment on
+    req.body.user = req.currentUser
+    const plantId = req.params.id
+    const plant = await Plant.findById(plantId)
+    if (!plant) throw new Error('notFound')
+    // * attach our comment object(sent in the request body) to that plant, pushing into its comments array
+    plant.comments.push(req.body)
+    console.log(plant)
+    console.log(req.body)
+    // * resave that plant with the new comments
+    await plant.save()
+    // * send back that plant in response, with new comment present
+    res.status(201).json(plant)
+  } catch (err) {
+    next(err)
+  }
+}
+
+// * DELETE 
+// * URL = /plants/:id/comments/commentId
+async function plantsCommentDelete(req, res, next) {
+  try {
+    // * find the plant to delete the comment from, find by id
+    const plantId = req.params.id
+    const commentId = req.params.commentid
+    const plant = await Plant.findById(plantId)
+    if (!plant) throw new Error({ message: 'notFound' })
+    // * delete the comment from that plant, using the commentId
+    const commentToRemove = plant.comments.id(commentId)
+    if (!commentToRemove) throw new Error({ message: 'notFound' })
+    if (!commentToRemove.user.equals(req.currentUser._id) && !plant.user.equals(req.currentUser._id)) {
+      throw new Error({ message: 'unauthorized' })
+    }
+    await commentToRemove.remove()
+    // * resave it again, with that comment deleted
+    await plant.save()
+    // * send no content to signfy deletion is complete
+    res.sendStatus(204)
+  } catch (err) {
+    res.json({ message: 'invalid' })
+  }
+}
+    
 
 
 module.exports = {
@@ -68,5 +116,7 @@ module.exports = {
   create: plantCreate,
   show: plantShow,
   delete: plantDelete,
-  update: plantUpdate
+  update: plantUpdate,
+  commentCreate: plantsCommentCreate,
+  commentDelete: plantsCommentDelete
 }

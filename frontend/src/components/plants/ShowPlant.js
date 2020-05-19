@@ -6,6 +6,7 @@ import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
 import Likes from '../common/Likes'
 import PlantInfoBox from '../common/PlantInfoBox'
+import Comments from '../common/Comments'
 
 
 class ShowPlant extends React.Component {
@@ -14,7 +15,7 @@ class ShowPlant extends React.Component {
     user: null,
     offerData: {
       offer: '',
-      text: ''
+      // text: ''
     },
     isOffer: false,
     userPlantId: ''
@@ -126,6 +127,12 @@ class ShowPlant extends React.Component {
                   <p>{plant.user.name}</p>
                 </Link>
               }
+
+              <Comments
+              plantId={plant._id}
+              />
+
+
               {isOwner(plant.user._id) &&
                 <>
                   <p>YOU</p>
@@ -149,18 +156,10 @@ class ShowPlant extends React.Component {
               {isOffer &&
                 <>
                   <form onSubmit={this.handleSubmit}className="column is-half is-offset-one-quarter box">
+                    
                     <div className="field">
                       <label className="label">Your Offer: </label>
                       <div className="control">
-                        {/* <select>
-                        {this.state.user.createdPlants.map( userPlant => {
-                          return <option 
-                          onChange={this.handleChange}
-                          name='offer'
-                          value={userPlant.name}
-                          >{userPlant.name}</option>
-                      </select> */}
-
                         <input type="text" list="data" name="offer" onChange={this.handleChange} />
                         <datalist id="data">
                           {this.state.user.createdPlants.map(userPlant => {
@@ -185,7 +184,7 @@ class ShowPlant extends React.Component {
                       </div>
                     </div>
                     <div className="field">
-                      <button type="submit" className="button is-fullwidth is-warning">Submit Offer</button>
+                      <button type="submit" className="button is-warning">Submit Offer</button>
                     </div>
                   </form>
                   <hr />

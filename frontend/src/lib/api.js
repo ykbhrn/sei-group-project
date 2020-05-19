@@ -50,8 +50,8 @@ export const makeOffer = (id, plantId, offerData) => {
   return axios.post(`/api/offer/${id}/${plantId}`, offerData, withHeaders())
 }
 
-export const respondOffer = (id, plantid, offerData) => {
-  return axios.post(`/api/response/${id}/${plantid}`, offerData, withHeaders())
+export const respondOffer = (id, plantid, decision, offered, offerData) => {
+  return axios.post(`/api/response/${id}/${plantid}/${decision}/${offered}`, offerData, withHeaders())
 }
 
 export const addLikes = (id) => {
@@ -59,6 +59,9 @@ export const addLikes = (id) => {
   return axios.post(`/api/likes`, {plantId: id}, withHeaders())
 }
 
+export const addComment = ( commentData, plantId ) => {
+    return axios.post(`/api/plants/${plantId}/comments`, commentData, withHeaders())
+}
 export const getPhoto = (searchTerm) => {
   console.log(searchTerm)
   return axios.post('/api/photo', {searchquery: searchTerm})
