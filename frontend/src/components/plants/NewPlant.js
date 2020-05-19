@@ -14,6 +14,7 @@ class NewPlant extends React.Component {
         description: '',
         height: '',
         nickName: '',
+        units: '',
         location: []
       },
       options: [],
@@ -47,6 +48,7 @@ class NewPlant extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault()
+    this.convertHeight()
     try {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
@@ -56,11 +58,34 @@ class NewPlant extends React.Component {
       console.log('submission err', err.response.data.errors)
     }
   }
+
+  convertHeight = () => {
+    let milimeters = 0
+    if (this.state.formData.units === 'centimeters'){
+      milimeters = this.state.formData.height * 10
+    } else if (this.state.formData.units === 'meters'){
+      milimeters = this.state.formData.height * 1000
+    } else if (this.state.formData.units === 'inches'){
+      milimeters = this.state.formData.height * 25.4
+    } else if (this.state.formData.units === 'feet'){
+      milimeters = this.state.formData.height * 305
+    }
+    this.setState({ height: milimeters })
+  }
+
   handleSelectChange = event => {
+    
     const sciName = { ...this.state.formData, scientificName: event.value } 
     const errors = { ...this.state.errors, [event.name]: '' } 
     this.setState({ formData: sciName, errors }) 
     console.log(this.state.formData)
+  }
+  handleUnitsSelectChange = event => {
+    
+    const units = { ...this.state.formData, units: event.value } 
+    const errors = { ...this.state.errors, [event.name]: '' } 
+    this.setState({ formData: units, errors }) 
+    // console.log(this.state.formData)
   }
 
   setImgUrl = (childData) => {
@@ -83,6 +108,7 @@ class NewPlant extends React.Component {
             handleSubmit={this.handleSubmit}
             onSelect={this.handleSelect}
             handleSelectChange={this.handleSelectChange}
+            handleUnitsSelectChange={this.handleUnitsSelectChange}
             imageUrl={this.setImgUrl}
             buttonText="Add My Plant"
           />

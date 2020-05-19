@@ -21,7 +21,13 @@ class FormPlant extends React.Component {
       lon: '',
       lat: '',
       test: '',
-      errors: {}
+      errors: {},
+      unitOptions: [
+        { value: 'inches', label: 'inches' },
+        { value: 'feet', label: 'feet' },
+        { value: 'centimeters', label: 'centimeters' },
+        { value: 'meters', label: 'meters' },
+      ]
     }
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleItemClicked = this.handleItemClicked.bind(this)
@@ -101,11 +107,9 @@ class FormPlant extends React.Component {
     this.sendData()
   }
 
-  
-
   // console.log('props: ', this.props.formData.name)
   render() {
-    const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
+    const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange, handleUnitsSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
     return (
 
       <div className="columns">
@@ -149,6 +153,21 @@ class FormPlant extends React.Component {
             </div>
             {errors.height && <small className="help is-danger">{errors.height}</small>}
           </div>
+
+          <div className="field">
+            <label className="label">Units</label>
+            <div className={`control ${errors.units ? 'is-danger' : ''}`}
+              onClick={this.getSciData}
+            >
+              <Select
+                name="units"
+                onChange={handleUnitsSelectChange}
+                options={this.state.unitOptions}
+              />
+            </div>
+            {errors.units && <small className="help is-danger">{errors.units}</small>}
+          </div>
+
           <div className="field">
             <label className="label">Scientific Name</label>
             <div className={`control ${errors.scientificName ? 'is-danger' : ''}`}
@@ -167,7 +186,7 @@ class FormPlant extends React.Component {
             <div className="control">
               <textarea
                 className={`textarea ${errors.description ? 'is-danger' : ''}`}
-                placeholder="Description"
+                placeholder="Describe your specific plant. We will add general descriptions for you"
                 type="textarea"
                 name="description"
                 rows="5"

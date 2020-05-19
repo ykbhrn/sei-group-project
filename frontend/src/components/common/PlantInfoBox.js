@@ -14,18 +14,17 @@ class PlantInfoBox extends React.Component {
   }
 
   getPlantData = async (query) => {
-    const plantData = await axios.post('/api/summary', {query})
-    console.log('plant data', plantData)
-    const drilledData = plantData.data.query.pages
-    for (var key in drilledData) {
-      var lastObj = drilledData[key];
+    const response = await axios.post('/api/summary', {query})
+    
+    for (var key in response.data.query.pages) {
+      var lastObj = response.data.query.pages[key];
     }
+
     const extract =lastObj.extract
+
     if(extract) {
-      console.log('first run: ', query)
       this.setState({ plantData: extract })
     } else {
-      console.log('second run: ', query)
       this.getPlantData(this.state.commonName)
     }
     
