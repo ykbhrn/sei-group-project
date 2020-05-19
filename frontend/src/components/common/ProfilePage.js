@@ -39,7 +39,7 @@ class ProfilePage extends React.Component {
   handleSubmit = async (event, id, plantId) => {
     event.preventDefault()
     try {
-      const res = await respondOffer(id, plantId, 'yes', this.state.offerData)
+      const res = await respondOffer(id, plantId, 'Accepted', this.state.offerData)
       this.setState({ offerData: res.data })
       this.clicker()
     } catch (err) {
@@ -49,7 +49,7 @@ class ProfilePage extends React.Component {
   handleSubmitDecline = async (event, id, plantId) => {
     event.preventDefault()
     try {
-      const res = await respondOffer(id, plantId, 'no', this.state.offerData)
+      const res = await respondOffer(id, plantId, 'Declined', this.state.offerData)
       this.setState({ offerData: res.data })
       this.clicker()
     } catch (err) {
@@ -60,6 +60,16 @@ class ProfilePage extends React.Component {
   clicker = () => {
     this.setState({ isResponse: this.state.isResponse === false ? true : false })
   }
+
+  decisionClass = decision => {
+    if(decision === 'Accepted') {
+      return 'button is-warning is-fullwidth'
+    }
+    else {
+      return 'button is-danger is-fullwidth'
+    }
+  }
+
   // Responses on your offers function
  handleResponse = () => {
 
@@ -69,11 +79,15 @@ class ProfilePage extends React.Component {
           You have response from: <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br/>
           On plant: <Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br/>
          <img src={offer.plantImageUrl} alt={offer.plantName} />
+         
        </Link> 
           You are offering:  {offer.offer} <br/>
-          Message from user: < br/>
+    
+       <div className="field">
+        <div className={this.decisionClass(offer.response)}>{offer.response}</div>
+        </div>
+        Message from user: < br/>
        <div className="message">{offer.text}</div>
-       {offer.userName} decision: <span className="offer-response"> {offer.response}</span> <br/>
        {offer.userName} email for further communication:
        {offer.email}
 
@@ -97,7 +111,7 @@ class ProfilePage extends React.Component {
      return offerArray.map( plant => {
        // * accesing offers
        return plant.offers.map( offer => {
-
+        
          if (this.state.user.email === offer.user.email) return null
 
          offerCounter++
@@ -112,7 +126,7 @@ class ProfilePage extends React.Component {
              </Link></p>
              <p>Message from {offer.user.name}: </p>
              <div className="message">{offer.text} </div>
-          Offered Plant: <Link to={offer.imageUrl}>{offer.name}
+          Offered Plant: <Link to={`/plants/${offer.plantId}`}>{offer.name}
                <img src={offer.imageUrl} alt={offer.name}/>
              </Link>
     
@@ -131,18 +145,6 @@ class ProfilePage extends React.Component {
                     <div className="field">
                       <label className="label">Message to {offer.user.name}: </label>
                       <div className="control">
-                        {/* <textarea
-                          placeholder="Message"
-                          name="text"
-                          onChange={this.handleChange}
-                          value={offer.offer}
-                        /> */}
-                      </div>
-                    </div>
-
-                    <div className="field">
-                      <label className="label">Message to {offer.user.name}: </label>
-                      <div className="control">
                         <textarea
                           placeholder="Message"
                           name="text"
@@ -152,25 +154,17 @@ class ProfilePage extends React.Component {
                     </div>
 
                     <div className="field">
-                      <button type="submit" className="button is-fullwidth is-warning"
-                    
+                      <button type="submit" className="button is-warning"             
                         onClick={(event) => {
                           this.handleSubmit(event, offer.user._id, plant._id)
                         }}
                       >Accept</button>
-                      <button type="submit" className="button is-fullwidth is-warning"
-                    
+
+                      <button type="submit" className="button is-danger"
                     onClick={(event) => {
                       this.handleSubmitDecline(event, offer.user._id, plant._id)
                     }}
                   >Decline</button>
-                      
-                    
-                    </div>
-                    <div className="field">
-                      <button className="button is-fullwidth is-danger"
-                        onClick={this.clicker}
-                      >Cancel</button>
                     </div>
                   </form>
                     <hr />

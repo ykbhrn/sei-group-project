@@ -20,7 +20,7 @@ const offerSchema = new mongoose.Schema({
 })
 
 const plantSchema = new mongoose.Schema({
-  nickName: { type: String, required: true },
+  nickName: { type: String, required: false },
   name: { type: String, required: true },
   scientificName: { type: String, required: true },
   imageUrl: { type: String, required: true },

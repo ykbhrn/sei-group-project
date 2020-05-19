@@ -41,6 +41,8 @@ async function respondOffer(req, res) {
     const user =  await  User.findById(userId)
     const currentUser = await User.findById(req.currentUser._id)
 
+    
+
     // req.body.user = user
     req.body.userName = currentUser.name
     req.body.userId = currentUser._id

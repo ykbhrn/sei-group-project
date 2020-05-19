@@ -146,18 +146,10 @@ class ShowPlant extends React.Component {
               {isOffer &&
                 <>
                   <form onSubmit={this.handleSubmit}className="column is-half is-offset-one-quarter box">
+                    
                     <div className="field">
                       <label className="label">Your Offer: </label>
                       <div className="control">
-                        {/* <select>
-                        {this.state.user.createdPlants.map( userPlant => {
-                          return <option 
-                          onChange={this.handleChange}
-                          name='offer'
-                          value={userPlant.name}
-                          >{userPlant.name}</option>
-                      </select> */}
-
                         <input type="text" list="data" name="offer" onChange={this.handleChange} />
                         <datalist id="data">
                           {this.state.user.createdPlants.map(userPlant => {
@@ -182,7 +174,7 @@ class ShowPlant extends React.Component {
                       </div>
                     </div>
                     <div className="field">
-                      <button type="submit" className="button is-fullwidth is-warning">Submit Offer</button>
+                      <button type="submit" className="button is-warning">Submit Offer</button>
                     </div>
                   </form>
                   <hr />
