@@ -45,15 +45,12 @@ router.route('/response/:id/:plantid/:decision/:offered')
 router.route('/likes')
   .post(secureRoute, like.like)
 
-<<<<<<< HEAD
 router.route('/plants/:id/comments')
   .post(secureRoute, plants.commentCreate)  
 
 router.route('/plants/:id/comments/:commentid')
   .delete(secureRoute, plants.commentDelete) 
 
-=======
 router.route('/photo')
   .post(apiProxies.photoSearch)
->>>>>>> development
 module.exports = router
