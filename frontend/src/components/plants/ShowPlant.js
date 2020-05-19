@@ -5,6 +5,8 @@ import { getSinglePlant, deletePlant, makeOffer, getPortfolio } from '../../lib/
 import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
 import Likes from '../common/Likes'
+import PlantInfoBox from '../common/PlantInfoBox'
+import Comments from '../common/Comments'
 
 
 class ShowPlant extends React.Component {
@@ -13,7 +15,7 @@ class ShowPlant extends React.Component {
     user: null,
     offerData: {
       offer: '',
-      text: ''
+      // text: ''
     },
     isOffer: false,
     userPlantId: ''
@@ -98,12 +100,14 @@ class ShowPlant extends React.Component {
             </div>
             <div className="column is-half">
               <h4 className="title is-4">Description</h4>
-              <p>{plant.description}</p>
+              <p>{plant.description}</p><br></br>
+              <PlantInfoBox plantInfo={plant}/>
               <hr />
               <h4 className="title is-4">Height</h4>
               <hr />
               <p>{plant.height}</p>
               <hr />
+              
               {/* <h4 className="title is-4">Location</h4>
               <hr />
               <p>{plant.lat}</p>
@@ -123,6 +127,12 @@ class ShowPlant extends React.Component {
                   <p>{plant.user.name}</p>
                 </Link>
               }
+
+              <Comments
+              plantId={plant._id}
+              />
+
+
               {isOwner(plant.user._id) &&
                 <>
                   <p>YOU</p>

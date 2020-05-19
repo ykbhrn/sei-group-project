@@ -13,6 +13,7 @@ class EditPlant extends React.Component {
       formData: { //* our formData in state, matches the object we need to send in the request
         name: '',
         imageUrl: '',
+        trefleId: '',
         description: '',
         height: '',
         nickName: '',
@@ -31,13 +32,7 @@ class EditPlant extends React.Component {
     this.setState({ formData })
     console.log('parent', this.state.formData.location)
   }
-  handleSelect(lat, lon) {
-    const formData = { 
-      ...this.state.formData, location: [{lat: lat, lon: lon}]
-    }
-    this.setState({ formData })
-    console.log('parent', this.state.formData.location)
-  }
+ 
 
   async componentDidMount() { 
     const plantId = this.props.match.params.id //* ge the id of the plant to edit from the url, accessing the value through react routers props object
@@ -76,12 +71,12 @@ class EditPlant extends React.Component {
     }
   }
 
-  handleErrors = () => {
-    
-  }
-
   setImgUrl = (childData) => {
     const formData = { ...this.state.formData, imageUrl: childData }
+    this.setState({ formData })
+  }
+  setImgUrl = (childData) => {
+    const formData = { ...this.state.formData, trefleId: childData }
     this.setState({ formData })
   }
 
@@ -98,6 +93,7 @@ class EditPlant extends React.Component {
             handleSubmit={this.handleSubmit}
             onSelect={this.handleSelect}
             imageUrl={this.setImgUrl}
+            trefleId={this.setTrefleId}
             buttonText="Edit my Plant"
           />
         </div>

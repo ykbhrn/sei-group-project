@@ -63,7 +63,13 @@ export const addLikes = (id) => {
   return axios.post(`/api/likes`, {plantId: id}, withHeaders())
 }
 
+export const addComment = ( commentData, plantId ) => {
+    return axios.post(`/api/plants/${plantId}/comments`, commentData, withHeaders())
+}
 export const getPhoto = (searchTerm) => {
   console.log(searchTerm)
   return axios.post('/api/photo', {searchquery: searchTerm})
+}
+export const getSummary = (plantName) => {
+  return axios.post('/api/summary', {searchTerm: plantName})
 }

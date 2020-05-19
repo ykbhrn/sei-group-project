@@ -1,7 +1,5 @@
 import React from 'react'
 import Select from 'react-select'
-import ImageUpload from './ImageUpload'
-import { render } from 'react-dom'
 import { getTrefleData } from '../../lib/api'
 import axios from 'axios'
 
@@ -21,7 +19,13 @@ class FormPlant extends React.Component {
       lon: '',
       lat: '',
       test: '',
-      errors: {}
+      errors: {},
+      unitOptions: [
+        { value: 'inches', label: 'inches' },
+        { value: 'feet', label: 'feet' },
+        { value: 'centimeters', label: 'centimeters' },
+        { value: 'meters', label: 'meters' },
+      ]
     }
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleItemClicked = this.handleItemClicked.bind(this)
@@ -96,19 +100,14 @@ class FormPlant extends React.Component {
     data.append('file', event.target.files[0])
     data.append('upload_preset', uploadPreset)
     const res = await axios.post(uploadUrl, data)
-    this.setState({
-      imageUrl: res.data.url
-    }
-    )
+    this.setState({ imageUrl: res.data.url })
     console.log(this.state.imageUrl)
     this.sendData()
   }
 
-  
-
   // console.log('props: ', this.props.formData.name)
   render() {
-    const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
+    const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange, handleUnitsSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
     return (
 
       <div className="columns">
@@ -152,6 +151,21 @@ class FormPlant extends React.Component {
             </div>
             {errors.height && <small className="help is-danger">{errors.height}</small>}
           </div>
+
+          <div className="field">
+            <label className="label">Units</label>
+            <div className={`control ${errors.units ? 'is-danger' : ''}`}
+              onClick={this.getSciData}
+            >
+              <Select
+                name="units"
+                onChange={handleUnitsSelectChange}
+                options={this.state.unitOptions}
+              />
+            </div>
+            {errors.units && <small className="help is-danger">{errors.units}</small>}
+          </div>
+
           <div className="field">
             <label className="label">Scientific Name</label>
             <div className={`control ${errors.scientificName ? 'is-danger' : ''}`}
@@ -170,7 +184,7 @@ class FormPlant extends React.Component {
             <div className="control">
               <textarea
                 className={`textarea ${errors.description ? 'is-danger' : ''}`}
-                placeholder="Description"
+                placeholder="Describe your specific plant. We will add general descriptions for you"
                 type="textarea"
                 name="description"
                 rows="5"
@@ -189,7 +203,7 @@ class FormPlant extends React.Component {
                 type="file"
                 onChange={this.handleUpload}
               />
-              {formData.imageUrl ? <img src={formData.imageUrl} alt="User Uploaded Image"></img> : ''}
+              {formData.imageUrl ? <img src={formData.imageUrl} alt="User's Upload"></img> : ''}
             </div>
             {errors.imageUrl && <small className="help is-danger">{errors.imageUrl}</small>}
           <div className="field">

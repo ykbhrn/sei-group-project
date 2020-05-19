@@ -48,6 +48,16 @@ router.route('/finish/:plantid/:offered')
 router.route('/likes')
   .post(secureRoute, like.like)
 
+router.route('/plants/:id/comments')
+  .post(secureRoute, plants.commentCreate)  
+
+router.route('/plants/:id/comments/:commentid')
+  .delete(secureRoute, plants.commentDelete) 
+
 router.route('/photo')
   .post(apiProxies.photoSearch)
+
+router.route('/summary')
+  .post(apiProxies.getSummary)
+
 module.exports = router
