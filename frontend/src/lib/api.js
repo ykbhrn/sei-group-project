@@ -50,6 +50,10 @@ export const makeOffer = (id, offerData) => {
   return axios.post(`/api/offer/${id}`, offerData, withHeaders())
 }
 
+export const respondOffer = (id, plantid, offerData) => {
+  return axios.post(`/api/response/${id}/${plantid}`, offerData, withHeaders())
+}
+
 export const addLikes = (id) => {
   //* When we send a post request for the like we need to send the body PlantId
   return axios.post(`/api/likes`, {plantId: id}, withHeaders())

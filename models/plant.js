@@ -12,6 +12,8 @@ const offerSchema = new mongoose.Schema({
   offer: { type: String, required: true },
   text: { type: String, required: false },
   response: { type: String, required: false },
+  imageUrl: { type: String, required: false },
+  plantId: { type: String, required: false },
   user: { type: Object, required: true }
 }, {
   timestamps: true

@@ -39,6 +39,8 @@ router.route('/maps')
 router.route('/offer/:id')
   .post(secureRoute, offer.newOffers)
 
+router.route('/response/:id/:plantid')
+  .post(secureRoute, offer.respondOffer)
 router.route('/likes')
   .post(secureRoute, like.like)
 

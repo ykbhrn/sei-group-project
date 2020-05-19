@@ -27,25 +27,31 @@ class Navbar extends React.Component{
       <nav className="navbar is-success">
         <div className="container">
           <div className="navbar-brand">
-          {isAuthenticated() && <Link to="/" className="navbar-item">
+           <Link to="/" className="navbar-item">
               Home
-            </Link>}
-            {isAuthenticated() &&<span onClick={this.handleToggle} className={`navbar-burger ${isOpen ? 'is-active' : ''}`}>
+            </Link>
+            <span onClick={this.handleToggle} className={`navbar-burger ${isOpen ? 'is-active' : ''}`}>
               <span></span>
               <span></span>
               <span></span>
-            </span>}
+            </span>
           </div>
           <div className={`navbar-menu ${isOpen ? 'is-active' : ''}`}>
             <div className="navbar-end">
-            {isAuthenticated() && <Link to="/plants" className="navbar-item">
+            <Link to="/plants" className="navbar-item">
               Plants
-            </Link>}
+            </Link>
             {isAuthenticated() && <Link to="/plants/new" className="navbar-item">
               Add your plant
             </Link>}
             {isAuthenticated() && <Link to="/profile" className="navbar-item">
               My Profile
+            </Link>}
+            {!isAuthenticated() &&<Link to="/login" className="navbar-item">
+              Login
+            </Link>}
+            {!isAuthenticated() &&<Link to="/register" className="navbar-item">
+              Register
             </Link>}
           
             {isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item">Logout</span>}
