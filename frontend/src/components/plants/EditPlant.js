@@ -13,6 +13,7 @@ class EditPlant extends React.Component {
       formData: { //* our formData in state, matches the object we need to send in the request
         name: '',
         imageUrl: '',
+        trefleId: '',
         description: '',
         height: '',
         nickName: '',
@@ -76,12 +77,12 @@ class EditPlant extends React.Component {
     }
   }
 
-  handleErrors = () => {
-    
-  }
-
   setImgUrl = (childData) => {
     const formData = { ...this.state.formData, imageUrl: childData }
+    this.setState({ formData })
+  }
+  setImgUrl = (childData) => {
+    const formData = { ...this.state.formData, trefleId: childData }
     this.setState({ formData })
   }
 
@@ -98,6 +99,7 @@ class EditPlant extends React.Component {
             handleSubmit={this.handleSubmit}
             onSelect={this.handleSelect}
             imageUrl={this.setImgUrl}
+            trefleId={this.setTrefleId}
             buttonText="Edit my Plant"
           />
         </div>

@@ -63,3 +63,6 @@ export const getPhoto = (searchTerm) => {
   console.log(searchTerm)
   return axios.post('/api/photo', {searchquery: searchTerm})
 }
+export const getSummary = (plantName) => {
+  return axios.post('/api/summary', {searchTerm: plantName})
+}

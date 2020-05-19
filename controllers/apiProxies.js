@@ -37,9 +37,23 @@ async function photoSearch(req, res) {
   }
 }
 
+async function getSummary(req, res) {
+  try {
+    const query = req.body.query
+    console.log(query)
+    const response = await axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${query}`)
+    console.log(response.data)
+    res.status(200).json(response.data)
+  } catch {
+    res.status(200).json({ extract: 'We could not find any information about this plant' })
+  }
+
+}
+
 
 module.exports = {
   getTrefleInfo,
   getLocation,
-  photoSearch
+  photoSearch,
+  getSummary
 }

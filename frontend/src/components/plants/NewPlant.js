@@ -60,7 +60,7 @@ class NewPlant extends React.Component {
     const sciName = { ...this.state.formData, scientificName: event.value } 
     const errors = { ...this.state.errors, [event.name]: '' } 
     this.setState({ formData: sciName, errors }) 
-    console.log(this.state.formData.scientificName)
+    console.log(this.state.formData)
   }
 
   setImgUrl = (childData) => {

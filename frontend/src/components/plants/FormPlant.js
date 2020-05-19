@@ -96,10 +96,7 @@ class FormPlant extends React.Component {
     data.append('file', event.target.files[0])
     data.append('upload_preset', uploadPreset)
     const res = await axios.post(uploadUrl, data)
-    this.setState({
-      imageUrl: res.data.url
-    }
-    )
+    this.setState({ imageUrl: res.data.url })
     console.log(this.state.imageUrl)
     this.sendData()
   }

@@ -23,6 +23,7 @@ const plantSchema = new mongoose.Schema({
   nickName: { type: String, required: true },
   name: { type: String, required: true },
   scientificName: { type: String, required: true },
+  trefleId: { type: Number, required: false },
   imageUrl: { type: String, required: true },
   description: { type: String, required: true, maxlength: 1000 },
   height: { type: String, required: true },

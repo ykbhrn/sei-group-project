@@ -47,4 +47,8 @@ router.route('/likes')
 
 router.route('/photo')
   .post(apiProxies.photoSearch)
+
+router.route('/summary')
+  .post(apiProxies.getSummary)
+
 module.exports = router
