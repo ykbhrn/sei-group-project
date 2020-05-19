@@ -20,7 +20,8 @@ class FormPlant extends React.Component {
       isLoading: false,
       lon: '',
       lat: '',
-      test: ''
+      test: '',
+      errors: {}
     }
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleItemClicked = this.handleItemClicked.bind(this)
@@ -102,13 +103,15 @@ class FormPlant extends React.Component {
     this.sendData()
   }
 
+  
+
   // console.log('props: ', this.props.formData.name)
   render() {
     const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
     return (
 
       <div className="columns">
-        <form onSubmit={handleSubmit} className="column is-half is-offset-one-quarter box">
+        <form onSubmit={handleSubmit} className="column is-half is-offset-one-quarter">
           <div className="field">
             <label className="label">Name</label>
             <div className="control">
@@ -120,7 +123,7 @@ class FormPlant extends React.Component {
                 value={formData.name}
               />
             </div>
-            {errors.name && <small className="help is-danger">{errors.name}</small>}
+            {errors.name ? <small className="help is-danger">{errors.name}</small> : ''}
           </div>
           <div className="field">
             <label className="label">Height</label>
@@ -137,7 +140,7 @@ class FormPlant extends React.Component {
           </div>
           <div className="field">
             <label className="label">Scientific Name</label>
-            <div className="control"
+            <div className={`control ${errors.scientificName ? 'is-danger' : ''}`}
               onClick={this.getSciData}
             >
               <Select
@@ -146,20 +149,8 @@ class FormPlant extends React.Component {
                 options={this.state.options}
               />
             </div>
+            {errors.scientificName && <small className="help is-danger">{errors.scientificName}</small>}
           </div>
-          {/* <div className="field">
-            <label className="label">Image</label>
-            <div className="control">
-              <input
-                className={`input ${errors.imageUrl ? 'is-danger' : ''}`}
-                placeholder="Origin"
-                name="imageUrl"
-                onChange={handleChange}
-                value={formData.imageUrl}
-              />
-            </div>
-            {errors.imageUrl && <small className="help is-danger">{errors.imageUrl}</small>}
-          </div> */}
           <div className="field">
             <label className="label">Description</label>
             <div className="control">
@@ -168,7 +159,7 @@ class FormPlant extends React.Component {
                 placeholder="Description"
                 type="textarea"
                 name="description"
-                rows="7"
+                rows="5"
                 cols="50"
                 wrap="hard"
                 onChange={handleChange}
@@ -177,17 +168,19 @@ class FormPlant extends React.Component {
             </div>
             {errors.description && <small className="help is-danger">{errors.description}</small>}
           </div>
-            
+            <div>
               <label className="label">Upload Image</label>
               <input
-                className="input"
+                className={`input ${errors.imageUrl ? 'is-danger' : ''}`}
                 type="file"
                 onChange={this.handleUpload}
               />
-              {formData.imageUrl ? <img src={formData.imageUrl} alt="User Uploaded"></img> : ''}
+              {formData.imageUrl ? <img src={formData.imageUrl} alt="User Uploaded Image"></img> : ''}
+            </div>
+            {errors.imageUrl && <small className="help is-danger">{errors.imageUrl}</small>}
           <div className="field">
             <label className="label">Location</label>
-            <div className="control">
+            <div className={`control ${errors.description ? 'is-danger' : ''}`}>
               <div className="AutocompletePlace">
                 <input
                   className="input AutocompletePlace-input" type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder="Type an address"
@@ -206,18 +199,17 @@ class FormPlant extends React.Component {
                 </ul>
               </div>
             </div>
-            {errors.location && <small className="help is-danger">{errors.loaction}</small>}
+            {errors.location && <small className="help is-danger">{errors.location}</small>}
           </div>
 
 
           <div className="field">
-            <button type="submit" className="button is-fullwidth is-warning">{buttonText}</button>
+            <button type="submit" className="button is-fullwidth is-outlined is-success">{buttonText}</button>
           </div>
         </form>
       </div>
     )
   }
-
 }
 
 export default FormPlant

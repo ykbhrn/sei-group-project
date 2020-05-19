@@ -1,22 +1,44 @@
 import React from 'react'
 import { getSinglePlant, editPlant } from '../../lib/api'
+import { handlePlantFormErrors } from '../../lib/formErrors'
 
 //* Importing our "getSinglePlant" and "editPlant" functions, we need "getSinglePlant" so we can get the data needed to pre-populate teh edit form. We then use "editPlant" to send that new edited data to the server
 
 import FormPlant from './FormPlant' //* Importing the FormPlant component
 
 class EditPlant extends React.Component {
-  state = {
-    formData: { //* our formData in state, matches the object we need to send in the request
-      name: '',
-      imageUrl: '',
-      scientificName: '',
-      description: '',
-      height: '',
-    },
-    options: [],
-    errors: {} // * an object to store any errors that could occur when making the request.
+  constructor(props) {
+    super(props)
+    this.state = {
+      formData: { //* our formData in state, matches the object we need to send in the request
+        name: '',
+        imageUrl: '',
+        description: '',
+        height: '',
+        location: []
+      },
+      options: [],
+      errors: {}, // * an object to store any errors that could occur when making the request.
+      place: null
+    }
+    this.handleSelect = this.handleSelect.bind(this)
   }
+  handleSelect(lat, lon) {
+    const formData = { 
+      ...this.state.formData, location: [{lat: lat, lon: lon}]
+    }
+    this.setState({ formData })
+    console.log('parent', this.state.formData.location)
+  }
+  handleSelect(lat, lon) {
+    const formData = { 
+      ...this.state.formData, location: [{lat: lat, lon: lon}]
+    }
+    this.setState({ formData })
+    console.log('parent', this.state.formData.location)
+  }
+
+
 
   async componentDidMount() { 
 
@@ -52,8 +74,12 @@ class EditPlant extends React.Component {
       await editPlant(plantId, this.state.formData) // * using our editPlant function, passing it the plant id to edit, and the new data for it. 
       this.props.history.push(`/plants/${plantId}`) // * once we awaited the edit function, we redirect the user to the ShowPlant page, so they can see the edits they've made.
     } catch (err) {
-      this.setState({ errors: err.response.data.errors }) // * any errors that occured, we set into our error object in 
+      this.setState(handlePlantFormErrors(err.response.data.errors)) // * any errors that occured, we set into our error object in 
     }
+  }
+
+  handleErrors = () => {
+    
   }
 
   setImgUrl = (childData) => {
@@ -72,6 +98,7 @@ class EditPlant extends React.Component {
             handleChange={this.handleChange}
             handleSelectChange={this.handleSelectChange}
             handleSubmit={this.handleSubmit}
+            onSelect={this.handleSelect}
             imageUrl={this.setImgUrl}
             buttonText="Edit my Plant"
           />

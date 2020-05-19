@@ -1,6 +1,7 @@
 import React from 'react'
 import FormPlant from './FormPlant'
 import { newPlant } from '../../lib/api'
+import { handlePlantFormErrors } from '../../lib/formErrors'
 // import AutocompletePlace from './AutocompletePlace'
 
 class NewPlant extends React.Component {
@@ -15,7 +16,13 @@ class NewPlant extends React.Component {
         location: []
       },
       options: [],
-      errors: {}, // * an object to store any errors that could occur when making the request.
+      errors: {
+        name: '',
+        imageUrl: '',
+        description: '',
+        height: '',
+        location: ''
+      }, // * an object to store any errors that could occur when making the request.
       place: null
     }
     this.handleSelect = this.handleSelect.bind(this)
@@ -32,7 +39,8 @@ class NewPlant extends React.Component {
   handleChange = event => {
     console.log(event)
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
-    this.setState( { formData } )
+    const errors = { ...this.state.errors, [event.target.name]: '' }
+    this.setState( { formData, errors } )
   }
 
   handleSubmit = async event => {
@@ -41,7 +49,9 @@ class NewPlant extends React.Component {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
     } catch(err) {
-      console.log('submission err', err.response);
+      const errors = handlePlantFormErrors(err.response.data.errors)
+      this.setState(errors)
+      console.log('submission err', err.response.data.errors)
     }
   }
   handleSelectChange = event => {
@@ -55,6 +65,7 @@ class NewPlant extends React.Component {
     const formData = { ...this.state.formData, imageUrl: childData }
     this.setState({ formData })
   }
+
 
   render() {
     return (

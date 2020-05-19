@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom' //* Importing link component from 'react-router-dom' so we can make an edit button to Link to the EditPLant page.
-import { getSinglePlant, deletePlant, makeOffer } from '../../lib/api'
+import { getSinglePlant, deletePlant, makeOffer, getPortfolio } from '../../lib/api'
 import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
 
@@ -9,6 +9,7 @@ import PlantMapThumbnail from '../common/PlantMapThumbnail'
 class ShowPlant extends React.Component {
   state = {
     plant: null,
+    user: null,
     offerData: {
       offer: '',
       text: ''
@@ -20,7 +21,8 @@ class ShowPlant extends React.Component {
     try {
       const plantId = this.props.match.params.id
       const res = await getSinglePlant(plantId)
-      this.setState({ plant: res.data })
+      const resTwo = await getPortfolio()
+      this.setState({ plant: res.data, user: resTwo.data })
     } catch (err) {
       this.props.history.push('/notfound')
     }
@@ -41,9 +43,10 @@ class ShowPlant extends React.Component {
   }
 
   handleChange = event => {
-    
+
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
-    this.setState( { offerData } )
+    this.setState({ offerData })
+    console.log(event.target.value);
   }
 
   handleSubmit = async event => {
@@ -61,7 +64,8 @@ class ShowPlant extends React.Component {
   render() {
     if (!this.state.plant) return null // * if there is no plant object, return null
     const { plant, isOffer, offerData } = this.state // * deconstruct the plant from state
-    console.log(this.state.plant.user)
+    console.log(this.state.user)
+    console.log(plant.imageUrl)
 
     return (
       <section className="section">
@@ -87,52 +91,67 @@ class ShowPlant extends React.Component {
               <p>{plant.lat}</p>
               <p>{plant.lon}</p> */}
               <PlantMapThumbnail
-                _id = {plant._id}
-                lat = {plant.location[0].lat}
-                lon = {plant.location[0].lon}
+                _id={plant._id}
+                lat={plant.location[0].lat}
+                lon={plant.location[0].lon}
+                name={plant.name}
+                imageUrl={plant.imageUrl}
               />
               <div className="added-by">
               <h4 className="title is-4">Added By</h4>
               </div>
               {!isOwner(plant.user._id) &&
-              <Link to={`/profile/${plant.user._id}`}>
-                <p>{plant.user.name}</p>
-              </Link>
+                <Link to={`/profile/${plant.user._id}`}>
+                  <p>{plant.user.name}</p>
+                </Link>
               }
               {isOwner(plant.user._id) &&
-               <>
-               <p>YOU</p>
-               <hr/>
-               <Link to={'/profile'}>
-               GO to My Portfolio
+                <>
+                  <p>YOU</p>
+                  <hr />
+                  <Link to={'/profile'}>
+                    GO to My Portfolio
                </Link>
-             </>
+                </>
               }
               <hr />
               {!isOwner(plant.user._id) &&
-              <>
-              <button
-                className="button is-light"
-                onClick={this.clicker}>Make Offer
+                <>
+                  <button
+                    className="button is-light"
+                    onClick={this.clicker}>Make Offer
               </button>
-              <hr />
-              </>
-              }         
-              
+                  <hr />
+                </>
+              }
+
               {isOffer &&
                 <>
                   <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
                     <div className="field">
                       <label className="label">Your Offer: </label>
                       <div className="control">
-                        <input
-                          placeholder="Offer"
-                          name="offer"
+                        {/* <select>
+                        {this.state.user.createdPlants.map( userPlant => {
+                          return <option 
                           onChange={this.handleChange}
-                          value={offerData.offer || ''}
-                        />
+                          name='offer'
+                          value={userPlant.name}
+                          >{userPlant.name}</option>
+                      </select> */}
+
+                        <input type="text" list="data" name="offer" onChange={this.handleChange}/>
+                        <datalist id="data">
+                          {this.state.user.createdPlants.map( userPlant  => {
+                            return <>
+                                    <option key={userPlant._id} value={userPlant.name} />
+                                    <input name='plantId' value={userPlant._id} />
+                                    </>
+                          }
+                          )}
+                        </datalist>
                       </div>
-      
+
                     </div>
                     <div className="field">
                       <label className="label">Message for User: </label>
@@ -149,18 +168,18 @@ class ShowPlant extends React.Component {
                       <button type="submit" className="button is-fullwidth is-warning">Submit Offer</button>
                     </div>
                   </form>
-                    <hr />
-              </>
+                  <hr />
+                </>
               }
-            
-              { isOwner(plant.user._id) && 
-              <>
+
+              {isOwner(plant.user._id) &&
+                <>
                   <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
                   <hr />
-                  
-              
+
+
                   <button onClick={this.handleDelete} className="button is-danger">Delete</button>
-                  </>
+                </>
               }
             </div>
           </div>
