@@ -1,5 +1,6 @@
 const Plant = require('../models/plant')
 const User = require('../models/user')
+// const Submit = require('../models/user')
 
 async function newOffers(req, res,) {
   try {
@@ -55,7 +56,7 @@ async function respondOffer(req, res) {
     user.submittedOffers.unshift(req.body)
     await user.save()
     res.status(201).json(user)
-    console.log(req.body)
+    console.log(user.submittedOffers)
 
   } catch (err) {
     console.log(err)
@@ -69,9 +70,17 @@ async function finishTrade(req, res) {
     const plant = await  Plant.findById(plantId)
     const offeredPlantId = req.params.offered
     const offeredPlant = await Plant.findById(offeredPlantId)
+    const response = req.params.response
+    // const submitId = req.params.offerid
+    // const submit = await Submit.findById(submitId)
 
-    await plant.remove()
-    await offeredPlant.remove()
+    if (response === 'Accepted'){
+      await plant.remove()
+      await offeredPlant.remove()
+      // await submit.remove()
+    }
+    
+
     res.sendStatus(204)
 
   } catch (err) {
