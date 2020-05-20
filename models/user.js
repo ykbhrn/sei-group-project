@@ -76,4 +76,4 @@ userSchema
 
 userSchema.plugin(require('mongoose-unique-validator'))
 
-module.exports = (mongoose.model('User', userSchema), mongoose.model('Submit', submittedOfferSchema))
+module.exports = mongoose.model('User', userSchema)

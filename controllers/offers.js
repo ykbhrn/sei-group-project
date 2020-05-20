@@ -1,6 +1,6 @@
 const Plant = require('../models/plant')
 const User = require('../models/user')
-const Submit = require('../models/user')
+// const Submit = require('../models/user')
 
 async function newOffers(req, res,) {
   try {
@@ -71,13 +71,13 @@ async function finishTrade(req, res) {
     const offeredPlantId = req.params.offered
     const offeredPlant = await Plant.findById(offeredPlantId)
     const response = req.params.response
-    const submitId = req.params.offerid
-    const submit = await Submit.findById(submitId)
+    // const submitId = req.params.offerid
+    // const submit = await Submit.findById(submitId)
 
     if (response === 'Accepted'){
       await plant.remove()
       await offeredPlant.remove()
-      await submit.remove()
+      // await submit.remove()
     }
     
 
