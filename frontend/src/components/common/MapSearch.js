@@ -21,6 +21,7 @@ class MapSearch extends React.Component {
   const selectedPlant = selected.value
   const locationData = { ...this.state.locationData, latitude: selectedPlant[0].lat, longitude: selectedPlant[0].lon }
   //? State one step behind... add callback function?
+  //? loading asynchronously? https://react-select.com/async
   this.setState({ locationData })
   
   }
