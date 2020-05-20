@@ -15,6 +15,7 @@ const PlantMapThumbnail = (props) => {
           plantProps: {
             id: props._id,
             name: props.name,
+            nickName: props.nickName,
             imageUrl: props.imageUrl
           }
         }
