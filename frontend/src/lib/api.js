@@ -54,8 +54,8 @@ export const respondOffer = (id, plantid, decision, offered, offerData) => {
   return axios.post(`/api/response/${id}/${plantid}/${decision}/${offered}`, offerData, withHeaders())
 }
 
-export const finishTrade = (id, plantid) => {
-  return axios.delete(`/api/finish/${id}/${plantid}`, withHeaders())
+export const finishTrade = (id, plantid, response, offerid) => {
+  return axios.post(`/api/finish/${id}/${plantid}/${response}/${offerid}`, withHeaders())
 }
 
 export const addLikes = (id) => {

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const submittedOfferSchema = new mongoose.Schema({
   offer: { type: String, required: false },
   text: { type: String, required: false },
-  response: { type: String, required: true },
+  response: { type: String, required: false },
   userName: { type: String, required: false }, 
   plantName: { type: String, required: false },
   plantId: { type: String, required: false },
@@ -76,4 +76,4 @@ userSchema
 
 userSchema.plugin(require('mongoose-unique-validator'))
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = (mongoose.model('User', userSchema), mongoose.model('Submit', submittedOfferSchema))
