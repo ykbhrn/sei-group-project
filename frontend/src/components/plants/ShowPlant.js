@@ -86,7 +86,8 @@ class ShowPlant extends React.Component {
     return (
       <section className="section">
         <div className="container">
-          <h2 className="title has-text-centered">{plant.name}</h2>
+    <h2 className="title has-text-centered">{plant.name}</h2>
+    {plant.nickName && <h2 className="title is-5 has-text-centered">{`'${plant.nickName}'`}</h2>}
           <hr />
           <div className="columns">
             <div className="column is-half">
@@ -117,6 +118,7 @@ class ShowPlant extends React.Component {
                 lat={plant.location[0].lat}
                 lon={plant.location[0].lon}
                 name={plant.name}
+                nickName={plant.nickName}
                 imageUrl={plant.imageUrl}
               />
               <div className="added-by">

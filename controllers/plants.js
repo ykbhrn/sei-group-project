@@ -23,8 +23,12 @@ async function plantCreate(req, res) {
 async function plantShow(req, res) {
   const plantId = req.params.id
   try {
-    const plant = await Plant.findById(plantId)
-    // if (!plant) throw new Error('notFound')
+    const plant = await Plant.findById(plantId).populate({
+      //* going into sub document -> comment.user and populatign it with 'User'
+      path: 'comments.user',
+      model: 'User'
+    })
+    if (!plant) throw new Error('notFound')
     const user = await User.findById(plant.user)
     plant.user = user
     res.status(200).json(plant)
@@ -89,23 +93,28 @@ async function plantsCommentCreate(req, res, next) {
 async function plantsCommentDelete(req, res, next) {
   try {
     // * find the plant to delete the comment from, find by id
+    const user = req.currentUser._id
     const plantId = req.params.id
     const commentId = req.params.commentid
+
     const plant = await Plant.findById(plantId)
-    if (!plant) throw new Error({ message: 'notFound' })
-    // * delete the comment from that plant, using the commentId
+    if (!plant) throw new Error({ message: 'not found' })
+
     const commentToRemove = plant.comments.id(commentId)
     if (!commentToRemove) throw new Error({ message: 'notFound' })
-    if (!commentToRemove.user.equals(req.currentUser._id) && !plant.user.equals(req.currentUser._id)) {
-      throw new Error({ message: 'unauthorized' })
-    }
+
+    //* need toString the user in order to use the id. Checking to see if the user logged in matches the owner of the comment for security. If not Throw Error
+    if (user.toString() !== commentToRemove.user.toString()) throw new Error({ message: 'not found' }) 
+
     await commentToRemove.remove()
     // * resave it again, with that comment deleted
+
     await plant.save()
     // * send no content to signfy deletion is complete
+
     res.sendStatus(204)
   } catch (err) {
-    res.json({ message: 'invalid' })
+    res.json(err.data)
   }
 }
     

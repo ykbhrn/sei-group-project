@@ -66,10 +66,16 @@ export const addLikes = (id) => {
 export const addComment = ( commentData, plantId ) => {
     return axios.post(`/api/plants/${plantId}/comments`, commentData, withHeaders())
 }
+
+export const deleteComment = ( plantId, commentId ) => {
+  return axios.delete(`/api/plants/${plantId}/comments/${commentId}`, withHeaders())
+}
+
 export const getPhoto = (searchTerm) => {
   console.log(searchTerm)
   return axios.post('/api/photo', {searchquery: searchTerm})
 }
+
 export const getSummary = (plantName) => {
   return axios.post('/api/summary', {searchTerm: plantName})
 }
