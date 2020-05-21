@@ -16,7 +16,7 @@ import ProfilePage from './components/common/ProfilePage'
 import PublicProfile from './components/common/PublicProfile'
 import ErrorPage from './components/common/ErrorPage'
 
-
+console.warn('app dot jay ess')
 
 
 const App = () => (

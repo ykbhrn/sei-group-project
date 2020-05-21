@@ -60,7 +60,7 @@ class ProfilePage extends React.Component {
 
 finishTrade = async (userid, offerid, plantid, userplantid) => {
   try {
-   await finishTrade(userid, offerid, plantid, userplantid)
+    await finishTrade(userid, offerid, plantid, userplantid)
     window.location.reload()
   } catch(err) {
     this.props.history.push('/notfound')
@@ -127,13 +127,14 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
 
 
   //  This function will show user received offers
-  componentDidCatch = () => {
+  showRecievedOffers = () => {
     // array of  plants which contains offers
     const offerArray = this.state.user.createdPlants.filter(plant => {
       if (plant.offers.length > 0) {
         return plant
       }
-    })
+    return null
+  })
     let offerCounter = 0
     //  maping all the plants with offers
     return offerArray.map(plant => {
@@ -164,7 +165,7 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
           <button
             className="button is-light"
             onClick={this.clicker}>Respond to the offer
-           </button>
+            </button>
           <hr />
           {this.state.isResponse &&
             <>
@@ -227,7 +228,7 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
               <h1 className="title is-3 is-sucess">Your Offers: </h1>
               <hr />
               <br />
-              {this.componentDidCatch()}
+              {this.showRecievedOffers()}
             </div>
 
             {/* Responses for your offers */}

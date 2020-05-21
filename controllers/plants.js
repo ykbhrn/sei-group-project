@@ -90,7 +90,7 @@ async function plantsCommentCreate(req, res, next) {
 
 // * DELETE 
 // * URL = /plants/:id/comments/commentId
-async function plantsCommentDelete(req, res, next) {
+async function plantsCommentDelete(req, res) {
   try {
     // * find the plant to delete the comment from, find by id
     const user = req.currentUser._id

@@ -27,7 +27,12 @@ const plantSchema = new mongoose.Schema({
   imageUrl: { type: String, required: true },
   description: { type: String, required: false, maxlength: 1000 },
   height: { type: String, required: true },
-  location: [ { lat: Number, lon: Number }, { required: false } ],
+  location: { type: Array, validate: {
+    validator: function(obj) {
+      return Object.keys(obj).length > 0
+    }
+  } },
+  // location: [ { lat: Number, lon: Number } ],
   likes: [{ userId: String, username: String }, {  required: false  }], 
   comments: [commentSchema],
   offers: [ offerSchema ],

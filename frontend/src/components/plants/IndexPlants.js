@@ -25,6 +25,7 @@ class IndexPlants extends React.Component {
   }
 
   render() {
+    
     return (
       <>
       <div className="section">

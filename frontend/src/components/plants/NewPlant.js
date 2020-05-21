@@ -55,7 +55,7 @@ class NewPlant extends React.Component {
     } catch(err) {
       const errors = handlePlantFormErrors(err.response.data.errors)
       this.setState({errors})
-      console.log('submission err', err.response.data.errors)
+      console.log('submission err', err.response)
     }
   }
 

@@ -108,7 +108,7 @@ class ShowPlant extends React.Component {
 
   render() {
     if (!this.state.plant) return null // * if there is no plant object, return null
-    const { plant, isOffer, offerData } = this.state // * deconstruct the plant from state
+    const { plant, isOffer } = this.state // * deconstruct the plant from state
 
     console.log(this.state.user)
     console.log(plant.imageUrl)
