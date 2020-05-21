@@ -6,7 +6,7 @@ import { getAllPlants } from '../../lib/api'
 import Select from 'react-select'
 
 const token = 'pk.eyJ1IjoiYWlub2t5dG8iLCJhIjoiY2thYmdqODRmMTY0aDJ5cDRvOWk1cTd6MyJ9.QIlx0yP5sKCZRAVrfrq3OA'
-const mapStyle = 'mapbox://styles/mapbox/light-v10' 
+const mapStyle = 'mapbox://styles/mapbox/light-v10'
 
 //?AK Styles for navigation controllers
 
@@ -19,11 +19,11 @@ const navStyle = {
 
 class Maps extends React.Component {
   state = {
-     //?AK Initial positioning for the map passed as props from PlantThumbnail 
-     //?AK viewport receives new values with every user interaction 
+    //?AK Initial positioning for the map passed as props from PlantThumbnail 
+    //?AK viewport receives new values with every user interaction 
     viewport: {
-      latitude: this.props.location.state.latitude,
       longitude: this.props.location.state.longitude,
+      latitude: this.props.location.state.latitude,
       zoom: 12,
       height: '100vh',
       width: '100vw'
@@ -56,7 +56,9 @@ class Maps extends React.Component {
           return ({ value: plant.location, label: plant.name })
         }
       })
-      this.setState({ plants, hotPlants })
+      this.setState({ plants })
+      this.setState({ hotPlants })
+      console.log(this.props)
     } catch (err) {
       console.log(err)
     }
@@ -65,9 +67,9 @@ class Maps extends React.Component {
   //?AK Function to handle Select selection
   //?AK Selected plant's location data (stored in value property) sent to state
   //?AK Also toggle plantSelect to true to render 'Hot Plant' popup
-  
 
-  handleSelect = selected => {  
+
+  handleSelect = selected => {
     const selectedPlant = selected.value
     const locationData = {
       ...this.state.locationData,
@@ -91,7 +93,7 @@ class Maps extends React.Component {
     this.setState({ viewport })
   }
 
-  //?AK Simple event handlers to change target plant title colour on hover
+  //?AK Simple event handlers to change target plant title colour on mouse hover
 
   handleMouseEnter = (e) => {
     e.target.style.color = '#3FC008'
@@ -109,129 +111,134 @@ class Maps extends React.Component {
   //?AK conditional rendering to show Popups
 
   render() {
-    
+
     if (!this.state.plants) return null
-    
+
     const { viewport, plants, selectedPlant, plantShow, plantProps, plantSelect, hotPlants } = this.state
-    
+    console.log(plants)
+    console.log(plants[0].location[0].lat)
     return (
-      <div className="main">
-        <Select
-          placeholder={`${hotPlants.length} Hot Plants in your Area are waiting for you...`}
-          options={hotPlants}
-          onChange={this.handleSelect}
-        />
-        <MapGl
-          {...viewport}
-          mapboxApiAccessToken={token}
-          mapStyle={mapStyle}
-          onViewportChange={viewport => {
-            this.setState({ viewport })
-          }}
-        >
-          <div className="nav" style={navStyle}>
-            <NavigationControl />
-          </div>
-          {plants.map(plant => {
-            return <div className="marker"
-              key={plant._id}
-              onMouseEnter={() => {
-                this.setState({ plantShow: plant, plantProps: null, plantSelect: false })
-              }}
-              onMouseLeave={() => {
-                this.setState({ plantShow: null })
-              }}
-              onClick={(event) => {
-                event.preventDefault()
-                this.setState({ selectedPlant: plant, plantShow: null, plantProps: null, plantSelect: false })
+      <>
+        {plants && (
+          <div className="main">
+            <Select
+              placeholder={`${hotPlants.length} Hot Plants in your Area are waiting for you...`}
+              options={hotPlants}
+              onChange={this.handleSelect}
+            />
+            <MapGl
+              {...viewport}
+              mapboxApiAccessToken={token}
+              mapStyle={mapStyle}
+              onViewportChange={viewport => {
+                this.setState({ viewport })
               }}
             >
-              <Marker
-                latitude={plant.location[0].lat}
-                longitude={plant.location[0].lon}
-                offsetTop={10}
-                offsetLeft={-12}
-              >
-                <img width={25} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
-              </Marker>
-            </div>
-          })
-          }
-          <div>
-            {plantSelect && (
-              <Popup
-              latitude={viewport.latitude}
-              longitude={viewport.longitude}
-            >
-              <h2>Hot Plant!</h2>
-              </Popup>
-            )}
-          </div>
-          <div>
-            {plantProps && (
-              <Popup
-                latitude={this.props.location.state.latitude}
-                longitude={this.props.location.state.longitude}
-                closeOnClick={false}
-                onClose={() => {
-                  this.setState({ plantProps: null })
-                }}
-              >
-                <Link to={`/plants/${plantProps.id}`}>
-                  <div className="popup-container">
-                    <h2 className="has-text-centered"
-                      onMouseEnter={this.handleMouseEnter}
-                      onMouseLeave={this.handleMouseLeave}>
-                      {`${plantProps.name}`}{plantProps.nickName ? `, '${plantProps.nickName}'` : ''}
-                    </h2>
-                    <hr />
-                    <img width={180} src={`${plantProps.imageUrl}`} alt={`${plantProps.name}`} />
-                  </div>
-                </Link>
-              </Popup>
-            )}
-          </div>
-          <div>
-            {plantShow && (
-              <Popup
-                latitude={plantShow.location[0].lat}
-                longitude={plantShow.location[0].lon}
-              >
-                <div className="has-text-centered">
-                  <h2>
-                  {`${plantShow.name}`}{plantShow.nickName ? `, '${plantShow.nickName}'` : ''}
-                    </h2>
-                  <p>Click plant!</p>
+              <div className="nav" style={navStyle}>
+                <NavigationControl />
+              </div>
+              {plants.map(plant => {
+                return <div className="marker"
+                  key={plant._id}
+                  onMouseEnter={() => {
+                    this.setState({ plantShow: plant, plantProps: null, plantSelect: false })
+                  }}
+                  onMouseLeave={() => {
+                    this.setState({ plantShow: null })
+                  }}
+                  onClick={(event) => {
+                    event.preventDefault()
+                    this.setState({ selectedPlant: plant, plantShow: null, plantProps: null, plantSelect: false })
+                  }}
+                >
+                  <Marker
+                    latitude={plant.location[0].lat}
+                    longitude={plant.location[0].lon}
+                    offsetTop={10}
+                    offsetLeft={-12}
+                  >
+                    <img width={25} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
+                  </Marker>
                 </div>
-              </Popup>
-            )}
-          </div>
-          <div>
-            {selectedPlant && (
-              <Popup
-                latitude={selectedPlant.location[0].lat}
-                longitude={selectedPlant.location[0].lon}
-                closeOnClick={false}
-                onClose={() => {
-                  this.setState({ selectedPlant: null, plantProps: null })
-                }}
-              >
-                <Link to={`/plants/${selectedPlant._id}`}>
-                  <div className="popup-container">
-                    <h2 className="has-text-centered"
-                      onMouseEnter={this.handleMouseEnter}
-                      onMouseLeave={this.handleMouseLeave}>
-                      {`${selectedPlant.name}`}{selectedPlant.nickName ? `, '${selectedPlant.nickName}'` : ''}
-                    </h2>
-                    <hr />
-                    <img width={180} src={`${selectedPlant.imageUrl}`} alt={`${selectedPlant.name}`} />
-                  </div>
-                </Link>
-              </Popup>
-            )}
-          </div>
-        </MapGl >
-      </div >
+              })
+              }
+              <div>
+                {plantSelect && (
+                  <Popup
+                    latitude={viewport.latitude}
+                    longitude={viewport.longitude}
+                  >
+                    <h2>Hot Plant!</h2>
+                  </Popup>
+                )}
+              </div>
+              <div>
+                {plantProps && (
+                  <Popup
+                    latitude={this.props.location.state.latitude}
+                    longitude={this.props.location.state.longitude}
+                    closeOnClick={false}
+                    onClose={() => {
+                      this.setState({ plantProps: null })
+                    }}
+                  >
+                    <Link to={`/plants/${plantProps.id}`}>
+                      <div className="popup-container">
+                        <h2 className="has-text-centered"
+                          onMouseEnter={this.handleMouseEnter}
+                          onMouseLeave={this.handleMouseLeave}>
+                          {`${plantProps.name}`}{plantProps.nickName ? `, '${plantProps.nickName}'` : ''}
+                        </h2>
+                        <hr />
+                        <img width={180} src={`${plantProps.imageUrl}`} alt={`${plantProps.name}`} />
+                      </div>
+                    </Link>
+                  </Popup>
+                )}
+              </div>
+              <div>
+                {plantShow && (
+                  <Popup
+                    latitude={plantShow.location[0].lat}
+                    longitude={plantShow.location[0].lon}
+                  >
+                    <div className="has-text-centered">
+                      <h2>
+                        {`${plantShow.name}`}{plantShow.nickName ? `, '${plantShow.nickName}'` : ''}
+                      </h2>
+                      <p>Click plant!</p>
+                    </div>
+                  </Popup>
+                )}
+              </div>
+              <div>
+                {selectedPlant && (
+                  <Popup
+                    latitude={selectedPlant.location[0].lat}
+                    longitude={selectedPlant.location[0].lon}
+                    closeOnClick={false}
+                    onClose={() => {
+                      this.setState({ selectedPlant: null, plantProps: null })
+                    }}
+                  >
+                    <Link to={`/plants/${selectedPlant._id}`}>
+                      <div className="popup-container">
+                        <h2 className="has-text-centered"
+                          onMouseEnter={this.handleMouseEnter}
+                          onMouseLeave={this.handleMouseLeave}>
+                          {`${selectedPlant.name}`}{selectedPlant.nickName ? `, '${selectedPlant.nickName}'` : ''}
+                        </h2>
+                        <hr />
+                        <img width={180} src={`${selectedPlant.imageUrl}`} alt={`${selectedPlant.name}`} />
+                      </div>
+                    </Link>
+                  </Popup>
+                )}
+              </div>
+            </MapGl >
+          </div >
+        )}
+      </>
     )
   }
 }
