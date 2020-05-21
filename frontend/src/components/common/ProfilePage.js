@@ -46,6 +46,7 @@ class ProfilePage extends React.Component {
       console.log(err)
     }
   }
+
   handleSubmitDecline = async (event, id, plantId, offeredPlantId) => {
     event.preventDefault()
     try {
@@ -57,10 +58,10 @@ class ProfilePage extends React.Component {
     }
   }
 
-finishTrade = async (id, plantid, response, offerid) => {
+finishTrade = async (userid, offerid, plantid, userplantid) => {
   try {
-   await finishTrade(id, plantid, response, offerid)
-    this.props.history.push('/profile')
+   await finishTrade(userid, offerid, plantid, userplantid)
+    window.location.reload()
   } catch(err) {
     this.props.history.push('/notfound')
   }
@@ -99,6 +100,7 @@ finishTrade = async (id, plantid, response, offerid) => {
           <img src={offer.offeredImageUrl} alt={offer.offeredPlantName} />
         </Link>
         <h1>id: {offer._id}</h1>
+        <h1>{offer.respondedUserId}</h1>
         <div className="field">
           <div className={this.decisionClass(offer.response)}>{offer.response}</div>
         </div>
@@ -109,9 +111,9 @@ finishTrade = async (id, plantid, response, offerid) => {
         <div className="field">
                 {accepted &&
                   <button type="submit" className="button is-warning"
-                    onClick={() => {
-                      this.finishTrade(offer.plantId, offer.offeredPlantId, offer.response, offer._id)
-                    }}
+                  onClick={() => {
+                    this.finishTrade(this.state.user._id, offer._id, offer.offeredPlantId, offer.plantId)
+                  }}
                   >
                     Trade was finished
                   </button>

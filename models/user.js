@@ -9,6 +9,7 @@ const submittedOfferSchema = new mongoose.Schema({
   plantName: { type: String, required: false },
   plantId: { type: String, required: false },
   userId: { type: String, required: false },
+  respondedUserId: { type: String, required: false },
   email: { type: String, required: false },
   plantImageUrl: { type: String, required: false },
   offeredImageUrl: { type: String, required: false },
@@ -77,3 +78,4 @@ userSchema
 userSchema.plugin(require('mongoose-unique-validator'))
 
 module.exports = mongoose.model('User', userSchema)
+

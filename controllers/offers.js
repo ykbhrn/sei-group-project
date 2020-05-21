@@ -1,6 +1,5 @@
 const Plant = require('../models/plant')
 const User = require('../models/user')
-// const Submit = require('../models/user')
 
 async function newOffers(req, res,) {
   try {
@@ -40,8 +39,7 @@ async function respondOffer(req, res) {
     const plant = await Plant.findById(plantId)
     const user =  await  User.findById(userId)
     const currentUser = await User.findById(req.currentUser._id)
-    
-    // req.body.user = user
+   
     req.body.userName = currentUser.name
     req.body.userId = currentUser._id
     req.body.email = currentUser.email
@@ -52,11 +50,12 @@ async function respondOffer(req, res) {
     req.body.offeredImageUrl = offeredPlant.imageUrl
     req.body.offeredPlantId = offeredPlant._id
     req.body.offeredPlantName = offeredPlant.name
+    req.body.respondedUserId = user._id
   
     user.submittedOffers.unshift(req.body)
     await user.save()
-    res.status(201).json(user)
-    console.log(user.submittedOffers)
+    res.status(201).json({ message: 'hi' })
+    
 
   } catch (err) {
     console.log(err)
@@ -66,21 +65,26 @@ async function respondOffer(req, res) {
 async function finishTrade(req, res) {
   req.body.user = req.currentUser
   try {
+    const userId = req.params.userid
+    const user = await  User.findById(userId)
+
+    const offerId = req.params.offerid
+    const offerToRemove = user.submittedOffers.id(offerId)
+
     const plantId = req.params.plantid
-    const plant = await  Plant.findById(plantId)
-    const offeredPlantId = req.params.offered
-    const offeredPlant = await Plant.findById(offeredPlantId)
-    const response = req.params.response
-    // const submitId = req.params.offerid
-    // const submit = await Submit.findById(submitId)
+    const userPlantId = req.params.userplantid
+    const plant = await Plant.findById(plantId)
+    const userPlant = await Plant.findById(userPlantId)
 
-    if (response === 'Accepted'){
-      await plant.remove()
-      await offeredPlant.remove()
-      // await submit.remove()
-    }
+    await offerToRemove.remove()
+    await user.save()
+
+    await plant.remove()
+    await userPlant.remove()
+
+
     
-
+    
     res.sendStatus(204)
 
   } catch (err) {
