@@ -46,6 +46,7 @@ class ProfilePage extends React.Component {
       console.log(err)
     }
   }
+
   handleSubmitDecline = async (event, id, plantId, offeredPlantId) => {
     event.preventDefault()
     try {
@@ -57,10 +58,10 @@ class ProfilePage extends React.Component {
     }
   }
 
-finishTrade = async (id, plantid) => {
+finishTrade = async (userid, offerid, plantid, userplantid) => {
   try {
-   await finishTrade(id, plantid)
-    this.props.history.push('/profile')
+   await finishTrade(userid, offerid, plantid, userplantid)
+    window.location.reload()
   } catch(err) {
     this.props.history.push('/notfound')
   }
@@ -84,6 +85,10 @@ finishTrade = async (id, plantid) => {
   handleResponse = () => {
 
     return this.state.user.submittedOffers.map(offer => {
+    let accepted = false
+      if(offer.response === 'Accepted') {
+        accepted = true
+      }
       return <div className='title is-4'>
 
         You have response from: <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br />
@@ -94,7 +99,8 @@ finishTrade = async (id, plantid) => {
           You are offering:  <Link to={`/plants/${offer.offeredPlantId}`}>{offer.offeredPlantName}<br />
           <img src={offer.offeredImageUrl} alt={offer.offeredPlantName} />
         </Link>
-
+        <h1>id: {offer._id}</h1>
+        <h1>{offer.respondedUserId}</h1>
         <div className="field">
           <div className={this.decisionClass(offer.response)}>{offer.response}</div>
         </div>
@@ -103,13 +109,15 @@ finishTrade = async (id, plantid) => {
         {offer.userName} email for further communication:
         {offer.email}
         <div className="field">
+                {accepted &&
                   <button type="submit" className="button is-warning"
-                    onClick={() => {
-                      this.finishTrade(offer.plantId, offer.offeredPlantId)
-                    }}
+                  onClick={() => {
+                    this.finishTrade(this.state.user._id, offer._id, offer.offeredPlantId, offer.plantId)
+                  }}
                   >
                     Trade was finished
                   </button>
+                  }
                   </div>
         <hr />
       </div>

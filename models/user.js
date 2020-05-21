@@ -4,11 +4,12 @@ const bcrypt = require('bcrypt')
 const submittedOfferSchema = new mongoose.Schema({
   offer: { type: String, required: false },
   text: { type: String, required: false },
-  response: { type: String, required: true },
+  response: { type: String, required: false },
   userName: { type: String, required: false }, 
   plantName: { type: String, required: false },
   plantId: { type: String, required: false },
   userId: { type: String, required: false },
+  respondedUserId: { type: String, required: false },
   email: { type: String, required: false },
   plantImageUrl: { type: String, required: false },
   offeredImageUrl: { type: String, required: false },
@@ -77,3 +78,4 @@ userSchema
 userSchema.plugin(require('mongoose-unique-validator'))
 
 module.exports = mongoose.model('User', userSchema)
+

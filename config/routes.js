@@ -42,7 +42,7 @@ router.route('/offer/:id/:plantid')
 router.route('/response/:id/:plantid/:decision/:offered')
   .post(secureRoute, offer.respondOffer)
 
-router.route('/finish/:plantid/:offered')
+router.route('/finish/:userid/:offerid/:plantid/:userplantid')
   .delete(secureRoute, offer.finishTrade)
 
 router.route('/likes')

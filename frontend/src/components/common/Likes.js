@@ -41,11 +41,6 @@ class Like extends React.Component {
       this.setState({ style: 'far fa-heart fa-lg' })
     }
 
-    
-    // let newCount = this.state.likes + 1;
-    // this.setState({
-    //   likes: newCount
-    // })
   }
 
   render() {
