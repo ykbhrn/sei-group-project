@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const dbURI = 'mongodb://localhost/plants-db'
+const dbURI = 'mongodb://localhost/plants-db3'
 const Plant = require('../models/plant')
 const User = require('../models/user')
 const faker = require('faker')
@@ -11,6 +11,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
   if (err) return console.log(err) // * Any error in connnection will log here
 
   try {
+
     await db.dropDatabase()
 
     const allUsers = [] // * an array to push our 4 admin users + 300 fake users into

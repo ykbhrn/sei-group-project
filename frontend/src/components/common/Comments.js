@@ -60,7 +60,7 @@ class Comments extends React.Component {
     this.getData()
   }
 
-  showMoreCommentsHandleClick = async event => {
+  showMoreCommentsHandleClick = async () => {
     console.log('showing more')
     // event.preventDefault()
     //* now the rows will be equal to the comments array lenght and all the comments will be shown
@@ -70,7 +70,7 @@ class Comments extends React.Component {
 
   }
 
-  ShowLessCommentsHandleClick = async event => {
+  ShowLessCommentsHandleClick = async () => {
     console.log('showing less')
     // event.preventDefault()
 
@@ -85,11 +85,10 @@ class Comments extends React.Component {
     console.log(show) 
     
     if (show) {
-      this.setState({ commentsStatus: false , buttonText: 'Show less comments'})
+      this.setState({ commentsStatus: false , buttonText: 'Show less comments' })
       this.showMoreCommentsHandleClick()
-    } 
-    else {
-      this.setState({ commentsStatus: true , buttonText: 'Show more comments'})
+    } else {
+      this.setState({ commentsStatus: true , buttonText: 'Show more comments' })
       this.ShowLessCommentsHandleClick()
     }
   }
@@ -133,13 +132,13 @@ class Comments extends React.Component {
                       {isOwner(comment.user._id) &&
                         <button className="delete comment-delete-button" comment-id={comment._id}
                           onClick={this.commentHandleDelete}>Delete
-                            </button>}
+                        </button>}
                       <hr />
                     </div>
                   )
                 })}
-                <button className="button" onClick={this.toggleCommentsHandleClick}>{buttonText}</button>
-                {/* <button className="button" onClick={this.ShowLessCommentsHandleClick}>Show Less comments</button> */}
+                {this.state.plant.comments.length > 3 &&
+                <button className="button" onClick={this.toggleCommentsHandleClick}>{buttonText}</button>}
               </div>
             </div>
           </article>

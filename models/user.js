@@ -19,11 +19,22 @@ const submittedOfferSchema = new mongoose.Schema({
   timestamps: true
 })
 
+// const chatSchema = new mongoose.Schema({
+//   text: { type: String, required: true },
+//   userName: { type: String, required: false },
+//   userId: { type: String, required: false },
+//   receivedUserName: { type: String, required: false },
+//   receivedUserId: { type: String, required: false }
+// }, {
+//   timestamps: true
+// })
+
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true, unqie: true, maxlength: 50 },
+  name: { type: String, required: true, maxlength: 50 },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   submittedOffers: [submittedOfferSchema]
+  // chat: [chatSchema]
 })
 
 userSchema.virtual('createdPlants', {

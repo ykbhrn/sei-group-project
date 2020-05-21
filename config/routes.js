@@ -7,6 +7,7 @@ const secureRoute = require('../lib/secureRoute')
 const apiProxies = require('../controllers/apiProxies')
 const offer = require('../controllers/offers')
 const like = require('../controllers/likes')
+const chat = require('../controllers/chat')
 
 
 router.route('/plants')
@@ -34,7 +35,7 @@ router.route('/trefle')
   .post(apiProxies.getTrefleInfo)
 
 router.route('/maps')
-  .post(apiProxies.getLocation)
+  .post(secureRoute, apiProxies.getLocation)
   
 router.route('/offer/:id/:plantid')
   .post(secureRoute, offer.newOffers)
@@ -44,6 +45,12 @@ router.route('/response/:id/:plantid/:decision/:offered')
 
 router.route('/finish/:userid/:offerid/:plantid/:userplantid')
   .delete(secureRoute, offer.finishTrade)
+
+// router.route('/chat/:id/:userid')
+//   .post(secureRoute, chat.sendMessage)
+
+// router.route('/chat/message/:id/:userid')
+//   .post(chat.filterChat)
 
 router.route('/likes')
   .post(secureRoute, like.like)
