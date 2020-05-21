@@ -214,6 +214,7 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
           <div>
             <h1 className="title is-1">{this.state.user.name}</h1>
           </div>
+          <br/>
           <div className="columns is-multiline">
             {this.state.user.createdPlants.map(plant => (
               <ProfileCard key={plant._id} {...plant} />

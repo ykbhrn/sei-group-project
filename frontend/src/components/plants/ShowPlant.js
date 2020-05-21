@@ -6,7 +6,7 @@ import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
 import Likes from '../common/Likes'
 import PlantInfoBox from '../common/PlantInfoBox'
-import {HeightInfoBox} from '../common/HeightInfoBox'
+import { HeightInfoBox } from '../common/HeightInfoBox'
 import Comments from '../common/Comments'
 import Select from 'react-select'
 
@@ -30,7 +30,7 @@ class ShowPlant extends React.Component {
       const res = await getSinglePlant(plantId)
       const resTwo = await getPortfolio()
       this.setState({ plant: res.data, user: resTwo.data }, this.fillOffersBox)
-      
+
     } catch (err) {
       this.props.history.push('/notfound')
     }
@@ -40,11 +40,11 @@ class ShowPlant extends React.Component {
     console.log('fill offers ran')
     const options = []
     this.state.user.createdPlants.forEach(userPlant => {
-      
+
       options.push({ value: userPlant._id, label: userPlant.name })
-      
+
     })
-    this.setState({selectOptions: options})
+    this.setState({ selectOptions: options })
     console.log(this.state.selectOptions)
   }
 
@@ -73,7 +73,7 @@ class ShowPlant extends React.Component {
   handleChange = event => {
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
     this.setState({ offerData })
-    if(event.target.name === 'offer'){
+    if (event.target.name === 'offer') {
       this.handleOffer(event.target.value)
       console.log('val', event.target.value);
     }
@@ -88,8 +88,8 @@ class ShowPlant extends React.Component {
   }
 
   handleOffer = value => {
-    this.setState({ userPlantId: value})
-    
+    this.setState({ userPlantId: value })
+
   }
 
   handleSubmit = async (event) => {
@@ -116,8 +116,8 @@ class ShowPlant extends React.Component {
     return (
       <section className="section">
         <div className="container">
-    <h2 className="title has-text-centered">{plant.name}</h2>
-    {plant.nickName && <h2 className="title is-5 has-text-centered">{`'${plant.nickName}'`}</h2>}
+          <h2 className="title has-text-centered">{plant.name}</h2>
+          {plant.nickName && <h2 className="title is-5 has-text-centered">{`'${plant.nickName}'`}</h2>}
           <hr />
           <div className="columns">
             <div className="column is-half">
@@ -128,18 +128,22 @@ class ShowPlant extends React.Component {
                 likes={plant.likes}
                 plantId={plant._id}
               />
+              <br />
+              <Comments
+                plantId={plant._id}
+              />
             </div>
             <div className="column is-half">
               <h4 className="title is-4">Description</h4>
               <p>{plant.description}</p><br></br>
-              <PlantInfoBox plantInfo={plant}/><br></br>
-              <HeightInfoBox plantInfo={plant}/>
+              <PlantInfoBox plantInfo={plant} /><br></br>
+              <HeightInfoBox plantInfo={plant} />
               <hr />
               {/* <h4 className="title is-4">Height</h4>
               <hr />
               <p>{plant.height}</p>
               <hr /> */}
-              
+
               {/* <h4 className="title is-4">Location</h4>
               <hr />
               <p>{plant.lat}</p>
@@ -153,7 +157,7 @@ class ShowPlant extends React.Component {
                 imageUrl={plant.imageUrl}
               />
               <div className="added-by">
-              <h4 className="title is-4">Added By</h4>
+                <h4 className="title is-6">Added By</h4>
               </div>
               {!isOwner(plant.user._id) &&
                 <Link to={`/profile/${plant.user._id}`}>
@@ -161,17 +165,12 @@ class ShowPlant extends React.Component {
                 </Link>
               }
 
-              <Comments
-              plantId={plant._id}
-              />
-
-
               {isOwner(plant.user._id) &&
                 <>
-                  <p>YOU</p>
+                  <p>You</p>
                   <hr />
                   <Link to={'/profile'}>
-                    GO to My Portfolio
+                    Go To My Portfolio
                   </Link>
                 </>
               }
@@ -188,12 +187,12 @@ class ShowPlant extends React.Component {
 
               {isOffer &&
                 <>
-                  <form onSubmit={this.handleSubmit}className="column is-half is-offset-one-quarter box">
-                    
+                  <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
+
                     <div className="field">
                       <label className="label">Your Offer: </label>
                       <div className="control">
-                        <Select 
+                        <Select
                           name="offer"
                           placeholder="Choose a plant to trade"
                           onChange={this.handleSelectChange}
@@ -232,14 +231,14 @@ class ShowPlant extends React.Component {
                 </>
               }
 
-              {isOwner(plant.user._id) &&
-                <>
-                  <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
-                  <hr />
 
+              {isOwner(plant.user._id) &&
+                <div class="buttons">
+                  <Link to={`/plants/${plant._id}/edit`} className="button is-warning">Edit</Link>
+                  {/* <hr /> */}
 
                   <button onClick={this.handleDelete} className="button is-danger">Delete</button>
-                </>
+                </div>
               }
             </div>
           </div>
