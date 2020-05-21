@@ -27,7 +27,8 @@ class PublicProfile extends React.Component {
       <section className="section">
         <div className="container">
           <div>
-            <h1 className="title is-1">{this.state.user.name}</h1>
+            <h1 className="title is-2 has-text-centered">{this.state.user.name}</h1>
+            <hr />
           </div>
           <br/>
           <div className="columns is-multiline">
