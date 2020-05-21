@@ -32,7 +32,6 @@ const plantSchema = new mongoose.Schema({
       return Object.keys(obj).length > 0
     }
   } },
-  // location: [ { lat: Number, lon: Number } ],
   likes: [{ userId: String, username: String }, {  required: false  }], 
   comments: [commentSchema],
   offers: [ offerSchema ],
