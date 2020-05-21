@@ -2,6 +2,7 @@ import React from 'react'
 import { getPortfolio, respondOffer, finishTrade } from '../../lib/api'
 import ProfileCard from '../common/ProfileCard'
 import { Link } from 'react-router-dom'
+import Chat from '../common/Chat'
 
 
 class ProfilePage extends React.Component {

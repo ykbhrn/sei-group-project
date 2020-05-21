@@ -52,10 +52,8 @@ class ShowPlant extends React.Component {
     this.setState({ offerData })
     if(event.target.name === 'offer'){
       this.handleOffer(event.target.value)
-      console.log(event.target.value);
-      
+      console.log(event.target.value); 
     }
-  
   }
 
   handleOffer = value => {
