@@ -213,8 +213,10 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
       <section className="section">
         <div className="container">
           <div>
-            <h1 className="title is-1">{this.state.user.name}</h1>
+            <h1 className="title is-2 has-text-centered">{this.state.user.name}</h1>
+            <hr />
           </div>
+          <br/>
           <div className="columns is-multiline">
             {this.state.user.createdPlants.map(plant => (
               <ProfileCard key={plant._id} {...plant} />
@@ -226,7 +228,7 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
 
             {/* Received offers jsx code in that function */}
             <div className='offers'>
-              <h1 className="title is-3 is-sucess">Your Offers: </h1>
+              <h1 className="title is-4 is-sucess">Your Offers: </h1>
               <hr />
               <br />
               {this.showRecievedOffers()}
@@ -234,7 +236,7 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
 
             {/* Responses for your offers */}
             <div className='responses'>
-              <h1 className="title is-3 is-sucess">Responses from the Users: </h1>
+              <h1 className="title is-4 is-sucess">Responses From Other Users: </h1>
               <hr />
               <br />
               {this.handleResponse()}
