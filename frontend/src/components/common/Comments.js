@@ -129,9 +129,7 @@ class Comments extends React.Component {
                       <p>
                         <strong>{comment.user.name}</strong>
                       </p>
-                      {/* <br/> */}
                       <p> {comment.text} </p>
-                      {/* <br/> */}
                       {isOwner(comment.user._id) &&
                         <button className="delete comment-delete-button" comment-id={comment._id}
                           onClick={this.commentHandleDelete}>Delete
