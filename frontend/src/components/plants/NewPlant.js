@@ -44,48 +44,37 @@ class NewPlant extends React.Component {
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
     const errors = { ...this.state.errors, [event.target.name]: '' }
     this.setState( { formData, errors } )
+    
   }
 
   handleSubmit = async event => {
     event.preventDefault()
-    this.convertHeight()
     try {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
     } catch(err) {
       const errors = handlePlantFormErrors(err.response.data.errors)
-      this.setState(errors)
+      this.setState({errors})
       console.log('submission err', err.response.data.errors)
     }
   }
 
-  convertHeight = () => {
-    let milimeters = 0
-    if (this.state.formData.units === 'centimeters'){
-      milimeters = this.state.formData.height * 10
-    } else if (this.state.formData.units === 'meters'){
-      milimeters = this.state.formData.height * 1000
-    } else if (this.state.formData.units === 'inches'){
-      milimeters = this.state.formData.height * 25.4
-    } else if (this.state.formData.units === 'feet'){
-      milimeters = this.state.formData.height * 305
-    }
-    this.setState({ height: milimeters })
-  }
+
 
   handleSelectChange = event => {
     
     const sciName = { ...this.state.formData, scientificName: event.value } 
     const errors = { ...this.state.errors, [event.name]: '' } 
     this.setState({ formData: sciName, errors }) 
-    console.log(this.state.formData)
+    // console.log(this.state.formData)
   }
   handleUnitsSelectChange = event => {
     
     const units = { ...this.state.formData, units: event.value } 
     const errors = { ...this.state.errors, [event.name]: '' } 
     this.setState({ formData: units, errors }) 
-    // console.log(this.state.formData)
+    
+    console.log('units= ', this.state.formData.units)
   }
 
   setImgUrl = (childData) => {
@@ -95,6 +84,7 @@ class NewPlant extends React.Component {
 
 
   render() {
+    console.log('Height is: ',this.state.formData.height)
     return (
       <section className="section">
         <div className="container">

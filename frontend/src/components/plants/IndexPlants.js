@@ -18,6 +18,7 @@ class IndexPlants extends React.Component {
 
       const toastColor = { background: '#3FC008', text: 'white' }
       notify.show(`There are ${plants.length} Hot Plants in Your Area!`, 'custom', 5000, toastColor)
+      
     } catch (err) {
       console.log(err)
     }

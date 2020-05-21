@@ -6,6 +6,7 @@ import axios from 'axios'
 
 const uploadUrl = 'https://api.cloudinary.com/v1_1/jompra/image/upload'
 const uploadPreset = 'ml_default'
+const moderatorKey = 'dc0c6202b07ba22e3425ed4299d7a233'
 
 
 class FormPlant extends React.Component {
@@ -100,9 +101,21 @@ class FormPlant extends React.Component {
     data.append('file', event.target.files[0])
     data.append('upload_preset', uploadPreset)
     const res = await axios.post(uploadUrl, data)
-    this.setState({ imageUrl: res.data.url })
-    console.log(this.state.imageUrl)
-    this.sendData()
+    this.checkNaughtyImage(res.data.url)
+    
+    // console.log(this.state.imageUrl)
+    
+  }
+
+  checkNaughtyImage = async (imgToCheck) => {
+    const res = await axios.post(`https://api.moderatecontent.com/moderate/?key=dc0c6202b07ba22e3425ed4299d7a233&url=${imgToCheck}`)
+    const modResponse = res.data.rating_letter
+    if (modResponse === 'e'){
+      this.setState({ imageUrl: imgToCheck })
+      this.sendData()
+    } else {
+      window.alert('Uploaded an inappropriate image. Please keep your images Family Friendly')
+    }
   }
 
   // console.log('props: ', this.props.formData.name)
@@ -139,7 +152,7 @@ class FormPlant extends React.Component {
             {errors.name ? <small className="help is-danger">{errors.name}</small> : ''}
           </div>
           <div className="field">
-            <label className="label">Height</label>
+            <label className="label">Height in Centimeters</label>
             <div className="control">
               <textarea
                 className={`input ${errors.height ? 'is-danger' : ''}`}
