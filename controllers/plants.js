@@ -24,7 +24,7 @@ async function plantShow(req, res) {
   const plantId = req.params.id
   try {
     const plant = await Plant.findById(plantId).populate({
-      //* going into sub document -> comment.user and populatign it with 'User'
+      //* going into sub document -> comment.user and populating it with 'User'
       path: 'comments.user',
       model: 'User'
     })
@@ -36,9 +36,9 @@ async function plantShow(req, res) {
     res.status(422).json(err)
   }
 }
-  
+
 async function plantUpdate(req, res) {
-  const plantId = req.params.id 
+  const plantId = req.params.id
   try {
     const plant = await Plant.findByIdAndUpdate(plantId)
     if (!plant) throw new Error('Not Found')
@@ -104,7 +104,7 @@ async function plantsCommentDelete(req, res, next) {
     if (!commentToRemove) throw new Error({ message: 'notFound' })
 
     //* need toString the user in order to use the id. Checking to see if the user logged in matches the owner of the comment for security. If not Throw Error
-    if (user.toString() !== commentToRemove.user.toString()) throw new Error({ message: 'not found' }) 
+    if (user.toString() !== commentToRemove.user.toString()) throw new Error({ message: 'not found' })
 
     await commentToRemove.remove()
     // * resave it again, with that comment deleted
@@ -117,8 +117,6 @@ async function plantsCommentDelete(req, res, next) {
     res.json(err.data)
   }
 }
-    
-
 
 module.exports = {
   index: plantsIndex,
