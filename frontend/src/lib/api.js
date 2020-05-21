@@ -58,6 +58,14 @@ export const finishTrade = (userid, offerid, plantid, userplantid) => {
   return axios.delete(`/api/finish/${userid}/${offerid}/${plantid}/${userplantid}`, withHeaders())
 }
 
+export const sendChat = (id, userid, message) => {
+  return axios.post(`/api/chat/${id}/${userid}`, message, withHeaders())
+}
+
+export const filterChat = (id, userid) => {
+  return axios.post(`/api/chat/message/${id}/${userid}`, withHeaders())
+}
+
 export const addLikes = (id) => {
   //* When we send a post request for the like we need to send the body PlantId
   return axios.post(`/api/likes`, {plantId: id}, withHeaders())

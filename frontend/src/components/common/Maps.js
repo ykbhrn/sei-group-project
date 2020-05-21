@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import MapGl, { Marker, NavigationControl, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { getAllPlants } from '../../lib/api'
@@ -61,6 +61,7 @@ class Maps extends React.Component {
       console.log(this.props)
     } catch (err) {
       console.log(err)
+      this.props.history.push('/notfound')
     }
   }
 
@@ -113,10 +114,9 @@ class Maps extends React.Component {
   render() {
 
     if (!this.state.plants) return null
-
+    
     const { viewport, plants, selectedPlant, plantShow, plantProps, plantSelect, hotPlants } = this.state
-    console.log(plants)
-    console.log(plants[0].location[0].lat)
+    
     return (
       <>
         {plants && (
@@ -244,5 +244,3 @@ class Maps extends React.Component {
 }
 
 export default Maps
-
-// attach Link to `plants/${this.state.selectedPlant._id} to the h2 tag `
