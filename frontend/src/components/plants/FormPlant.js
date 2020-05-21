@@ -152,7 +152,7 @@ class FormPlant extends React.Component {
             {errors.name ? <small className="help is-danger">{errors.name}</small> : ''}
           </div>
           <div className="field">
-            <label className="label">Height</label>
+            <label className="label">Height in Centimeters</label>
             <div className="control">
               <textarea
                 className={`input ${errors.height ? 'is-danger' : ''}`}

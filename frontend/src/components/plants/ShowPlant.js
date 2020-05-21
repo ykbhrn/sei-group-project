@@ -6,7 +6,9 @@ import { isOwner } from '../../lib/auth'
 import PlantMapThumbnail from '../common/PlantMapThumbnail'
 import Likes from '../common/Likes'
 import PlantInfoBox from '../common/PlantInfoBox'
+import {HeightInfoBox} from '../common/HeightInfoBox'
 import Comments from '../common/Comments'
+import Select from 'react-select'
 
 
 class ShowPlant extends React.Component {
@@ -18,7 +20,8 @@ class ShowPlant extends React.Component {
       // text: ''
     },
     isOffer: false,
-    userPlantId: ''
+    userPlantId: '',
+    selectOptions: []
   }
 
   async componentDidMount() {
@@ -26,11 +29,32 @@ class ShowPlant extends React.Component {
       const plantId = this.props.match.params.id
       const res = await getSinglePlant(plantId)
       const resTwo = await getPortfolio()
-      this.setState({ plant: res.data, user: resTwo.data })
+      this.setState({ plant: res.data, user: resTwo.data }, this.fillOffersBox)
+      
     } catch (err) {
       this.props.history.push('/notfound')
     }
   }
+
+  fillOffersBox = () => {
+    console.log('fill offers ran')
+    const options = []
+    this.state.user.createdPlants.forEach(userPlant => {
+      
+      options.push({ value: userPlant._id, label: userPlant.name })
+      
+    })
+    this.setState({selectOptions: options})
+    console.log(this.state.selectOptions)
+  }
+
+  // {this.state.user.createdPlants.map(userPlant => {
+  //   return <>
+  //           <option key={userPlant._id} value={userPlant._id}>{userPlant.name}</option>
+
+  //           </>
+  // }
+  // )}
 
   handleDelete = async () => { // * our function to handle the click of the delete button
     try {
@@ -47,15 +71,20 @@ class ShowPlant extends React.Component {
   }
 
   handleChange = event => {
-
     const offerData = { ...this.state.offerData, [event.target.name]: event.target.value }
     this.setState({ offerData })
     if(event.target.name === 'offer'){
       this.handleOffer(event.target.value)
-      console.log(event.target.value);
-      
+      console.log('val', event.target.value);
     }
-  
+  }
+
+  handleSelectChange = event => {
+    console.log('value: ', event.value)
+    const offerData = { ...this.state.offerData, offer: event.value }
+    this.setState({ offerData })
+    this.handleOffer(event.value)
+    console.log(this.state.offerData)
   }
 
   handleOffer = value => {
@@ -65,6 +94,7 @@ class ShowPlant extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
+    console.log('at submit: ', this.state)
     try {
       const plantId = this.props.match.params.id
       const res = await makeOffer(plantId, this.state.userPlantId, this.state.offerData)
@@ -102,12 +132,13 @@ class ShowPlant extends React.Component {
             <div className="column is-half">
               <h4 className="title is-4">Description</h4>
               <p>{plant.description}</p><br></br>
-              <PlantInfoBox plantInfo={plant}/>
+              <PlantInfoBox plantInfo={plant}/><br></br>
+              <HeightInfoBox plantInfo={plant}/>
               <hr />
-              <h4 className="title is-4">Height</h4>
+              {/* <h4 className="title is-4">Height</h4>
               <hr />
               <p>{plant.height}</p>
-              <hr />
+              <hr /> */}
               
               {/* <h4 className="title is-4">Location</h4>
               <hr />
@@ -162,7 +193,14 @@ class ShowPlant extends React.Component {
                     <div className="field">
                       <label className="label">Your Offer: </label>
                       <div className="control">
-                        <input type="text" list="data" name="offer" onChange={this.handleChange} />
+                        <Select 
+                          name="offer"
+                          placeholder="Choose a plant to trade"
+                          onChange={this.handleSelectChange}
+                          options={this.state.selectOptions}
+                        />
+                        {/* <input type="text" list="data" name="offer" onChange={this.handleChange} />
+                        
                         <datalist id="data">
                           {this.state.user.createdPlants.map(userPlant => {
                             return <>
@@ -171,7 +209,7 @@ class ShowPlant extends React.Component {
                                     </>
                           }
                           )}
-                        </datalist>
+                        </datalist> */}
                       </div>
 
                     </div>
@@ -179,6 +217,7 @@ class ShowPlant extends React.Component {
                       <label className="label">Message for User: </label>
                       <div className="control">
                         <textarea
+                          className="input"
                           placeholder="Message"
                           name="text"
                           onChange={this.handleChange}
