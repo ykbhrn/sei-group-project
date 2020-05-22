@@ -24,7 +24,7 @@ class Navbar extends React.Component{
   render() {
     const { isOpen } = this.state
     return (
-      <nav className="navbar is-success">
+      <nav className="navbar is-dark">
         <div className="container">
           <div className="navbar-brand">
           {isAuthenticated() &&<Link to="/" className="navbar-item">

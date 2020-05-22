@@ -157,7 +157,7 @@ class Maps extends React.Component {
                     offsetTop={10}
                     offsetLeft={-12}
                   >
-                    <img width={25} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
+                    <img width={25} src={require("../../lib/plntify_stamp.png")} alt="Plntify Logo" />
                   </Marker>
                 </div>
               })

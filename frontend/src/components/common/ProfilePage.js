@@ -19,12 +19,14 @@ class ProfilePage extends React.Component {
       userId: ''
     },
     id: '',
-    isResponse: false
+    isResponse: false,
+    timeMessage: ''
   }
   // THis function just get all the user portfolio
   async componentDidMount() {
     try {
       const res = await getPortfolio()
+      this.timeOfDay()
       this.setState({ user: res.data })
     } catch (err) {
       console.log(err)
@@ -205,15 +207,30 @@ class ProfilePage extends React.Component {
     })
   }
 
+  timeOfDay = () => {
+    const date = new Date()
+    const hour = date.getHours()
+    let message = ''
+    console.log('hour: ', hour)
+    if (hour < 12){
+      message = 'Good Morning'
+    } else if (hour >= 12 && hour < 17){
+      message = 'Good Afteroon'
+    } else {
+      message = 'Good Evening'
+    }
+    this.setState({ timeMessage: message })
+  }
+
   render() {
     if (!this.state.user) return null
-    console.log(this.state.user)
+    // console.log(this.state.user)
 
     return (
       <section className="section">
         <div className="container">
           <div>
-            <h1 className="title is-2 has-text-centered">{this.state.user.name}'s profile</h1>
+            <h1 className="title is-2 has-text-centered">{`${this.state.timeMessage} ${this.state.user.name}`}</h1>
             <hr />
             <h2 className="title is-4 has-text-centered">You have {this.state.user.createdPlants.length} plants in your portfolio</h2>
           </div>

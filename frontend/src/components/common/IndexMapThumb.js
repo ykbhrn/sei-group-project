@@ -11,7 +11,7 @@ const mapStyle = 'mapbox://styles/mapbox/light-v10'
 const IndexMapThumb = (props) => {
   // console.log('map props',props)
   return (
-    <div>
+    <div className="container">
       <Link to={{
           pathname: '/maps',
           state: {
@@ -23,7 +23,7 @@ const IndexMapThumb = (props) => {
         <MapGl
           mapboxApiAccessToken={token}
           height={'20vh'}
-          width={'100vw'}
+          width={'80vw'}
           mapStyle={mapStyle}
           latitude={51.5070}
           longitude={-0.0860}
@@ -39,7 +39,7 @@ const IndexMapThumb = (props) => {
                 offsetTop={10}
                 offsetLeft={-12}
               >
-                <img width={15} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
+                <img width={15} src={require("../../lib/plntify_stamp.png")} alt="Plntify Logo" />
               </Marker>
             </div>
           })

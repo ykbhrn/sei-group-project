@@ -25,12 +25,18 @@ let pexelsPage = 1
 const getPlants = (page) => {
   setTimeout(async () => {
     if (commonNames.length >= amount) return
-    
+
     const res = await axios.get(`https://trefle.io/api/plants/?token=${trefleToken}&resprout_ability=true&page=${page}`)
     res.data.forEach(plant => {
       if (plant.common_name && plant.scientific_name && commonNames.length < amount) {
-        commonNames.push(plant.common_name)
-        sciNames.push(plant.scientific_name)
+        const commonUpper = plant.common_name.split(' ').map(word => {
+          return word[0].toUpperCase() + word.slice(1)
+        })
+        const sciUpper = plant.scientific_name.split(' ').map(word => {
+          return word[0].toUpperCase() + word.slice(1)
+        })
+        commonNames.push(commonUpper.join(' '))
+        sciNames.push(sciUpper.join(' '))
       }
     })
     if (commonNames.length >= amount) {
@@ -38,7 +44,7 @@ const getPlants = (page) => {
       getPhotos(pexelsPage)
       return
     } else {
-      
+
       treflePage++
       getPlants(treflePage)
 
@@ -139,7 +145,7 @@ setTimeout(() => {
 
       const plants = await Plant.create(plantsWithUsers)
       console.log(`${plants.length} complete plants created`)
-      
+
 
       await mongoose.connection.close()
       console.log('Goodbye')

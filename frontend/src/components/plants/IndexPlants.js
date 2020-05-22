@@ -12,7 +12,7 @@ class IndexPlants extends React.Component {
   async componentDidMount() {
     try {
       const res = await getAllPlants()
-      console.log(res.data)
+      // console.log(res.data)
       const plants = res.data
       this.setState({ plants })
 
@@ -30,7 +30,10 @@ class IndexPlants extends React.Component {
       <>
       <div className="section">
         <Notifications />
+        <div>
           <IndexMapThumb plants={this.state.plants} />
+        </div>
+          
       <section className="section">
         <div className="container">
           <div className="columns is-multiline">
