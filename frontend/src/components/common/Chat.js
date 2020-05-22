@@ -62,10 +62,10 @@ handleUser = async (event, user) => {
   }
 
   render() {
-    const { chats, message } = this.state
+    // const { chats, message } = this.state
     if (!this.state.user) return null
     console.log(this.state.chats)
-    console.log(this.state.chatUser)
+    console.log(this.state.user)
     return (
       <>
     <h1 className="title is-3 chat-title">Your Inbox:</h1>
@@ -90,7 +90,7 @@ handleUser = async (event, user) => {
                 if (counter > 1) {
                   showForm = false
                 }
-                if (counter > 2) {
+                if (counter > 1) {
                   showUser = false
                 }
                 return <>
@@ -104,7 +104,7 @@ handleUser = async (event, user) => {
                      >{textedUser}</button>
                    </>
                     }
-                  {this.state.chatUser !== textedUser ? showForm === true : showForm === false &&
+                  {/* {this.state.chatUser === textedUser ? showForm === true : showForm === false && */}
                   <>
                     {this.state.isMessage &&
                     <>
@@ -135,7 +135,7 @@ handleUser = async (event, user) => {
                   </>
                     }
                 </>
-                  }
+              
                     </>
               })
             })

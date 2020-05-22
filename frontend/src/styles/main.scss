@@ -5,6 +5,7 @@ $plntify: #3FC008;
 .offers-container{
   display: flex;
   justify-content: space-around;
+  flex-direction: row;
   width: 100vw;
   margin-top: 60px;
   
@@ -12,7 +13,6 @@ $plntify: #3FC008;
 
 .offers {
   width: 500px;
-  border: 2px solid grey;
   padding: 30px;
 }
 
@@ -20,7 +20,6 @@ $plntify: #3FC008;
 
 .responses {
   width: 500px;
-  border: 2px solid grey;
   padding: 30px;
 }
 
@@ -116,4 +115,47 @@ $plntify: #3FC008;
 .chat-header{
   display: inline-block;
   margin-left: 60px;
+}
+
+.offer-container{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.offer{
+  width: 100px;
+  display: inline-block;
+}
+
+.arrow{
+  font-size: 70px
+}
+
+.image-offer{
+  display: inline;
+}
+
+.is-accept{
+  background: $plntify;
+  color: white;
+}
+
+.is-decline{
+  background: red;
+  color: white;
+}
+
+button .is-light{
+  text-align: center;
+}
+
+.message{
+  background: white;
+  border-radius: 0px;
+}
+
+.offer-section{
+  border: 1px solid grey;
+  padding: 10px
 }
