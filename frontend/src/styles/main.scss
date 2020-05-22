@@ -80,6 +80,30 @@ nav.navbar.is-dark {
   height: 600px !important;
 }
 
+//! Make OFFER BUTTON
+.make-offer-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.make-offer-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! SUBMIT OFFER BUTTON
+.submit-offer-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.submit-offer-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
 //! EDIT BUTTON
 .show-edit-button {
   background-color: transparent;
@@ -108,6 +132,7 @@ nav.navbar.is-dark {
 .offers-container{
   display: flex;
   justify-content: space-around;
+  flex-direction: row;
   width: 100vw;
   margin-top: 60px;
   
@@ -115,14 +140,12 @@ nav.navbar.is-dark {
 
 .offers {
   width: 500px;
-  border: 2px solid grey;
   padding: 30px;
 }
 
 
 .responses {
   width: 500px;
-  border: 2px solid grey;
   padding: 30px;
 }
 
@@ -251,6 +274,48 @@ nav.navbar.is-dark {
   margin-left: 60px;
 }
 
+.offer-container{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.offer{
+  width: 100px;
+  display: inline-block;
+}
+
+.arrow{
+  font-size: 70px
+}
+
+.image-offer{
+  display: inline;
+}
+
+.is-accept{
+  background: $plntify;
+  color: white;
+}
+
+.is-decline{
+  background: red;
+  color: white;
+}
+
+button .is-light{
+  text-align: center;
+}
+
+.message{
+  background: white;
+  border-radius: 0px;
+}
+
+.offer-section{
+  border: 1px solid grey;
+  padding: 20px
+}
 .map-styles {
   font-family: 'Open Sans', sans-serif
 }
