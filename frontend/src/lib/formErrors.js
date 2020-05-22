@@ -21,8 +21,8 @@ export const handlePlantFormErrors = (error) => {
   if(error.description){
     description = 'A Description is Required'
   }
-  // if(this.state.formData.location.length === 0 ){
-  //   location = 'The pick up location of the plant is Required'
-  // }
+  if(error.location){
+    location = 'The pick up location of the plant is Required'
+  }
   return {errors: { name, height, imageUrl, scientificName, description, location }}
 }

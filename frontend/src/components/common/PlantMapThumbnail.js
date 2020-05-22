@@ -25,7 +25,7 @@ const PlantMapThumbnail = (props) => {
             mapboxApiAccessToken={token}
             height={'30vh'}
             width={'30vw'}
-            mapStyle='mapbox://styles/mapbox/light-v10'
+            mapStyle='mapbox://styles/mapbox/dark-v10'
             latitude={parseFloat(props.lat)}
             longitude={parseFloat(props.lon)}
             zoom={10}
@@ -35,7 +35,7 @@ const PlantMapThumbnail = (props) => {
                 latitude={parseFloat(props.lat)}
                 longitude={parseFloat(props.lon)}
               >
-                <img src={require("../../lib/plntify.svg")} alt="Plntify Logo" height="25vh" width="25vw" />
+                <img src={require("../../lib/plntify_stamp.png")} alt="Plntify Logo" height="25vh" width="25vw" />
               </Marker>
             </div>
           </MapGl>
