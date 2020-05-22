@@ -1,17 +1,28 @@
 import React from 'react'
 
-import { sendChat, getPortfolio, filterChat } from '../../lib/api'
+import { getAllChats, sendMessage, getPortfolio } from '../../lib/api'
 
 
 class Chat extends React.Component {
   state = {
-    message: '',
+    chats: null,
     user: null,
-    showMessages: false,
-    filteredMessages: null
+    text: '',
+    isMessage: false,
+    chatUser: ''
   }
 
   async componentDidMount() {
+    try {
+      const res = await getAllChats()
+      this.setState({ chats: res.data })
+      await this.componentDidMountUser()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  async componentDidMountUser() {
     try {
       const res = await getPortfolio()
       this.setState({ user: res.data })
@@ -21,14 +32,14 @@ class Chat extends React.Component {
   }
 
   handleChange = (event) => {
-    const message = { ...this.state.message, [event.target.name]: event.target.value }
+    const message = { ...this.state.text, [event.target.name]: event.target.value }
     this.setState({ message })
   }
 
-  handleSubmit = async (event, userId, receivedUserId) => {
+  handleSubmit = async (event, chatid) => {
     event.preventDefault()
     try {
-      const res = await sendChat(userId, receivedUserId, this.state.message)
+      const res = await sendMessage(chatid, this.state.message)
       this.setState({ message: res.data })
       window.location.reload()
     } catch (err) {
@@ -36,73 +47,103 @@ class Chat extends React.Component {
     }
   }
 
-
-  filterMessages = async (id, userid) => {
-    this.setState({ showMessages: this.state.showMessages === false ? true : false })
+  handleUser = async (event, user) => {
+    event.preventDefault()
     try {
-      const res = await filterChat(id, userid)
-      this.setState({ filteredMessages: res.data })
-      console.log(res.data);
-      
+      this.setState({ chatUser: user })
+      this.clicker()
     } catch (err) {
       console.log(err)
     }
   }
 
-
+  clicker = () => {
+    this.setState({ isMessage: this.state.isMessage === false ? true : false })
+  }
 
   render() {
+    const { chats, message } = this.state
     if (!this.state.user) return null
-    let counter = 0
+    console.log(this.state.chats)
+    console.log(this.state.chatUser)
     return (
-      <section>
-        {this.state.user.chat.map(message => {
-          counter++
-          let showForm = true
-          if (counter > 1) {
-            showForm = false
-          }
-          return (
-            <>
-              <div>
-                {message.text}
-              </div>
-              {this.state.showMessages &&
-                <>
-                  {showForm &&
-                    <>
-                      <div className="field">
-                        <label className="label">Message for User: </label>
-                        <div className="control">
-                          <textarea
-                            placeholder="Message"
-                            name="text"
-                            onChange={this.handleChange}
-                          />
-                        </div>
-              Message from: {message.userName}
-                      </div>
-                      <div className="field">
+      <>
+        <h1 className="title is-3 chat-title">Your Inbox:</h1>
+        <main className="chat-section">
+          <div className="chatFormContainer">
+            <form>
+              {this.state.chats.map(chat => {
+                let counter = 0
+                let showForm = true
+                let textedUser = ''
+                let showUser = true
+                let userCounter = 0
+                if (chat.senderName == this.state.user.name) {
+                  textedUser = chat.receiverName
+                }
+                if (chat.receiverName == this.state.user.name) {
+                  textedUser = chat.senderName
+                }
 
-                        <button type="submit" className="button is-warning"
-                          onClick={(event) => {
-                            this.handleSubmit(event, this.state.user._id, message.userId)
-                          }}
-                        >Send</button>
-                      </div>
-                    </>
+                return chat.subChat.map(message => {
+                  counter++
+                  if (counter > 1) {
+                    showForm = false
                   }
-                </>
+                  if (counter > 2) {
+                    showUser = false
+                  }
+                  return <>
+                    {showForm &&
+                      <>
+                        <button
+                          onClick={(event) => {
+                            this.handleUser(event, textedUser)
+                          }}
+                          className='button'
+                        >{textedUser}</button>
+                      </>
+                    }
+                    {this.state.chatUser !== textedUser ? showForm === true : showForm === false &&
+                      <>
+                        {this.state.isMessage &&
+                          <>
+                            {showUser &&
+                              <>
+                                <span className='title is-4 chat-header'>Chat with {textedUser}</span>
+                              </>
+                            }
+                            <div className="chat-text"><span className="chat-date">{message.updatedAt.split('2020-').join(' ').split('T').join(' ').split('.').splice(0, 1)}</span>
+                              {message.text}</div>
+
+                            <hr />
+
+                            <div className="chatForm">
+                              <textarea
+                                className="textarea"
+                                rows="2" cols="70"
+                                name="text"
+                                onChange={this.handleChange}
+                              />
+                              <button
+                                onClick={(event) => {
+                                  this.handleSubmit(event, chat._id)
+                                }}
+                                className='button'>Send</button>
+                            </div>
+
+                          </>
+                        }
+                      </>
+                    }
+                  </>
+                })
+              })
               }
-              <button type="submit" className="button is-warning"
-                onClick={() => {
-                  this.filterMessages(this.state.user._id, message.userId)
-                }}
-              >Open chat with {message.userName}</button>
-            </>
-          )
-        })}
-      </section>
+            </form>
+          </div>
+        </main>
+      </>
     )
   }
 }

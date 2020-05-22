@@ -22,8 +22,8 @@ class Maps extends React.Component {
     //?AK Initial positioning for the map passed as props from PlantThumbnail 
     //?AK viewport receives new values with every user interaction 
     viewport: {
-      longitude: this.props.location.state.longitude,
-      latitude: this.props.location.state.latitude,
+      longitude: parseFloat(this.props.location.state.longitude),
+      latitude: parseFloat(this.props.location.state.latitude),
       zoom: 12,
       height: '100vh',
       width: '100vw'
@@ -74,8 +74,8 @@ class Maps extends React.Component {
     const selectedPlant = selected.value
     const locationData = {
       ...this.state.locationData,
-      latitude: selectedPlant[0].lat,
-      longitude: selectedPlant[0].lon
+      latitude: parseFloat(selectedPlant[0].lat),
+      longitude: parseFloat(selectedPlant[0].lon)
     }
     this.setState({ locationData, plantSelect: true, selectedPlant: null, plantShow: null, plantProps: null }, this.setNewViewport)
     console.log(this.state.plantSelect)
@@ -87,8 +87,8 @@ class Maps extends React.Component {
   setNewViewport = () => {
     let viewport = {
       ...this.state.viewport,
-      latitude: this.state.locationData.latitude,
-      longitude: this.state.locationData.longitude,
+      latitude: parseFloat(this.state.locationData.latitude),
+      longitude: parseFloat(this.state.locationData.longitude),
       zoom: 13
     }
     this.setState({ viewport })
@@ -152,8 +152,8 @@ class Maps extends React.Component {
                   }}
                 >
                   <Marker
-                    latitude={plant.location[0].lat}
-                    longitude={plant.location[0].lon}
+                    latitude={parseFloat(plant.location[0].lat)}
+                    longitude={parseFloat(plant.location[0].lon)}
                     offsetTop={10}
                     offsetLeft={-12}
                   >
@@ -165,8 +165,8 @@ class Maps extends React.Component {
               <div>
                 {plantSelect && (
                   <Popup
-                    latitude={viewport.latitude}
-                    longitude={viewport.longitude}
+                    latitude={parseFloat(viewport.latitude)}
+                    longitude={parseFloat(viewport.longitude)}
                   >
                     <h2>Hot Plant!</h2>
                   </Popup>
@@ -175,8 +175,8 @@ class Maps extends React.Component {
               <div>
                 {plantProps && (
                   <Popup
-                    latitude={this.props.location.state.latitude}
-                    longitude={this.props.location.state.longitude}
+                    latitude={parseFloat(this.props.location.state.latitude)}
+                    longitude={parseFloat(this.props.location.state.longitude)}
                     closeOnClick={false}
                     onClose={() => {
                       this.setState({ plantProps: null })
@@ -199,8 +199,8 @@ class Maps extends React.Component {
               <div>
                 {plantShow && (
                   <Popup
-                    latitude={plantShow.location[0].lat}
-                    longitude={plantShow.location[0].lon}
+                    latitude={parseFloat(plantShow.location[0].lat)}
+                    longitude={parseFloat(plantShow.location[0].lon)}
                   >
                     <div className="has-text-centered">
                       <h2>
@@ -214,8 +214,8 @@ class Maps extends React.Component {
               <div>
                 {selectedPlant && (
                   <Popup
-                    latitude={selectedPlant.location[0].lat}
-                    longitude={selectedPlant.location[0].lon}
+                    latitude={parseFloat(selectedPlant.location[0].lat)}
+                    longitude={parseFloat(selectedPlant.location[0].lon)}
                     closeOnClick={false}
                     onClose={() => {
                       this.setState({ selectedPlant: null, plantProps: null })

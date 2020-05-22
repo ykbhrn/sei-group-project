@@ -1,13 +1,15 @@
 import React from 'react'
 
 import { addComment, getSinglePlant, deleteComment } from '../../lib/api'
-import Likes from '../common/Likes'
 import { isOwner } from '../../lib/auth'
 
 class Comments extends React.Component {
   state = {
     plant: null,
-    text: ''
+    text: '',
+    rows: '3',
+    commentsStatus: true,
+    buttonText: 'Show more comments'
   }
 
   async getData() { //* this function can be called whenever you need to update the info on the page
@@ -58,9 +60,42 @@ class Comments extends React.Component {
     this.getData()
   }
 
+  showMoreCommentsHandleClick = async () => {
+    console.log('showing more')
+    // event.preventDefault()
+    //* now the rows will be equal to the comments array lenght and all the comments will be shown
+    const newRows = this.state.plant.comments.length
+    this.setState({ rows: newRows })
+    this.getData()
+
+  }
+
+  ShowLessCommentsHandleClick = async () => {
+    console.log('showing less')
+    // event.preventDefault()
+
+    const lessRows = '3'
+    this.setState({ rows: lessRows })
+    this.getData()
+  }
+
+  toggleCommentsHandleClick = async event => {
+    event.preventDefault()
+    const show = this.state.commentsStatus
+    console.log(show) 
+    
+    if (show) {
+      this.setState({ commentsStatus: false , buttonText: 'Show less comments' })
+      this.showMoreCommentsHandleClick()
+    } else {
+      this.setState({ commentsStatus: true , buttonText: 'Show more comments' })
+      this.ShowLessCommentsHandleClick()
+    }
+  }
+
   render() {
     if (!this.state.plant) return null
-    const { plant, text } = this.state //* text field in state
+    const { plant, text, rows, buttonText } = this.state //* text field in state
 
     return (
       <div className="media-content">
@@ -78,7 +113,7 @@ class Comments extends React.Component {
           </div>
           <div className="field">
             <p className="control">
-              <button type="submit" className="button">Post Comment</button>
+              <button type="submit" className="button is-outlined is-success">Post Comment</button>
             </p>
             <br />
           </div>
@@ -87,23 +122,23 @@ class Comments extends React.Component {
           <article className="media">
             <div className="media-content">
               <div className="content">
-                {plant.comments.map((comment, index) => {
+                {plant.comments.slice(0, rows).map((comment, index) => {
                   return (
                     <div className="item" key={index}>
                       <p>
-                      <strong>{comment.user.name}</strong>
+                        <strong>{comment.user.name}</strong>
                       </p>
-                      {/* <br/> */}
                       <p> {comment.text} </p>
-                      {/* <br/> */}
                       {isOwner(comment.user._id) &&
                         <button className="delete comment-delete-button" comment-id={comment._id}
                           onClick={this.commentHandleDelete}>Delete
-                            </button>}
-                            <hr/>
+                        </button>}
+                      <hr />
                     </div>
                   )
                 })}
+                {this.state.plant.comments.length > 3 &&
+                <button className="button is-success is-outlined" onClick={this.toggleCommentsHandleClick}>{buttonText}</button>}
               </div>
             </div>
           </article>

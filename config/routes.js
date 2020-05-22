@@ -46,8 +46,14 @@ router.route('/response/:id/:plantid/:decision/:offered')
 router.route('/finish/:userid/:offerid/:plantid/:userplantid')
   .delete(secureRoute, offer.finishTrade)
 
-router.route('/chat/:senderid/:receiverid')
+router.route('/chat/:receiverid')
+  .post(secureRoute, chat.createChat)
+
+router.route('/chat/message/:chatid')
   .post(secureRoute, chat.sendMessage)
+
+router.route('/chat')
+  .get(secureRoute, chat.getAllChats)
 
 router.route('/likes')
   .post(secureRoute, like.like)
