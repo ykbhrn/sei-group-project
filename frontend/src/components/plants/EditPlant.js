@@ -32,7 +32,7 @@ class EditPlant extends React.Component {
     this.setState({ formData })
     console.log('parent', this.state.formData.location)
   }
- 
+
 
   async componentDidMount() { 
     const plantId = this.props.match.params.id //* ge the id of the plant to edit from the url, accessing the value through react routers props object

@@ -11,8 +11,8 @@ const PlantMapThumbnail = (props) => {
         <Link to={{
           pathname: '/maps',
           state: {
-            latitude: props.lat,
-            longitude: props.lon,
+            latitude: parseFloat(props.lat),
+            longitude: parseFloat(props.lon),
             plantProps: {
               id: props._id,
               name: props.name,
@@ -26,14 +26,14 @@ const PlantMapThumbnail = (props) => {
             height={'30vh'}
             width={'30vw'}
             mapStyle='mapbox://styles/mapbox/light-v10'
-            latitude={props.lat}
-            longitude={props.lon}
+            latitude={parseFloat(props.lat)}
+            longitude={parseFloat(props.lon)}
             zoom={10}
           >
             <div key={props._id}>
               <Marker
-                latitude={props.lat}
-                longitude={props.lon}
+                latitude={parseFloat(props.lat)}
+                longitude={parseFloat(props.lon)}
               >
                 <img src={require("../../lib/plntify.svg")} alt="Plntify Logo" height="25vh" width="25vw" />
               </Marker>

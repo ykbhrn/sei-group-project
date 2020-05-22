@@ -108,21 +108,21 @@ class ShowPlant extends React.Component {
 
   render() {
     if (!this.state.plant) return null // * if there is no plant object, return null
-    const { plant, isOffer, offerData } = this.state // * deconstruct the plant from state
+    const { plant, isOffer } = this.state // * deconstruct the plant from state
 
     console.log(this.state.user)
     console.log(plant.imageUrl)
 
     return (
-      <section className="section">
+      <section className="section m-scene">
         <div className="container">
           <h2 className="title has-text-centered">{plant.name}</h2>
           {plant.nickName && <h2 className="title is-5 has-text-centered">{`'${plant.nickName}'`}</h2>}
           <hr />
-          <div className="columns">
+          <div className="columns scene_element scene_element--fadein">
             <div className="column is-half">
               <figure className="image">
-                <img src={plant.imageUrl} alt={plant.name} />
+                <img className="show-image" src={plant.imageUrl} alt={plant.name} />
               </figure>
               <Likes
                 likes={plant.likes}
@@ -233,7 +233,7 @@ class ShowPlant extends React.Component {
 
 
               {isOwner(plant.user._id) &&
-                <div class="buttons">
+                <div className="buttons">
                   <Link to={`/plants/${plant._id}/edit`} className="button is-outlined is-success">Edit</Link>
                   {/* <hr /> */}
 

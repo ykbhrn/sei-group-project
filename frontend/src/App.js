@@ -17,8 +17,8 @@ import PublicProfile from './components/common/PublicProfile'
 import ErrorPage from './components/common/ErrorPage'
 import Chat from './components/common/Chat'
 
-
-
+console.log('%cThis app was built by Aino, George, Jakub, and Yarden, check us out on github', 'color:blue;font-size:20px;font-weight:bold')
+console.log('%cAino: github.com/ainokyto\nGeorge: github.com/jompra\nJakub: github.com/ykbhrn\nYarden: github.com/YBL123', 'color:red;font-size:16px')
 
 const App = () => (
   <BrowserRouter>
@@ -27,14 +27,14 @@ const App = () => (
       <Route exact path='/' component={Home} />
       <SecureRoute path='/plants/:id/edit' component={EditPlant} />
       <SecureRoute path='/plants/new' component={NewPlant} />
-      <Route path='/plants/:id' component={ShowPlant} />
-      <Route path='/plants' component={IndexPlants} />
+      <SecureRoute path='/plants/:id' component={ShowPlant} />
+      <SecureRoute path='/plants' component={IndexPlants} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
-      <Route path="/maps" component={Maps} />
-      <Route path="/profile/:id" component={PublicProfile} />
-      <Route path="/profile" component={ProfilePage} />
-      <Route path="/chat" component={Chat} />
+      <SecureRoute path="/maps" component={Maps} />
+      <SecureRoute path="/profile/:id" component={PublicProfile} />
+      <SecureRoute path="/profile" component={ProfilePage} />
+      <SecureRoute path="/chat" component={Chat} />
       <Route path="/*" component={ErrorPage} />
     </Switch>
   </BrowserRouter>

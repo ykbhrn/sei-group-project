@@ -59,20 +59,20 @@ class ProfilePage extends React.Component {
     }
   }
 
-finishTrade = async (userid, offerid, plantid, userplantid) => {
-  try {
-   await finishTrade(userid, offerid, plantid, userplantid)
-    window.location.reload()
-  } catch(err) {
-    this.props.history.push('/notfound')
+  finishTrade = async (userid, offerid, plantid, userplantid) => {
+    try {
+      await finishTrade(userid, offerid, plantid, userplantid)
+      window.location.reload()
+    } catch (err) {
+      this.props.history.push('/notfound')
+    }
   }
-}
 
   //  This function toggle Respond on Offer button
   clicker = () => {
     this.setState({ isResponse: this.state.isResponse === false ? true : false })
   }
-// Changing classes, depends on declined or accepted offer
+  // Changing classes, depends on declined or accepted offer
   decisionClass = decision => {
     if (decision === 'Accepted') {
       return 'button is-warning is-fullwidth'
@@ -86,8 +86,8 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
   handleResponse = () => {
 
     return this.state.user.submittedOffers.map(offer => {
-    let accepted = false
-      if(offer.response === 'Accepted') {
+      let accepted = false
+      if (offer.response === 'Accepted') {
         accepted = true
       }
       return <div className='title is-4'>
@@ -110,16 +110,16 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
         {offer.userName} email for further communication:
         {offer.email}
         <div className="field">
-                {accepted &&
-                  <button type="submit" className="button is-warning"
-                  onClick={() => {
-                    this.finishTrade(this.state.user._id, offer._id, offer.offeredPlantId, offer.plantId)
-                  }}
-                  >
-                    Trade was finished
+          {accepted &&
+            <button type="submit" className="button is-warning"
+              onClick={() => {
+                this.finishTrade(this.state.user._id, offer._id, offer.offeredPlantId, offer.plantId)
+              }}
+            >
+              Trade was finished
                   </button>
-                  }
-                  </div>
+          }
+        </div>
         <hr />
       </div>
     })
@@ -128,12 +128,13 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
 
 
   //  This function will show user received offers
-  componentDidCatch = () => {
+  showRecievedOffers = () => {
     // array of  plants which contains offers
     const offerArray = this.state.user.createdPlants.filter(plant => {
       if (plant.offers.length > 0) {
         return plant
       }
+      return null
     })
     let offerCounter = 0
     //  maping all the plants with offers
@@ -165,7 +166,7 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
           <button
             className="button is-light"
             onClick={this.clicker}>Respond to the offer
-           </button>
+            </button>
           <hr />
           {this.state.isResponse &&
             <>
@@ -209,14 +210,15 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
     console.log(this.state.user)
 
     return (
-      <section className="section">
+      <section className="section m-scene">
         <div className="container">
           <div>
-            <h1 className="title is-2 has-text-centered">{this.state.user.name}</h1>
+            <h1 className="title is-2 has-text-centered">{this.state.user.name}'s profile</h1>
             <hr />
+            <h2 className="title is-4 has-text-centered">You have {this.state.user.createdPlants.length} plants in your portfolio</h2>
           </div>
-          <br/>
-          <div className="columns is-multiline">
+          <br />
+          <div className="columns is-multiline scene_element scene_element--fadein">
             {this.state.user.createdPlants.map(plant => (
               <ProfileCard key={plant._id} {...plant} />
             ))}
@@ -230,7 +232,7 @@ finishTrade = async (userid, offerid, plantid, userplantid) => {
               <h1 className="title is-4 is-sucess">Your Offers: </h1>
               <hr />
               <br />
-              {this.componentDidCatch()}
+              {this.showRecievedOffers()}
             </div>
 
             {/* Responses for your offers */}

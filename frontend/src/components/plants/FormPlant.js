@@ -108,7 +108,7 @@ class FormPlant extends React.Component {
   }
 
   checkNaughtyImage = async (imgToCheck) => {
-    const res = await axios.post(`https://api.moderatecontent.com/moderate/?key=dc0c6202b07ba22e3425ed4299d7a233&url=${imgToCheck}`)
+    const res = await axios.post(`https://api.moderatecontent.com/moderate/?key=${moderatorKey}&url=${imgToCheck}`)
     const modResponse = res.data.rating_letter
     if (modResponse === 'e'){
       this.setState({ imageUrl: imgToCheck })
@@ -120,7 +120,7 @@ class FormPlant extends React.Component {
 
   // console.log('props: ', this.props.formData.name)
   render() {
-    const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange, handleUnitsSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
+    const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
     return (
 
       <div className="columns">
@@ -164,21 +164,7 @@ class FormPlant extends React.Component {
             </div>
             {errors.height && <small className="help is-danger">{errors.height}</small>}
           </div>
-
-          <div className="field">
-            <label className="label">Units</label>
-            <div className={`control ${errors.units ? 'is-danger' : ''}`}
-              onClick={this.getSciData}
-            >
-              <Select
-                name="units"
-                onChange={handleUnitsSelectChange}
-                options={this.state.unitOptions}
-              />
-            </div>
-            {errors.units && <small className="help is-danger">{errors.units}</small>}
-          </div>
-
+          
           <div className="field">
             <label className="label">Scientific Name</label>
             <div className={`control ${errors.scientificName ? 'is-danger' : ''}`}
