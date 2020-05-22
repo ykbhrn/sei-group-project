@@ -16,15 +16,18 @@ class ProfilePage extends React.Component {
       userName: '',
       plantName: '',
       plantId: '',
-      userId: ''
+      userId: '',
+      isMessage: false
     },
     id: '',
-    isResponse: false
+    isResponse: false,
+    timeMessage: ''
   }
   // THis function just get all the user portfolio
   async componentDidMount() {
     try {
       const res = await getPortfolio()
+      this.timeOfDay()
       this.setState({ user: res.data })
     } catch (err) {
       console.log(err)
@@ -75,10 +78,10 @@ class ProfilePage extends React.Component {
   // Changing classes, depends on declined or accepted offer
   decisionClass = decision => {
     if (decision === 'Accepted') {
-      return 'button is-warning is-fullwidth'
+      return 'button is-accept is-fullwidth'
     }
     else {
-      return 'button is-danger is-fullwidth'
+      return 'button is-decline is-fullwidth'
     }
   }
 
@@ -90,37 +93,38 @@ class ProfilePage extends React.Component {
       if (offer.response === 'Accepted') {
         accepted = true
       }
-      return <div className='title is-4'>
-
-        You have response from: <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> <br />
-          On plant: <Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br />
-          <img src={offer.plantImageUrl} alt={offer.plantName} />
+      return <div className="offer-section">
+        <div className="title is-4">You have response from: <Link to={`/profile/${offer.userId}`}> {offer.userName}</Link> </div>
+        <div className="offer-container">
+        <div className="offer">
+          On plant: <br/><Link to={`/plants/${offer.plantId}`}> {offer.plantName}<br />
+          <img src={offer.plantImageUrl} alt={offer.plantName} className='image  image-offer is-64x64'/>
         </Link>
-
-          You are offering:  <Link to={`/plants/${offer.offeredPlantId}`}>{offer.offeredPlantName}<br />
-          <img src={offer.offeredImageUrl} alt={offer.offeredPlantName} />
+        </div>
+        <span className="arrow">	&hArr;</span>
+        <div className="offer">
+          You are offering:  <br/> <Link to={`/plants/${offer.offeredPlantId}`}>{offer.offeredPlantName}<br />
+          <img src={offer.offeredImageUrl} alt={offer.offeredPlantName} className='image image-offer is-64x64' />
         </Link>
-        <h1>id: {offer._id}</h1>
-        <h1>{offer.respondedUserId}</h1>
+        </div>
+        </div>
         <div className="field">
           <div className={this.decisionClass(offer.response)}>{offer.response}</div>
         </div>
-        Message from user: < br />
-        <div className="message">{offer.text}</div>
-        {offer.userName} email for further communication:
-        {offer.email}
         <div className="field">
-          {accepted &&
-            <button type="submit" className="button is-warning"
-              onClick={() => {
-                this.finishTrade(this.state.user._id, offer._id, offer.offeredPlantId, offer.plantId)
-              }}
-            >
-              Trade was finished
+                  </div>
+                
+                  Message from user: < br />
+                    <div className="message">{offer.text}</div>
+                    {accepted &&
+                  <button type="submit" className="button is-dark"
+                  onClick={() => {
+                    this.finishTrade(this.state.user._id, offer._id, offer.offeredPlantId, offer.plantId)
+                  }}
+                  >
+                    Did you finish your trade with {offer.userName}?
                   </button>
-          }
-        </div>
-        <hr />
+                  }
       </div>
     })
 
@@ -145,29 +149,33 @@ class ProfilePage extends React.Component {
         if (this.state.user.email === offer.user.email) return null
 
         offerCounter++
-        return <div key={offer._id}>
+        return <div key={offer._id} className="offer-section">
           {/* //* Offers on your plants Code  */}
           <div className='title is-4'>
-
-            <p>Nr.{offerCounter}: </p>
-            <p>You have offer from: <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link></p>
-            <p>On plant: <Link to={`/plants/${plant._id}`}> {plant.name}
-              <img src={plant.imageUrl} alt={plant.name} className="is-64x64" />
-            </Link></p>
+            You have offer from: <Link to={`/profile/${offer.user._id}`}> {offer.user.name}</Link>
+            </div>
+            <div className="offer-container">
+              <div className="offer">
+            On plant: <Link to={`/plants/${plant._id}`}> {plant.name}
+              <img src={plant.imageUrl} alt={plant.name} className="image is-64x64" />
+            </Link>
+            </div>
+            <span className="arrow">	&hArr;</span>
+            <div className="offer">
+            Offered Plant: <Link to={`/plants/${offer.plantId}`}>{offer.name}
+              <img src={offer.imageUrl} alt={offer.name} className="image is-64x64"/>
+            </Link>
+            </div>
+            </div>
             <p>Message from {offer.user.name}: </p>
             <div className="message">{offer.text} </div>
-          Offered Plant: <Link to={`/plants/${offer.plantId}`}>{offer.name}
-              <img src={offer.imageUrl} alt={offer.name} />
-            </Link>
 
             {/* <img src={offer.imageUrl} /> */}
 
-          </div>
           <button
-            className="button is-light"
+            className="button is-dark"
             onClick={this.clicker}>Respond to the offer
             </button>
-          <hr />
           {this.state.isResponse &&
             <>
               <form onSubmit={this.handleSubmit} className="column is-half is-offset-one-quarter box">
@@ -184,13 +192,13 @@ class ProfilePage extends React.Component {
                 </div>
 
                 <div className="field">
-                  <button type="submit" className="button is-warning"
+                  <button type="submit" className="button is-accept"
                     onClick={(event) => {
                       this.handleSubmit(event, offer.user._id, plant._id, offer.plantId)
                     }}
                   >Accept</button>
 
-                  <button type="submit" className="button is-danger"
+                  <button type="submit" className="button is-decline"
                     onClick={(event) => {
                       this.handleSubmitDecline(event, offer.user._id, plant._id, offer.plantId)
                     }}
@@ -205,15 +213,30 @@ class ProfilePage extends React.Component {
     })
   }
 
+  timeOfDay = () => {
+    const date = new Date()
+    const hour = date.getHours()
+    let message = ''
+    console.log('hour: ', hour)
+    if (hour < 12){
+      message = 'Good Morning'
+    } else if (hour >= 12 && hour < 17){
+      message = 'Good Afternoon'
+    } else {
+      message = 'Good Evening'
+    }
+    this.setState({ timeMessage: message })
+  }
+
   render() {
     if (!this.state.user) return null
-    console.log(this.state.user)
+    // console.log(this.state.user)
 
     return (
       <section className="section m-scene">
         <div className="container">
           <div>
-            <h1 className="title is-2 has-text-centered">{this.state.user.name}'s profile</h1>
+            <h1 className="title is-2 has-text-centered">{`${this.state.timeMessage} ${this.state.user.name}`}</h1>
             <hr />
             <h2 className="title is-4 has-text-centered">You have {this.state.user.createdPlants.length} plants in your portfolio</h2>
           </div>
@@ -231,15 +254,13 @@ class ProfilePage extends React.Component {
             <div className='offers'>
               <h1 className="title is-4 is-sucess">Your Offers: </h1>
               <hr />
-              <br />
               {this.showRecievedOffers()}
             </div>
 
             {/* Responses for your offers */}
             <div className='responses'>
-              <h1 className="title is-4 is-sucess">Responses From Other Users: </h1>
+              <h1 className="title is-4 is-sucess">Your responses: </h1>
               <hr />
-              <br />
               {this.handleResponse()}
             </div>
           </div>

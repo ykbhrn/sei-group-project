@@ -50,7 +50,7 @@ class PublicProfile extends React.Component {
       <section className="section m-scene">
         <div className="container">
           <div>
-            <h1 className="title is-2 has-text-centered">{this.state.user.name}</h1>
+            <h1 className="title is-2 has-text-centered">{this.state.user.name}'s portfolio</h1>
             <hr />
           </div>
           <br/>

@@ -17,7 +17,7 @@ import PublicProfile from './components/common/PublicProfile'
 import ErrorPage from './components/common/ErrorPage'
 import Chat from './components/common/Chat'
 
-console.log('%cThis app was built by Aino, George, Jakub, and Yarden, check us out on github', 'color:blue;font-size:20px;font-weight:bold')
+console.log('%cThis app was built by Aino, George, Jakub, and Yarden, check us out on github:', 'color:blue;font-size:20px;font-weight:bold')
 console.log('%cAino: github.com/ainokyto\nGeorge: github.com/jompra\nJakub: github.com/ykbhrn\nYarden: github.com/YBL123', 'color:red;font-size:16px')
 
 const App = () => (
