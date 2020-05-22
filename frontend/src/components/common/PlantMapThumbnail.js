@@ -25,7 +25,7 @@ const PlantMapThumbnail = (props) => {
             mapboxApiAccessToken={token}
             height={'30vh'}
             width={'30vw'}
-            mapStyle='mapbox://styles/mapbox/dark-v10'
+            mapStyle='mapbox://styles/mapbox/light-v10'
             latitude={parseFloat(props.lat)}
             longitude={parseFloat(props.lon)}
             zoom={10}

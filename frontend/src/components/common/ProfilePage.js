@@ -221,7 +221,7 @@ class ProfilePage extends React.Component {
     if (hour < 12){
       message = 'Good Morning'
     } else if (hour >= 12 && hour < 17){
-      message = 'Good Afteroon'
+      message = 'Good Afternoon'
     } else {
       message = 'Good Evening'
     }
