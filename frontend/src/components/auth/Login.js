@@ -90,7 +90,7 @@ class Login extends React.Component {
               </div>
               <div className="field">
               
-              <button onClick={this.sendData}type="button" className="button is-fullwidth is-info is-outlined">No Account? Sign Up Here</button>
+              <button onClick={this.sendData}type="button" className="button is-fullwidth is-dark is-outlined">No Account? Sign Up Here</button>
             
             </div>
             </form>

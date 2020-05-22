@@ -154,7 +154,7 @@ class Register extends React.Component {
               </div>
               <div className="field">
               
-                <button onClick={this.sendData}type="button" className="button is-fullwidth is-info is-outlined">Have an account? Sign in Here</button>
+                <button onClick={this.sendData}type="button" className="button is-fullwidth is-dark is-outlined">Have an account? Sign in Here</button>
               
               </div>
             </form>
