@@ -14,7 +14,7 @@ class Chat extends React.Component {
     try {
       const res = await getAllChats()
       this.setState({ chats: res.data })
-      this.componentDidMountUser()
+      await this.componentDidMountUser()
     } catch (err) {
       console.log(err)
     }
@@ -47,35 +47,42 @@ class Chat extends React.Component {
 
   render() {
     const { chats, message } = this.state
-    if (!this.state.chats) return null
+    if (!this.state.user) return null
     console.log(this.state.chats)
     console.log(this.state.user)
     return (
     
       <main className="section">
-        <div className="columns is-mobile">
-          <div className="column is-6-tablet is-offset-3-tablet is-8-mobile is-offset-2-mobile box">
-            <div className="field">
-              <label className="label">First Name</label>
-              <div className="control">
+        <div >
+          <div >
+          <div className="chatFormContainer">
               <form>
                 {this.state.chats.map(chat => {
                   let counter = 0
                   let showForm = true
                   let textedUser = ''
                   if(chat.senderName == this.state.user.name) {
-                    textedUser = 
+                    textedUser = chat.receiverName
                   }
-                return <h1>Chat with {chat.}</h1>
+                  if(chat.receiverName == this.state.user.name) {
+                    textedUser = chat.senderName
+                  }
+                   
                   return chat.subChat.map(message => {
                     counter ++
                     if(counter > 1) {
                       showForm = false
                     }
                     return <>
+                    {showForm && 
+                    <>
+                    <div className='title is-3'>Chat with {textedUser}</div>
+                    </>
+                    }
                         <h1>{message.text}</h1>
+                        <hr/>
                         {showForm &&
-                        <>
+                        <div className="chatForm">
                         <textarea
                           className="message"
                           name="text"
@@ -85,18 +92,20 @@ class Chat extends React.Component {
                         onClick={(event) => {
                           this.handleSubmit(event, chat._id)
                         }}
-                        className="button">Send</button>
-                        </>
+                        className='button'
+                     >Send</button>
+                        </div>
                   }
                     </>
                   })
                 })
                 }
                 </form>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+
+   
       </main>
    )
   }

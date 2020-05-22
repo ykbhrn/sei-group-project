@@ -79,3 +79,14 @@ $plntify: #3FC008;
 .added-by h4 {
   margin: 24px 0
 }
+
+.chatForm{
+  position: absolute;
+  bottom: 50px;
+  left: 45%;
+}
+
+.chatFormContainer{
+  overflow: auto;
+  height: 400px;
+}
