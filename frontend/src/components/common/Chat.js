@@ -50,9 +50,9 @@ class Chat extends React.Component {
 handleUser = async (event, user) => {
   event.preventDefault()
   try {
-    this.setState({chatUser: user})
+    this.setState({ chatUser: user })
     this.clicker()
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -68,119 +68,85 @@ handleUser = async (event, user) => {
     console.log(this.state.chatUser)
     return (
       <>
-   
-      <main className="section">
-          <div className="chatFormContainer">
-              <form>
-                {this.state.chats.map(chat => {
-                  let counter = 0
-                  let showForm = true
-                  let textedUser = ''
-                  if(chat.senderName == this.state.user.name) {
-                    textedUser = chat.receiverName
-                  }
-                  if(chat.receiverName == this.state.user.name) {
-                    textedUser = chat.senderName
-                  }
+    <h1 className="title is-3 chat-title">Your Inbox:</h1>
+      <main className="chat-section">
+        <div className="chatFormContainer">
+          <form>
+            {this.state.chats.map(chat => {
+              let counter = 0
+              let showForm = true
+              let textedUser = ''
+              let showUser = true
+              let userCounter = 0
+              if (chat.senderName == this.state.user.name) {
+                textedUser = chat.receiverName
+              }
+              if (chat.receiverName == this.state.user.name) {
+                textedUser = chat.senderName
+              }
                   
-                  return chat.subChat.map(message => {
-                    counter ++
-                    if(counter > 1) {
-                      showForm = false
-                    }
-                    return <>
+              return chat.subChat.map(message => {
+                counter ++
+                if (counter > 1) {
+                  showForm = false
+                }
+                if (counter > 2) {
+                  showUser = false
+                }
+                return <>
                     {showForm &&
-                    <>
+                  <>
                      <button 
-                        onClick={(event) => {
-                          this.handleUser(event, textedUser)
-                        }}
-                        className='button'
-                      >{textedUser}</button>
-                    </>
-                  }
+                       onClick={(event) => {
+                         this.handleUser(event, textedUser)
+                       }}
+                       className='button'
+                     >{textedUser}</button>
+                   </>
+                    }
                   {this.state.chatUser !== textedUser ? showForm === true : showForm === false &&
                   <>
                     {this.state.isMessage &&
                     <>
-                    {showForm && 
+                    {showUser && 
                     <>
-                    <div className='title is-3'>Chat with {textedUser}</div>
+                    <span className='title is-4 chat-header'>Chat with {textedUser}</span>
                     </>
                     }
-                        <h1>{message.text}</h1>
+                        <div className="chat-text"><span className="chat-date">{message.updatedAt.split('2020-').join(' ').split('T').join(' ').split('.').splice(0, 1)}</span>
+                          {message.text}</div>
+                       
                         <hr/>
                        
                         <div className="chatForm">
-                        <textarea
-                          className="message"
-                          name="text"
-                          onChange={this.handleChange}
-                        />
-                        <button 
-                        onClick={(event) => {
-                          this.handleSubmit(event, chat._id)
-                        }}
-                        className='button'
-                     >Send</button>
+                          <textarea
+                            className="textarea"
+                            rows="2" cols="70"
+                            name="text"
+                            onChange={this.handleChange}
+                          />
+                          <button 
+                            onClick={(event) => {
+                              this.handleSubmit(event, chat._id)
+                            }}
+                            className='button'>Send</button>
                         </div>
                   
                   </>
-                }
+                    }
                 </>
-                }
+                  }
                     </>
-                  })
-                })
-                }
-                </form>
-                </div>
-             </main>
+              })
+            })
+            }
+          </form>
+        </div>
+      </main>
                </>
-   )
+    )
   }
 }
 
 export default Chat
 
-
-
-
-
-  // async componentDidMount() {
-  //   try {
-  //     const res = await getPortfolio()
-  //     this.setState({ user: res.data })
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-
-  // handleChange = (event) => {
-  //   const message = { ...this.state.message, [event.target.name]: event.target.value }
-  //   this.setState({ message })
-  // }
-
-  // handleSubmit = async (event, userId, receivedUserId) => {
-  //   event.preventDefault()
-  //   try {
-  //     const res = await sendChat(userId, receivedUserId, this.state.message)
-  //     this.setState({ message: res.data })
-  //     window.location.reload()
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-
-
-  // filterMessages = async (id, userid) => {
-  //   this.setState({ showMessages: this.state.showMessages === false ? true : false })
-  //   try {
-  //     const res = await filterChat(id, userid)
-  //     this.setState({ filteredMessages: res.data, isFilter: true })
-  //     console.log(res.data);
-
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }

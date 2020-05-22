@@ -83,10 +83,37 @@ $plntify: #3FC008;
 .chatForm{
   position: absolute;
   bottom: 50px;
-  left: 45%;
+  left: 15%;
 }
 
 .chatFormContainer{
   overflow: auto;
-  height: 400px;
+  height: 370px;
+}
+
+
+.button {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.chat-title{
+  margin-top: 20px;
+  text-align: center;
+}
+
+.chat-section{
+  margin-left: 30px;
+}
+
+.chat-date{
+  font-size: 12px;
+  display: inline-block;
+  margin-right: 50px;
+  color: grey
+}
+
+.chat-header{
+  display: inline-block;
+  margin-left: 60px;
 }
