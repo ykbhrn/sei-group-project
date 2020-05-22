@@ -90,7 +90,7 @@ class Chat extends React.Component {
                   if (counter > 1) {
                     showForm = false
                   }
-                  if (counter > 2) {
+                  if (counter > 1) {
                     showUser = false
                   }
                   return <>
@@ -104,7 +104,7 @@ class Chat extends React.Component {
                         >{textedUser}</button>
                       </>
                     }
-                    {this.state.chatUser !== textedUser ? showForm === true : showForm === false &&
+                    {/* {this.state.chatUser !== textedUser ? showForm === true : showForm === false && */}
                       <>
                         {this.state.isMessage &&
                           <>
@@ -135,7 +135,7 @@ class Chat extends React.Component {
                           </>
                         }
                       </>
-                    }
+                    
                   </>
                 })
               })
