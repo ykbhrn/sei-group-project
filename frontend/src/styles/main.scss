@@ -29,10 +29,75 @@ nav.navbar.is-dark {
 	}
 }
 
+//! REGISTER BUTTON
+.register-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.register-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! LOGIN BUTTON
+.login-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.login-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! FORM
+
+//! ADD MY PLANT BUTTON
+.form-add-my-plant-button{
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.form-add-my-plant-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+
 //! SHOWPLANT
+
+//! IMAGE
 .show-image {
   width: 600px !important;
   height: 600px !important;
+}
+
+//! EDIT BUTTON
+.show-edit-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.show-edit-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! DELETE BUTTON 
+.show-delete-button {
+  background-color: transparent;
+  border-color: rgb(223, 0, 0);
+  color: rgb(223, 0, 0);
+}
+.show-delete-button:hover {
+  color: white;
+  border-color: rgb(223, 0, 0);
+  background-color: rgb(223, 0, 0);
 }
 
 
@@ -90,6 +155,32 @@ nav.navbar.is-dark {
   border: 1px solid $plntify;
   box-sizing: border-box;
   outline: none;
+}
+
+//! COMMENTS
+
+//! POST COMMENT BUTTON
+.post-comment-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.post-comment-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! SHOW MORE/LESS BUTTON
+.show-more-less-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.show-more-less-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
 }
 
 //! DELETE COMMENT BUTTON

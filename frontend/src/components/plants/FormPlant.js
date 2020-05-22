@@ -231,7 +231,7 @@ class FormPlant extends React.Component {
 
 
           <div className="field">
-            <button type="submit" className="button is-fullwidth is-outlined is-success">{buttonText}</button>
+            <button type="submit" className="button is-fullwidth form-add-my-plant-button">{buttonText}</button>
           </div>
         </form>
       </div>
