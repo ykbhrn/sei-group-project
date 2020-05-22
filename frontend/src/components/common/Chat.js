@@ -64,11 +64,12 @@ class Chat extends React.Component {
   render() {
     const { chats, message } = this.state
     if (!this.state.user) return null
-    console.log(this.state.chats)
+    console.log('Chats: ', this.state.chats)
     console.log(this.state.chatUser)
     return (
       <>
         <h1 className="title is-3 chat-title">Your Inbox:</h1>
+        <h1 className="title is-3 chat-title">{this.state.chats.length < 1 ? 'You have no open chats' : ''}</h1>
         <main className="chat-section">
           <div className="chatFormContainer">
             <form>
@@ -105,37 +106,37 @@ class Chat extends React.Component {
                       </>
                     }
                     {/* {this.state.chatUser !== textedUser ? showForm === true : showForm === false && */}
-                      <>
-                        {this.state.isMessage &&
-                          <>
-                            {showUser &&
-                              <>
-                                <span className='title is-4 chat-header'>Chat with {textedUser}</span>
-                              </>
-                            }
-                            <div className="chat-text"><span className="chat-date">{message.updatedAt.split('2020-').join(' ').split('T').join(' ').split('.').splice(0, 1)}</span>
-                              {message.text}</div>
+                    <>
+                      {this.state.isMessage &&
+                        <>
+                          {showUser &&
+                            <>
+                              <span className='title is-4 chat-header'>Chat with {textedUser}</span>
+                            </>
+                          }
+                          <div className="chat-text"><span className="chat-date">{message.updatedAt.split('2020-').join(' ').split('T').join(' ').split('.').splice(0, 1)}</span>
+                            {message.text}</div>
 
-                            <hr />
+                          <hr />
 
-                            <div className="chatForm">
-                              <textarea
-                                className="textarea"
-                                rows="2" cols="70"
-                                name="text"
-                                onChange={this.handleChange}
-                              />
-                              <button
-                                onClick={(event) => {
-                                  this.handleSubmit(event, chat._id)
-                                }}
-                                className='button'>Send</button>
-                            </div>
+                          <div className="chatForm">
+                            <textarea
+                              className="textarea"
+                              rows="2" cols="70"
+                              name="text"
+                              onChange={this.handleChange}
+                            />
+                            <button
+                              onClick={(event) => {
+                                this.handleSubmit(event, chat._id)
+                              }}
+                              className='button'>Send</button>
+                          </div>
 
-                          </>
-                        }
-                      </>
-                    
+                        </>
+                      }
+                    </>
+
                   </>
                 })
               })
