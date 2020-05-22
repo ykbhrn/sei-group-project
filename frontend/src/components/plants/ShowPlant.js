@@ -233,7 +233,7 @@ class ShowPlant extends React.Component {
 
 
               {isOwner(plant.user._id) &&
-                <div class="buttons">
+                <div className="buttons">
                   <Link to={`/plants/${plant._id}/edit`} className="button is-outlined is-success">Edit</Link>
                   {/* <hr /> */}
 

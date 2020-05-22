@@ -27,9 +27,9 @@ class Navbar extends React.Component{
       <nav className="navbar is-success">
         <div className="container">
           <div className="navbar-brand">
-           <Link to="/" className="navbar-item">
+          {isAuthenticated() &&<Link to="/" className="navbar-item">
               Home
-            </Link>
+            </Link>}
             <span onClick={this.handleToggle} className={`navbar-burger ${isOpen ? 'is-active' : ''}`}>
               <span></span>
               <span></span>
@@ -38,9 +38,9 @@ class Navbar extends React.Component{
           </div>
           <div className={`navbar-menu ${isOpen ? 'is-active' : ''}`}>
             <div className="navbar-end">
-            <Link to="/plants" className="navbar-item">
+            {isAuthenticated() &&<Link to="/plants" className="navbar-item">
               Plants
-            </Link>
+            </Link>}
             {isAuthenticated() && <Link to="/plants/new" className="navbar-item">
               Add your plant
             </Link>}
@@ -50,12 +50,12 @@ class Navbar extends React.Component{
             {isAuthenticated() && <Link to="/chat" className="navbar-item">
               Chat
             </Link>}
-            {!isAuthenticated() &&<Link to="/login" className="navbar-item">
+            {/* {!isAuthenticated() &&<Link to="/login" className="navbar-item">
               Login
             </Link>}
             {!isAuthenticated() &&<Link to="/register" className="navbar-item">
               Register
-            </Link>}
+            </Link>} */}
           
             {isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item">Logout</span>}
           </div>
