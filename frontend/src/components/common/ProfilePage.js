@@ -112,7 +112,6 @@ class ProfilePage extends React.Component {
           <div className={this.decisionClass(offer.response)}>{offer.response}</div>
         </div>
         <div className="field">
-<<<<<<< HEAD
                   </div>
                 
                   Message from user: < br />
@@ -126,19 +125,6 @@ class ProfilePage extends React.Component {
                     Did you finish your trade with {offer.userName}?
                   </button>
                   }
-=======
-          {accepted &&
-            <button type="submit" className="button is-warning"
-              onClick={() => {
-                this.finishTrade(this.state.user._id, offer._id, offer.offeredPlantId, offer.plantId)
-              }}
-            >
-              Trade was finished
-                  </button>
-          }
-        </div>
-        <hr />
->>>>>>> development
       </div>
     })
 

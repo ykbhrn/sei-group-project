@@ -62,10 +62,10 @@ class Chat extends React.Component {
   }
 
   render() {
-    // const { chats, message } = this.state
+    const { chats, message } = this.state
     if (!this.state.user) return null
     console.log(this.state.chats)
-    console.log(this.state.user)
+    console.log(this.state.chatUser)
     return (
       <>
         <h1 className="title is-3 chat-title">Your Inbox:</h1>
@@ -81,13 +81,8 @@ class Chat extends React.Component {
                 if (chat.senderName == this.state.user.name) {
                   textedUser = chat.receiverName
                 }
-<<<<<<< HEAD
-                if (counter > 1) {
-                  showUser = false
-=======
                 if (chat.receiverName == this.state.user.name) {
                   textedUser = chat.senderName
->>>>>>> development
                 }
 
                 return chat.subChat.map(message => {
@@ -109,16 +104,6 @@ class Chat extends React.Component {
                         >{textedUser}</button>
                       </>
                     }
-<<<<<<< HEAD
-                  {/* {this.state.chatUser === textedUser ? showForm === true : showForm === false && */}
-                  <>
-                    {this.state.isMessage &&
-                    <>
-                    {showUser && 
-                    <>
-                    <span className='title is-4 chat-header'>Chat with {textedUser}</span>
-                    </>
-=======
                     {this.state.chatUser !== textedUser ? showForm === true : showForm === false &&
                       <>
                         {this.state.isMessage &&
@@ -150,17 +135,9 @@ class Chat extends React.Component {
                           </>
                         }
                       </>
->>>>>>> development
                     }
                   </>
-<<<<<<< HEAD
-                    }
-                </>
-              
-                    </>
-=======
                 })
->>>>>>> development
               })
               }
             </form>
