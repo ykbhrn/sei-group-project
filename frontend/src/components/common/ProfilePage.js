@@ -234,10 +234,26 @@ class ProfilePage extends React.Component {
 
     return (
       <section className="section m-scene">
+        <h1 className="title is-2 has-text-centered">{`${this.state.timeMessage} ${this.state.user.name}`}</h1>
+            <hr />
+         <div className='offers-container'>
+
+{/* Received offers jsx code in that function */}
+<div className='offers'>
+  <h1 className="title is-4 is-sucess">Your Offers: </h1>
+  <hr />
+  {this.showRecievedOffers()}
+</div>
+
+{/* Responses for your offers */}
+<div className='responses'>
+  <h1 className="title is-4 is-sucess">Your responses: </h1>
+  <hr />
+  {this.handleResponse()}
+</div>
+</div>
         <div className="container">
           <div>
-            <h1 className="title is-2 has-text-centered">{`${this.state.timeMessage} ${this.state.user.name}`}</h1>
-            <hr />
             <h2 className="title is-4 has-text-centered">You have {this.state.user.createdPlants.length} plants in your portfolio</h2>
           </div>
           <br />
@@ -248,22 +264,7 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <div>
-          <div className='offers-container'>
-
-            {/* Received offers jsx code in that function */}
-            <div className='offers'>
-              <h1 className="title is-4 is-sucess">Your Offers: </h1>
-              <hr />
-              {this.showRecievedOffers()}
-            </div>
-
-            {/* Responses for your offers */}
-            <div className='responses'>
-              <h1 className="title is-4 is-sucess">Your responses: </h1>
-              <hr />
-              {this.handleResponse()}
-            </div>
-          </div>
+         
         </div>
 
       </section>
