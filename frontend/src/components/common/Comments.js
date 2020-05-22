@@ -113,7 +113,7 @@ class Comments extends React.Component {
           </div>
           <div className="field">
             <p className="control">
-              <button type="submit" className="button is-outlined is-success">Post Comment</button>
+              <button type="submit" className="button post-comment-button">Post Comment</button>
             </p>
             <br />
           </div>
@@ -138,7 +138,7 @@ class Comments extends React.Component {
                   )
                 })}
                 {this.state.plant.comments.length > 3 &&
-                <button className="button is-success is-outlined" onClick={this.toggleCommentsHandleClick}>{buttonText}</button>}
+                <button className="button show-more-less-button" onClick={this.toggleCommentsHandleClick}>{buttonText}</button>}
               </div>
             </div>
           </article>

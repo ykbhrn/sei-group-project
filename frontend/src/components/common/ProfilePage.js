@@ -227,7 +227,7 @@ class ProfilePage extends React.Component {
     // console.log(this.state.user)
 
     return (
-      <section className="section">
+      <section className="section m-scene">
         <div className="container">
           <div>
             <h1 className="title is-2 has-text-centered">{`${this.state.timeMessage} ${this.state.user.name}`}</h1>
@@ -235,7 +235,7 @@ class ProfilePage extends React.Component {
             <h2 className="title is-4 has-text-centered">You have {this.state.user.createdPlants.length} plants in your portfolio</h2>
           </div>
           <br />
-          <div className="columns is-multiline">
+          <div className="columns is-multiline scene_element scene_element--fadein">
             {this.state.user.createdPlants.map(plant => (
               <ProfileCard key={plant._id} {...plant} />
             ))}

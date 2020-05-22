@@ -1,10 +1,109 @@
 @import '~bulma/bulma.sass';
 
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 $plntify: #3FC008;
 
-body{
-  background-color: red($color: #ff0000);
+//! NAVBAR 
+nav.navbar.is-dark {
+  background-color: #2c2f33;
+  -webkit-box-shadow: 0px 0px 50px -12px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 50px -12px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 50px -12px rgba(0,0,0,0.5);
 }
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+.m-scene{
+	.scene_element {
+		animation-duration: .25s;
+		transition-timing-function: ease-in;
+		animation-fill-mode: both;
+	}
+	.scene_element--fadein {
+		animation-name: fadeIn;
+	}
+}
+
+//! REGISTER BUTTON
+.register-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.register-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! LOGIN BUTTON
+.login-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.login-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! FORM
+
+//! ADD MY PLANT BUTTON
+.form-add-my-plant-button{
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.form-add-my-plant-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+
+//! SHOWPLANT
+
+//! IMAGE
+.show-image {
+  width: 600px !important;
+  height: 600px !important;
+}
+
+//! EDIT BUTTON
+.show-edit-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.show-edit-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! DELETE BUTTON 
+.show-delete-button {
+  background-color: transparent;
+  border-color: rgb(223, 0, 0);
+  color: rgb(223, 0, 0);
+}
+.show-delete-button:hover {
+  color: white;
+  border-color: rgb(223, 0, 0);
+  background-color: rgb(223, 0, 0);
+}
+
 
 .offers-container{
   display: flex;
@@ -19,7 +118,6 @@ body{
   border: 2px solid grey;
   padding: 30px;
 }
-
 
 
 .responses {
@@ -62,6 +160,32 @@ body{
   outline: none;
 }
 
+//! COMMENTS
+
+//! POST COMMENT BUTTON
+.post-comment-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.post-comment-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! SHOW MORE/LESS BUTTON
+.show-more-less-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.show-more-less-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
 //! DELETE COMMENT BUTTON
 .comment-delete-button {
   background-color: darkred;
@@ -99,6 +223,11 @@ body{
 .button {
   display: inline-block;
   margin-right: 5px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.input {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .chat-title{
@@ -121,3 +250,8 @@ body{
   display: inline-block;
   margin-left: 60px;
 }
+
+.map-styles {
+  font-family: 'Open Sans', sans-serif
+}
+

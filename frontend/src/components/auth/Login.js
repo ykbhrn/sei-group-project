@@ -86,7 +86,7 @@ class Login extends React.Component {
                 {error && <small className="help is-danger">{error}</small>}
               </div>
               <div className="field">
-                <button type="submit" className={`button is-fullwidth is-success is-outlined ${loading ? 'is-loading' : ''}`}>Login</button>
+                <button type="submit" className={`button is-fullwidth login-button ${loading ? 'is-loading' : ''}`}>Login</button>
               </div>
               <div className="field">
               

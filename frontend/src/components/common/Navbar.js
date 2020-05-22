@@ -1,26 +1,21 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { isAuthenticated, logout } from '../../lib/auth'
-
 class Navbar extends React.Component{
   state = { isOpen: false }
-
   handleToggle = () => {
     this.setState({ isOpen: !this.state.isOpen })
   }
-
   handleLogout = () => {
     logout()
     // toast('Come back Soon')
     this.props.history.push('/')
   }
-
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.setState({ isOpen: false })
     }
   }
-
   render() {
     const { isOpen } = this.state
     return (
@@ -56,7 +51,6 @@ class Navbar extends React.Component{
             {!isAuthenticated() &&<Link to="/register" className="navbar-item">
               Register
             </Link>} */}
-          
             {isAuthenticated() && <span onClick={this.handleLogout} className="navbar-item">Logout</span>}
           </div>
         </div>
@@ -65,5 +59,4 @@ class Navbar extends React.Component{
     )
   }
 }
-
 export default withRouter(Navbar)
