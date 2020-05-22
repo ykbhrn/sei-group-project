@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import MapGl, { Marker, NavigationControl, Popup } from 'react-map-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import 'mapbox-gl/dist/mapbox-gl.css' //? stylesheet
 import { getAllPlants } from '../../lib/api'
 import Select from 'react-select'
 
@@ -126,6 +126,7 @@ class Maps extends React.Component {
               options={hotPlants}
               onChange={this.handleSelect}
             />
+            <div className="map-styles">
             <MapGl
               {...viewport}
               mapboxApiAccessToken={token}
@@ -236,6 +237,7 @@ class Maps extends React.Component {
                 )}
               </div>
             </MapGl >
+            </div>
           </div >
         )}
       </>

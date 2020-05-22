@@ -25,7 +25,7 @@ const IndexMapThumb = (props) => {
         <MapGl
           mapboxApiAccessToken={token}
           height={'20vh'}
-          width={'100vw'}
+          width={'100%'}
           mapStyle={mapStyle}
           latitude={51.5070}
           longitude={-0.0860}
