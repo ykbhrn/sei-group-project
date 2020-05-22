@@ -80,6 +80,30 @@ nav.navbar.is-dark {
   height: 600px !important;
 }
 
+//! Make OFFER BUTTON
+.make-offer-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.make-offer-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
+//! SUBMIT OFFER BUTTON
+.submit-offer-button {
+  background-color: transparent;
+  border-color: $plntify;
+  color: $plntify;
+}
+.submit-offer-button:hover {
+  color: white;
+  border-color: $plntify;
+  background-color: $plntify;
+}
+
 //! EDIT BUTTON
 .show-edit-button {
   background-color: transparent;

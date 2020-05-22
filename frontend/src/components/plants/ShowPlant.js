@@ -178,7 +178,7 @@ class ShowPlant extends React.Component {
               {!isOwner(plant.user._id) &&
                 <>
                   <button
-                    className="button is-light"
+                    className="button make-offer-button"
                     onClick={this.clicker}>Make Offer
               </button>
                   <hr />
@@ -224,7 +224,7 @@ class ShowPlant extends React.Component {
                       </div>
                     </div>
                     <div className="field">
-                      <button type="submit" className="button is-warning">Submit Offer</button>
+                      <button type="submit" className="button submit-offer-button">Submit Offer</button>
                     </div>
                   </form>
                   <hr />
