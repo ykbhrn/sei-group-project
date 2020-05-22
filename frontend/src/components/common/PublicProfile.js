@@ -48,6 +48,31 @@ class PublicProfile extends React.Component {
     
     return (
       <section className="section m-scene">
+         <button className="button is-light" onClick={this.clicker}>Start Chat</button>
+
+{this.state.isChat &&
+    <>
+      <form 
+      onSubmit={this.handleSubmit}
+      className="column is-half is-offset-one-quarter box">
+      
+        <div className="field">
+          <label className="label">Message for User: </label>
+          <div className="control">
+            <textarea
+              className="input"
+              placeholder="Message"
+              name="text"
+              onChange={this.handleChange}
+            />
+          </div>
+        </div>
+        <div className="field">
+          <button type="submit" className="button is-dark">Send</button>
+        </div>
+      </form>
+      </>
+    }
         <div className="container">
           <div>
             <h1 className="title is-2 has-text-centered">{this.state.user.name}'s portfolio</h1>
@@ -59,31 +84,7 @@ class PublicProfile extends React.Component {
               <ProfileCard key={plant._id} {...plant} />
             ))}
 
-            <button onClick={this.clicker}>Start Chat</button>
-
-            {this.state.isChat &&
-                <>
-                  <form 
-                  onSubmit={this.handleSubmit}
-                  className="column is-half is-offset-one-quarter box">
-                  
-                    <div className="field">
-                      <label className="label">Message for User: </label>
-                      <div className="control">
-                        <textarea
-                          className="input"
-                          placeholder="Message"
-                          name="text"
-                          onChange={this.handleChange}
-                        />
-                      </div>
-                    </div>
-                    <div className="field">
-                      <button type="submit" className="button is-warning">Send</button>
-                    </div>
-                  </form>
-                  </>
-                }
+           
             
           </div>
         </div>
