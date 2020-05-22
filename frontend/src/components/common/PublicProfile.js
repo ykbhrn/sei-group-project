@@ -47,14 +47,14 @@ class PublicProfile extends React.Component {
     console.log(this.state.message)
     
     return (
-      <section className="section">
+      <section className="section m-scene">
         <div className="container">
           <div>
             <h1 className="title is-2 has-text-centered">{this.state.user.name}</h1>
             <hr />
           </div>
           <br/>
-          <div className="columns is-multiline">
+          <div className="columns is-multiline scene_element scene_element--fadein">
             {this.state.user.createdPlants.map(plant => (
               <ProfileCard key={plant._id} {...plant} />
             ))}

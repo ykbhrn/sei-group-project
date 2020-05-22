@@ -31,9 +31,9 @@ class IndexPlants extends React.Component {
       <div className="section">
         <Notifications />
           <IndexMapThumb plants={this.state.plants} />
-      <section className="section">
+      <section className="section m-scene">
         <div className="container">
-          <div className="columns is-multiline">
+          <div className="columns is-multiline scene_element scene_element--fadein">
 
             {this.state.plants.map(plant => ( // * Looping over each plant in the array, and producing a CardPlant component for each one, passing each one props of an induvidual cheese.
               <CardPlant key={plant._id} {...plant} />
