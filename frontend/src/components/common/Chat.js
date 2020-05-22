@@ -7,7 +7,9 @@ class Chat extends React.Component {
   state = {
     chats: null,
     user: null,
-    text: ''
+    text: '',
+    isMessage: false,
+    chatUser: ''
   }
 
   async componentDidMount() {
@@ -45,16 +47,29 @@ class Chat extends React.Component {
     }
   }
 
+handleUser = async (event, user) => {
+  event.preventDefault()
+  try {
+    this.setState({chatUser: user})
+    this.clicker()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+  clicker = () => {
+    this.setState({ isMessage: this.state.isMessage === false ? true : false })
+  }
+
   render() {
     const { chats, message } = this.state
     if (!this.state.user) return null
     console.log(this.state.chats)
-    console.log(this.state.user)
+    console.log(this.state.chatUser)
     return (
-    
+      <>
+   
       <main className="section">
-        <div >
-          <div >
           <div className="chatFormContainer">
               <form>
                 {this.state.chats.map(chat => {
@@ -67,13 +82,27 @@ class Chat extends React.Component {
                   if(chat.receiverName == this.state.user.name) {
                     textedUser = chat.senderName
                   }
-                   
+                  
                   return chat.subChat.map(message => {
                     counter ++
                     if(counter > 1) {
                       showForm = false
                     }
                     return <>
+                    {showForm &&
+                    <>
+                     <button 
+                        onClick={(event) => {
+                          this.handleUser(event, textedUser)
+                        }}
+                        className='button'
+                      >{textedUser}</button>
+                    </>
+                  }
+                  {this.state.chatUser !== textedUser ? showForm === true : showForm === false &&
+                  <>
+                    {this.state.isMessage &&
+                    <>
                     {showForm && 
                     <>
                     <div className='title is-3'>Chat with {textedUser}</div>
@@ -81,7 +110,7 @@ class Chat extends React.Component {
                     }
                         <h1>{message.text}</h1>
                         <hr/>
-                        {showForm &&
+                       
                         <div className="chatForm">
                         <textarea
                           className="message"
@@ -95,18 +124,19 @@ class Chat extends React.Component {
                         className='button'
                      >Send</button>
                         </div>
-                  }
+                  
+                  </>
+                }
+                </>
+                }
                     </>
                   })
                 })
                 }
                 </form>
                 </div>
-              </div>
-            </div>
-
-   
-      </main>
+             </main>
+               </>
    )
   }
 }

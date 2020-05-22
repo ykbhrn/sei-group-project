@@ -33,6 +33,7 @@ const App = () => (
       <Route path="/maps" component={Maps} />
       <Route path="/profile/:id" component={PublicProfile} />
       <Route path="/profile" component={ProfilePage} />
+      <Route path="/chat" component={Chat} />
       <Route path="/*" component={ErrorPage} />
     </Switch>
   </BrowserRouter>
