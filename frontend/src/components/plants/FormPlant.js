@@ -21,12 +21,6 @@ class FormPlant extends React.Component {
       lat: '',
       test: '',
       errors: {},
-      unitOptions: [
-        { value: 'inches', label: 'inches' },
-        { value: 'feet', label: 'feet' },
-        { value: 'centimeters', label: 'centimeters' },
-        { value: 'meters', label: 'meters' },
-      ]
     }
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleItemClicked = this.handleItemClicked.bind(this)
@@ -74,7 +68,7 @@ class FormPlant extends React.Component {
       search: search,
       results: []
     })
-    console.log(this.state)
+    // console.log(this.state)
     this.props.onSelect(lat, lon)
 
   }
@@ -121,6 +115,7 @@ class FormPlant extends React.Component {
   // console.log('props: ', this.props.formData.name)
   render() {
     const { formData, errors, handleChange, handleSubmit, buttonText, handleSelectChange } = this.props //* deconstructing all props passed by either NewPlant or EditPlant
+    // console.log('formplant errors: ', errors)
     return (
 
       <div className="columns">
@@ -148,6 +143,9 @@ class FormPlant extends React.Component {
                 onChange={handleChange}
                 value={formData.name}
               />
+            </div>
+            <div>
+
             </div>
             {errors.name ? <small className="help is-danger">{errors.name}</small> : ''}
           </div>
@@ -231,7 +229,7 @@ class FormPlant extends React.Component {
 
 
           <div className="field">
-            <button type="submit" className="button is-fullwidth is-outlined is-success">{buttonText}</button>
+            <button type="submit" className="button is-fullwidth form-add-my-plant-button">{buttonText}</button>
           </div>
         </form>
       </div>

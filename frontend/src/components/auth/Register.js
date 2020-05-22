@@ -150,7 +150,7 @@ class Register extends React.Component {
                 {errors.passwordConfirmation && <small className="help is-danger">{errors.passwordConfirmation}</small>}
               </div>
               <div className="field">
-                <button type="submit" className={`button is-fullwidth is-success is-outlined ${this.state.loading ? 'is-loading' : ''}`}>Register</button>
+                <button type="submit" className={`button is-fullwidth register-button ${this.state.loading ? 'is-loading' : ''}`}>Register</button>
               </div>
               <div className="field">
               

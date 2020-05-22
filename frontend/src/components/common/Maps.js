@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import MapGl, { Marker, NavigationControl, Popup } from 'react-map-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import 'mapbox-gl/dist/mapbox-gl.css' //? stylesheet
 import { getAllPlants } from '../../lib/api'
 import Select from 'react-select'
 
@@ -61,6 +61,7 @@ class Maps extends React.Component {
       console.log(this.props)
     } catch (err) {
       console.log(err)
+      this.props.history.push('/notfound')
     }
   }
 
@@ -113,10 +114,9 @@ class Maps extends React.Component {
   render() {
 
     if (!this.state.plants) return null
-
+    
     const { viewport, plants, selectedPlant, plantShow, plantProps, plantSelect, hotPlants } = this.state
-    console.log(plants)
-    console.log(plants[0].location[0].lat)
+    
     return (
       <>
         {plants && (
@@ -126,6 +126,7 @@ class Maps extends React.Component {
               options={hotPlants}
               onChange={this.handleSelect}
             />
+            <div className="map-styles">
             <MapGl
               {...viewport}
               mapboxApiAccessToken={token}
@@ -157,7 +158,7 @@ class Maps extends React.Component {
                     offsetTop={10}
                     offsetLeft={-12}
                   >
-                    <img width={25} src={require("../../lib/plntify.svg")} alt="Plntify Logo" />
+                    <img width={25} src={require("../../lib/plntify_stamp.png")} alt="Plntify Logo" />
                   </Marker>
                 </div>
               })
@@ -236,6 +237,7 @@ class Maps extends React.Component {
                 )}
               </div>
             </MapGl >
+            </div>
           </div >
         )}
       </>
@@ -244,5 +246,3 @@ class Maps extends React.Component {
 }
 
 export default Maps
-
-// attach Link to `plants/${this.state.selectedPlant._id} to the h2 tag `

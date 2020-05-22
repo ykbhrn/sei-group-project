@@ -1,7 +1,7 @@
 import React from 'react'
 import FormPlant from './FormPlant'
 import { newPlant } from '../../lib/api'
-// import { handlePlantFormErrors } from '../../lib/formErrors'
+import { handlePlantFormErrors } from '../../lib/formErrors'
 // import AutocompletePlace from './AutocompletePlace'
 
 class NewPlant extends React.Component {
@@ -35,12 +35,12 @@ class NewPlant extends React.Component {
       ...this.state.formData, location: [{lat: lat, lon: lon}]
     }
     this.setState({ formData })
-    console.log('parent', this.state.formData.location)
+    // console.log('parent', this.state.formData.location)
   }
 
 
   handleChange = event => {
-    console.log(event)
+    // console.log(event)
     const formData = { ...this.state.formData, [event.target.name]: event.target.value }
     const errors = { ...this.state.errors, [event.target.name]: '' }
     this.setState( { formData, errors } )
@@ -53,9 +53,9 @@ class NewPlant extends React.Component {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
     } catch(err) {
-      // const errors = handlePlantFormErrors(err.response.data.errors)
-      // this.setState({errors})
-      console.log('submission err', err.response)
+      const errors = handlePlantFormErrors(err.response.data.errors)
+      this.setState({errors})
+      // console.log('Errs in state', this.state.errors)
     }
   }
 
@@ -74,7 +74,7 @@ class NewPlant extends React.Component {
     const errors = { ...this.state.errors, [event.name]: '' } 
     this.setState({ formData: units, errors }) 
     
-    console.log('units= ', this.state.formData.units)
+    // console.log('units= ', this.state.formData.units)
   }
 
   setImgUrl = (childData) => {
@@ -84,7 +84,7 @@ class NewPlant extends React.Component {
 
 
   render() {
-    console.log('Height is: ',this.state.formData.height)
+    // console.log('Height is: ',this.state.formData.height)
     return (
       <section className="section">
         <div className="container">
