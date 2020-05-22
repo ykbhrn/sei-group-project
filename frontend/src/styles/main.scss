@@ -1,5 +1,9 @@
 @import '~bulma/bulma.sass';
 
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 $plntify: #3FC008;
 
 //! NAVBAR 
@@ -116,7 +120,6 @@ nav.navbar.is-dark {
 }
 
 
-
 .responses {
   width: 500px;
   border: 2px solid grey;
@@ -220,6 +223,11 @@ nav.navbar.is-dark {
 .button {
   display: inline-block;
   margin-right: 5px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.input {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .chat-title{
@@ -242,3 +250,8 @@ nav.navbar.is-dark {
   display: inline-block;
   margin-left: 60px;
 }
+
+.map-styles {
+  font-family: 'Open Sans', sans-serif
+}
+
