@@ -1,7 +1,7 @@
 import React from 'react'
 import FormPlant from './FormPlant'
 import { newPlant } from '../../lib/api'
-import { handlePlantFormErrors } from '../../lib/formErrors'
+// import { handlePlantFormErrors } from '../../lib/formErrors'
 // import AutocompletePlace from './AutocompletePlace'
 
 class NewPlant extends React.Component {
@@ -53,8 +53,9 @@ class NewPlant extends React.Component {
       await newPlant(this.state.formData)
       this.props.history.push(`/plants`)
     } catch(err) {
-      const errors = handlePlantFormErrors(err.response.data.errors)
-      this.setState({errors})
+      console.log(err)
+      // const errors = handlePlantFormErrors(err.response.data.errors)
+      // this.setState({errors})
       // console.log('Errs in state', this.state.errors)
     }
   }
