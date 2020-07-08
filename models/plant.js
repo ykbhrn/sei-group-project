@@ -40,8 +40,6 @@ const plantSchema = new mongoose.Schema({
   timestamps: true
 })
 
-
-
 plantSchema.plugin(require('mongoose-unique-validator'))
 
 module.exports =   ( mongoose.model('Offer', offerSchema), mongoose.model('Plant', plantSchema) )
