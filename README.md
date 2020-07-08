@@ -33,7 +33,8 @@ App has a feature to find plants that are in the user's area via interactive map
 ## Get Started
  
 Clone or download the repo
-### Run those command in terminal
+
+Run those commands in terminal:
 * **npm i**
 * **mongod --dbpath ~/data/db** if you are using MacOS Catalina. Otherwise run **mongod**
 * **npm run seed** for seeding
