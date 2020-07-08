@@ -4,11 +4,17 @@
  
 ## **Overview.**
  
-It is a social app for houseplant-lovers focused on presenting and trading their plants. We had one week to finish this project.
+It is a social app for houseplant-lovers focused on presenting and trading their plants. 
 Users can have photos of their plants displayed on their profile page. Other users can give the offer to trade plants, like, comment on each plant, and they are able to have a private chat.
 App has a feature to find plants that are in the user's area via interactive maps. The location of the plant on the map is also shown on a single plant page.
+
+***Timeframe*** for the project was one week
+
  
-I was working on the project with [Yarden Lawson](https://github.com/YBL123), [Aino Kytölä](https://github.com/ainokyto) and [George Jones](https://github.com/Jompra)
+## My Team:
+* [Yarden Lawson](https://github.com/YBL123)
+* [Aino Kytölä](https://github.com/ainokyto) 
+* [George Jones](https://github.com/Jompra)
  
 ![Plantify logo](images/plntify.svg)
  
@@ -84,25 +90,34 @@ After you sign up for an account, you will be automatically logged in and redire
 ### Single Plant Page
 When you click on one of the plants, you will be redirected to the single plant page. Here you can see the name, description, and location of the plant owner.
 You can like or comment on the plant, and also you can give an offer to the plant owner.
+
 ![Single page](images/single.png)
+
 ### Trading functionality
+
 1. When you like some plant, you can send an offer to the plant owner. You must include some of your plants to trade and optionally you can send a message with an offer.
+
 ![Offer](images/offer.png)
  
 2. The user who got the offer can see it on their profile and can accept or decline it the offer.
+
 ![Got Offer](images/gotoffer.png)
  
 3. Then user who gave the offer can see on their profile if the offer was accepted or decline if users met, and successfully finished trade, then the user just needs to click the button that trade was finished and it will delete photos of the plants from a portfolio of both users, and they can add new photos of their new plant.
+
 ![Response](images/response.png)
  
 ### Profile Page
 The profile page contains offers on user plants and responses on their offers on the top and user portfolio on the bottom of the page.
+
 ![Profile page offers](images/profileOffers.png)
 ![Profile page portfolio](images/profilePortfolio.png)
  
 ### Maps
+
 If you click on the map on the index page, you will be redirected to the map page where you can see all the plants in your area.
 Phrase "Hot plants in your area" is a joke referring to the lame online ads.
+
 ![Profile page offers](images/map.png)
  
 ## Development
@@ -113,10 +128,6 @@ We made a wireframe on Balsamiq and wrote down the plan of the development proce
 The next day we start to work on a code. We decided not to split up on Front End, and Back End, but each of us had responsibility for different functionalities and some of the functionalities we've been doing in a pairs.
  
 My main responsibility was a plant-trading feature and private chat. I was also doing some other smaller tasks and part of the design.
- 
-### Trading feature
- 
- 
  
 ## Wins
  
