@@ -154,5 +154,15 @@ It will send a new request, and this request will contain the id of both plants 
 * Making first wireframes, and working with Balsamiq.
  
 ## Challenge
-* Working with a GitHub as a group was the biggest challenge on the project. It was the first time experience for all of us, but thanks to good communication, everything went smoothly and we learned a lot about using GitHub.
+* Working with a GitHub as a group was the biggest challenge on the project. We needed to communicate every time before we merged something, also when someone starts to work on some new functionality or some bits of codes, we were always communicating before it happens, just to making sure that two members don't work on the same thing, or that those functionalities don't interfere to each other. When we had some merged conflict in GitHub, the whole group was trying to do it together to make sure, that we don't delete something important. It was the first time experience for all of us, but thanks to good communication, everything went smoothly and we learned a lot about using GitHub.
 * Dividing tasks, and making sure we work in the same direction, and all functionalities coexist well together.
+
+## Key Learnings
+* Working in a group
+* Using GitHub as a group
+* Understanding of MongoDB, and Express.js
+* Feeling confident with React
+
+## Bugs
+Private chat between users doesn't work properly now. When the user opens the chat page, he can see buttons with the username of the users who he have chats with. When the user clicks on that button, it should show only chat with that particular user, but right now it opens chats with all of the users who have current user chat with. 
+
