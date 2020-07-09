@@ -123,6 +123,12 @@ Phrase "Hot plants in your area" is a joke referring to the lame online ads.
  
 ## Development
 
+### Timeline 
+* Day 1 - Planning 
+* Day 2 - 4 MVP was finished
+* Day 5 - 6 Extra feautures was finished, and also existing feautures were polished
+* Day 7 - Styling
+
 ### Planning
 * On the first day of our project week, we've been planning what and have we gonna do.
 We made a wireframe and wrote down the plan of the development process in Balsamiq. So we set our deadlines and wrote down key features which our app must have, and optional features which we gonna do if we have some time left, which Schemas we gonna need, etc.
