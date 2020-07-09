@@ -122,14 +122,45 @@ Phrase "Hot plants in your area" is a joke referring to the lame online ads.
 ![Profile page offers](images/map.png)
  
 ## Development
+
+### Planning
+* On the first day of our project week, we've been planning what and have we gonna do.
+We made a wireframe and wrote down the plan of the development process in Balsamiq. So we set our deadlines and wrote down key features which our app must have, and optional features which we gonna do if we have some time left, which Schemas we gonna need, etc.
  
-On the first day of our project week, we've been planning what and have we gonna do.
-We made a wireframe on Balsamiq and wrote down the plan of the development process in Trello. So we set our deadlines and wrote down key features which our app must have, and optional features which we gonna do if we have some time left, which Schemas we gonna need, etc.
+![Homepage wireframe](images/home-wireframe.png)
  
-The next day we start to work on a code. We decided not to split up on Front End, and Back End, but each of us had responsibility for different functionalities and some of the functionalities we've been doing in a pairs.
+![Add new plant wireframe](images/new-wireframe.png)
  
+* This was our project plan in Balsamiq.
+ 
+![Project Plan](images/plan.png)
+
+* On the second day we start to work on a code. We decided not to split up on Front End, and Back End, but each of us had responsibility for different functionalities and some of the functionalities we've been doing in a pairs.
 My main responsibility was a plant-trading feature and private chat. I was also doing some other smaller tasks and part of the design.
  
+### Plant trading functionality
+ 
+* For creating models I used Mongoose schema. The offer schema is saved in the Plant schema as an array.
+ 
+![Offer model](images/offer-model.png)
+ 
+* Each plant database contains all the offers on the specific plant. User schema contains virtual schema "createdPlants", so those offers can be accessed from the user database too.
+
+![Created plants virtual schema](images/created-plants.png)
+ 
+* Submitted offers have they're own Mongoose schema, and they're saved as an array in user schema.
+ 
+![Submitted offers](images/submitted-model.png)
+ 
+* When user makes an offer, in requested url will be sent plant id, and also id of the plant which customer wants to trade for. Also id of user who's giving the offer is sent in the request. There is security chceck if plant which receiving offer really exist, if not then it will throw new error, if everything is ok, then it will save  plant with new offer in its database.
+ 
+![Offer controller](images/new-offer-controller.png)
+ 
+* When trade is successfuly finished, users can see on their profile button which says "Trade was sucessfully finished".
+It will send new request, and this request will contain id of both plants included in the trade, and both of the plants model will be removed. After that, both users model participated in the trade will be saved.
+ 
+![Finish trade](images/finish-trade.png)
+
 ## Wins
  
 The biggest win of this project was definitely the experience of working in a group. Planning projects together, dividing tasks, group debugging, and problem-solving was a very valuable experience. We were very effective and had no arguments during the whole time of development.
